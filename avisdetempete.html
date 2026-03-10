@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avis de Tempête — Librairie L'Esprit Large</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f2f0ef;
+      --warm-white: #f7f5f4;
+      --wood: #8b2e2e;
+      --wood-dark: #5c1a1a;
+      --wood-light: #b86060;
+      --amber: #9e3a3a;
+      --amber-light: #c47070;
+      --ink: #1e1e1e;
+      --ink-soft: #3a3a3a;
+      --parchment: #ebe8e8;
+      --shadow: rgba(30,10,10,0.13);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lora', serif;
+      background: linear-gradient(135deg, var(--wood-dark) 0%, #3a1010 50%, #1e1414 100%);
+      min-height: 100vh; color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(30,10,10,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(196,112,112,0.15);
+      padding: 0 2rem; height: 48px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 32px; height: 32px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; }
+    .nav-logo span {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 800; font-style: italic;
+      color: var(--cream); letter-spacing: -0.02em;
+    }
+    .nav-back {
+      font-family: 'Raleway', sans-serif; font-size: 0.75rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(242,240,239,0.6); text-decoration: none;
+      border: 1px solid rgba(242,240,239,0.2); padding: 0.3rem 0.9rem;
+      border-radius: 2px; transition: all 0.2s;
+    }
+    .nav-back:hover { color: var(--cream); border-color: rgba(242,240,239,0.5); }
+
+    /* ── HEADER ── */
+    .page-header {
+      padding: 7rem 4rem 3rem;
+      text-align: center; position: relative;
+    }
+    .page-header::before {
+      content: '~';
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+      font-family: 'Playfair Display', serif;
+      font-size: 28rem; font-weight: 800;
+      color: rgba(242,240,239,0.03); line-height: 1; pointer-events: none;
+    }
+    .header-tag {
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--amber-light); margin-bottom: 1rem;
+    }
+    .page-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800; font-style: italic;
+      color: var(--cream); line-height: 1.1;
+    }
+    .page-header p {
+      font-family: 'Lora', serif; font-style: italic;
+      font-size: 1rem; color: rgba(242,240,239,0.6);
+      margin-top: 1rem; max-width: 500px; margin-left: auto; margin-right: auto;
+    }
+    .wave-deco {
+      margin: 2rem auto; max-width: 300px; opacity: 0.2;
+    }
+
+    /* ── YEAR TABS ── */
+    .year-tabs {
+      display: flex; justify-content: center; gap: 0.5rem;
+      padding: 0 2rem 2rem; flex-wrap: wrap;
+    }
+    .year-tab {
+      font-family: 'Raleway', sans-serif; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.5rem 1.5rem; border-radius: 20px; cursor: pointer;
+      border: 1.5px solid rgba(242,240,239,0.2);
+      color: rgba(242,240,239,0.5); background: transparent;
+      transition: all 0.2s;
+    }
+    .year-tab.active, .year-tab:hover {
+      background: var(--wood); color: var(--cream);
+      border-color: var(--wood);
+    }
+
+    /* ── CARROUSEL ── */
+    .carousel-section { padding: 0 2rem 2rem; }
+    .year-section { display: none; }
+    .year-section.active { display: block; }
+    .year-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; font-style: italic;
+      color: rgba(242,240,239,0.3);
+      text-align: center; margin-bottom: 2rem;
+    }
+
+    .carousel-wrap {
+      position: relative; max-width: 500px; margin: 0 auto;
+    }
+    .carousel-track {
+      overflow: hidden; border-radius: 6px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .carousel-slide {
+      display: none; position: relative;
+      animation: fadeIn 0.4s ease;
+    }
+    .carousel-slide.active { display: block; }
+    .carousel-slide img {
+      width: 100%; display: block; border-radius: 6px;
+      cursor: zoom-in;
+    }
+    .carousel-label {
+      text-align: center; margin-top: 1rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-style: italic; color: var(--cream);
+    }
+    .carousel-counter {
+      text-align: center; margin-top: 0.4rem;
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem;
+      letter-spacing: 0.1em; color: rgba(242,240,239,0.35);
+    }
+
+    /* Nav arrows */
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(242,240,239,0.1); border: 1px solid rgba(242,240,239,0.2);
+      color: var(--cream); font-size: 1.2rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; z-index: 10;
+    }
+    .carousel-btn:hover { background: var(--wood); border-color: var(--wood); }
+    .carousel-btn.prev { left: -60px; }
+    .carousel-btn.next { right: -60px; }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 0.4rem;
+      margin-top: 1.5rem; flex-wrap: wrap; max-width: 400px; margin-left: auto; margin-right: auto;
+    }
+    .cdot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(242,240,239,0.2); cursor: pointer;
+      transition: all 0.2s; border: none;
+    }
+    .cdot.active { background: var(--cream); transform: scale(1.3); }
+
+    /* Grid view toggle */
+    .view-toggle {
+      display: flex; justify-content: center; gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .view-btn {
+      font-family: 'Raleway', sans-serif; font-size: 0.72rem;
+      font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.4rem 1rem; border-radius: 2px; cursor: pointer;
+      border: 1px solid rgba(242,240,239,0.2); color: rgba(242,240,239,0.5);
+      background: transparent; transition: all 0.2s;
+    }
+    .view-btn.active { background: rgba(242,240,239,0.1); color: var(--cream); border-color: rgba(242,240,239,0.4); }
+
+    /* Grid view */
+    .grid-view { display: none; }
+    .grid-view.active { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; max-width: 700px; margin: 0 auto; }
+    .grid-item {
+      cursor: pointer; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    .grid-item:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .grid-item img { width: 100%; display: block; }
+    .grid-item-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(30,10,10,0.85));
+      padding: 1rem 0.5rem 0.5rem;
+      font-family: 'Raleway', sans-serif; font-size: 0.68rem;
+      font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      color: rgba(242,240,239,0.8); text-align: center;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(10,5,5,0.95); backdrop-filter: blur(8px);
+      display: none; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: 90vw; max-height: 90vh;
+      border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      animation: fadeIn 0.3s ease;
+    }
+    .lightbox-close {
+      position: absolute; top: 1.5rem; right: 1.5rem;
+      font-family: 'Raleway', sans-serif; font-size: 0.75rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(242,240,239,0.6); background: transparent;
+      border: 1px solid rgba(242,240,239,0.2); padding: 0.4rem 1rem;
+      cursor: pointer; border-radius: 2px; transition: all 0.2s;
+    }
+    .lightbox-close:hover { color: var(--cream); border-color: var(--cream); }
+
+    /* Footer */
+    .page-footer {
+      text-align: center; padding: 3rem 2rem;
+      border-top: 1px solid rgba(242,240,239,0.08);
+      margin-top: 3rem;
+    }
+    .page-footer a {
+      font-family: 'Raleway', sans-serif; font-size: 0.78rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--amber-light); text-decoration: none;
+    }
+    .page-footer a:hover { color: var(--cream); }
+
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+    @media (max-width: 640px) {
+      .page-header { padding: 6rem 1.5rem 2rem; }
+      .carousel-btn.prev { left: -10px; }
+      .carousel-btn.next { right: -10px; }
+      .carousel-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <img src="images/logo.png" alt="Logo" />
+    <span>L'Esprit Large</span>
+  </a>
+  <a href="index.html#newsletter" class="nav-back">← Retour au site</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <p class="header-tag">📨 Newsletter mensuelle</p>
+  <h1>Avis de Tempête</h1>
+  <p>Nos coups de cœur, nos humeurs et les nouvelles de la librairie, mois après mois depuis janvier 2024.</p>
+  <div class="wave-deco">
+    <svg viewBox="0 0 300 50" xmlns="http://www.w3.org/2000/svg" style="width:100%;">
+      <path d="M0,25 Q37,5 75,25 Q112,45 150,25 Q187,5 225,25 Q262,45 300,25" fill="none" stroke="var(--cream)" stroke-width="2"/>
+      <path d="M0,35 Q37,15 75,35 Q112,55 150,35 Q187,15 225,35 Q262,55 300,35" fill="none" stroke="var(--cream)" stroke-width="1.5"/>
+    </svg>
+  </div>
+</div>
+
+<!-- YEAR TABS -->
+<div class="year-tabs">
+  <button class="year-tab active" onclick="showYear('2026', this)">2026</button>
+  <button class="year-tab" onclick="showYear('2025', this)">2025</button>
+  <button class="year-tab" onclick="showYear('2024', this)">2024</button>
+</div>
+
+<!-- CARROUSELS -->
+<div class="carousel-section">
+
+  <!-- 2026 -->
+  <div class="year-section active" id="year-2026">
+    <div class="view-toggle">
+      <button class="view-btn active" onclick="setView('2026','carousel',this)">🎞 Carrousel</button>
+      <button class="view-btn" onclick="setView('2026','grid',this)">⊞ Grille</button>
+    </div>
+    <div class="carousel-wrap" id="carousel-2026">
+      <div class="carousel-track">
+        <div class="carousel-slide active"><img src="avisdetempete/AdT2026Mars.png" alt="Mars 2026" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/AdT2026Février.png" alt="Février 2026" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/AdT2026Janvier.png" alt="Janvier 2026" onclick="openLightbox(this.src)" /></div>
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel('2026',-1)">‹</button>
+      <button class="carousel-btn next" onclick="moveCarousel('2026',1)">›</button>
+      <div class="carousel-label" id="label-2026">Mars 2026</div>
+      <div class="carousel-counter" id="counter-2026">1 / 3</div>
+      <div class="carousel-dots" id="dots-2026"></div>
+    </div>
+    <div class="grid-view" id="grid-2026">
+      <div class="grid-item" onclick="openLightbox('avisdetempete/AdT2026Mars.png')"><img src="avisdetempete/AdT2026Mars.png" alt="Mars 2026"/><div class="grid-item-label">Mars 2026</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/AdT2026Février.png')"><img src="avisdetempete/AdT2026Février.png" alt="Fév. 2026"/><div class="grid-item-label">Fév. 2026</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/AdT2026Janvier.png')"><img src="avisdetempete/AdT2026Janvier.png" alt="Jan. 2026"/><div class="grid-item-label">Jan. 2026</div></div>
+    </div>
+  </div>
+
+  <!-- 2025 -->
+  <div class="year-section" id="year-2025">
+    <div class="view-toggle">
+      <button class="view-btn active" onclick="setView('2025','carousel',this)">🎞 Carrousel</button>
+      <button class="view-btn" onclick="setView('2025','grid',this)">⊞ Grille</button>
+    </div>
+    <div class="carousel-wrap" id="carousel-2025">
+      <div class="carousel-track">
+        <div class="carousel-slide active"><img src="avisdetempete/2025AdT Décembre.png" alt="Décembre 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Novembre.png" alt="Novembre 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Octobre.png" alt="Octobre 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Septembre.png" alt="Septembre 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Août.png" alt="Août 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Juillet.png" alt="Juillet 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Juin.png" alt="Juin 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Mai.png" alt="Mai 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Avril.png" alt="Avril 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Mars.png" alt="Mars 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Février.png" alt="Février 2025" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/2025AdT Janvier.png" alt="Janvier 2025" onclick="openLightbox(this.src)" /></div>
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel('2025',-1)">‹</button>
+      <button class="carousel-btn next" onclick="moveCarousel('2025',1)">›</button>
+      <div class="carousel-label" id="label-2025">Décembre 2025</div>
+      <div class="carousel-counter" id="counter-2025">1 / 12</div>
+      <div class="carousel-dots" id="dots-2025"></div>
+    </div>
+    <div class="grid-view" id="grid-2025">
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Décembre.png')"><img src="avisdetempete/2025AdT Décembre.png" alt="Déc. 2025"/><div class="grid-item-label">Déc. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Novembre.png')"><img src="avisdetempete/2025AdT Novembre.png" alt="Nov. 2025"/><div class="grid-item-label">Nov. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Octobre.png')"><img src="avisdetempete/2025AdT Octobre.png" alt="Oct. 2025"/><div class="grid-item-label">Oct. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Septembre.png')"><img src="avisdetempete/2025AdT Septembre.png" alt="Sep. 2025"/><div class="grid-item-label">Sep. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Août.png')"><img src="avisdetempete/2025AdT Août.png" alt="Août 2025"/><div class="grid-item-label">Août 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Juillet.png')"><img src="avisdetempete/2025AdT Juillet.png" alt="Juil. 2025"/><div class="grid-item-label">Juil. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Juin.png')"><img src="avisdetempete/2025AdT Juin.png" alt="Juin 2025"/><div class="grid-item-label">Juin 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Mai.png')"><img src="avisdetempete/2025AdT Mai.png" alt="Mai 2025"/><div class="grid-item-label">Mai 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Avril.png')"><img src="avisdetempete/2025AdT Avril.png" alt="Avr. 2025"/><div class="grid-item-label">Avr. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Mars.png')"><img src="avisdetempete/2025AdT Mars.png" alt="Mars 2025"/><div class="grid-item-label">Mars 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Février.png')"><img src="avisdetempete/2025AdT Février.png" alt="Fév. 2025"/><div class="grid-item-label">Fév. 2025</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/2025AdT Janvier.png')"><img src="avisdetempete/2025AdT Janvier.png" alt="Jan. 2025"/><div class="grid-item-label">Jan. 2025</div></div>
+    </div>
+  </div>
+
+  <!-- 2024 -->
+  <div class="year-section" id="year-2024">
+    <div class="view-toggle">
+      <button class="view-btn active" onclick="setView('2024','carousel',this)">🎞 Carrousel</button>
+      <button class="view-btn" onclick="setView('2024','grid',this)">⊞ Grille</button>
+    </div>
+    <div class="carousel-wrap" id="carousel-2024">
+      <div class="carousel-track">
+        <div class="carousel-slide active"><img src="avisdetempete/202412 AdT Décembre.png" alt="Décembre 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202411 AdT Novembre.png" alt="Novembre 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202410 AdT Octobre.png" alt="Octobre 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202409 AdT Septembre.png" alt="Septembre 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202408 AdT Août.png" alt="Août 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202407 AdT Juillet.png" alt="Juillet 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202406 AdT Juin.png" alt="Juin 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202405 AdT Mai.png" alt="Mai 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202404 AdT Avril.png" alt="Avril 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202403 AdT Mars.png" alt="Mars 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202402 AdT Février.png" alt="Février 2024" onclick="openLightbox(this.src)" /></div>
+        <div class="carousel-slide"><img src="avisdetempete/202401 AdT Janvier.png" alt="Janvier 2024" onclick="openLightbox(this.src)" /></div>
+      </div>
+      <button class="carousel-btn prev" onclick="moveCarousel('2024',-1)">‹</button>
+      <button class="carousel-btn next" onclick="moveCarousel('2024',1)">›</button>
+      <div class="carousel-label" id="label-2024">Décembre 2024</div>
+      <div class="carousel-counter" id="counter-2024">1 / 12</div>
+      <div class="carousel-dots" id="dots-2024"></div>
+    </div>
+    <div class="grid-view" id="grid-2024">
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202412 AdT Décembre.png')"><img src="avisdetempete/202412 AdT Décembre.png" alt="Déc. 2024"/><div class="grid-item-label">Déc. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202411 AdT Novembre.png')"><img src="avisdetempete/202411 AdT Novembre.png" alt="Nov. 2024"/><div class="grid-item-label">Nov. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202410 AdT Octobre.png')"><img src="avisdetempete/202410 AdT Octobre.png" alt="Oct. 2024"/><div class="grid-item-label">Oct. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202409 AdT Septembre.png')"><img src="avisdetempete/202409 AdT Septembre.png" alt="Sep. 2024"/><div class="grid-item-label">Sep. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202408 AdT Août.png')"><img src="avisdetempete/202408 AdT Août.png" alt="Août 2024"/><div class="grid-item-label">Août 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202407 AdT Juillet.png')"><img src="avisdetempete/202407 AdT Juillet.png" alt="Juil. 2024"/><div class="grid-item-label">Juil. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202406 AdT Juin.png')"><img src="avisdetempete/202406 AdT Juin.png" alt="Juin 2024"/><div class="grid-item-label">Juin 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202405 AdT Mai.png')"><img src="avisdetempete/202405 AdT Mai.png" alt="Mai 2024"/><div class="grid-item-label">Mai 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202404 AdT Avril.png')"><img src="avisdetempete/202404 AdT Avril.png" alt="Avr. 2024"/><div class="grid-item-label">Avr. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202403 AdT Mars.png')"><img src="avisdetempete/202403 AdT Mars.png" alt="Mars 2024"/><div class="grid-item-label">Mars 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202402 AdT Février.png')"><img src="avisdetempete/202402 AdT Février.png" alt="Fév. 2024"/><div class="grid-item-label">Fév. 2024</div></div>
+      <div class="grid-item" onclick="openLightbox('avisdetempete/202401 AdT Janvier.png')"><img src="avisdetempete/202401 AdT Janvier.png" alt="Jan. 2024"/><div class="grid-item-label">Jan. 2024</div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕ Fermer</button>
+  <img id="lightboxImg" src="" alt="Avis de Tempête" onclick="event.stopPropagation()" />
+</div>
+
+<!-- FOOTER -->
+<div class="page-footer">
+  <a href="index.html">← Retour à la librairie</a>
+  <p style="font-family:'Lora',serif;font-style:italic;font-size:0.82rem;color:rgba(242,240,239,0.3);margin-top:0.8rem;">© 2026 Librairie L'Esprit Large · Guérande</p>
+</div>
+
+<script>
+/* ── STATE ── */
+const carouselState = {
+  '2026': { current: 0, labels: ['Mars 2026','Février 2026','Janvier 2026'] },
+  '2025': { current: 0, labels: ['Décembre 2025','Novembre 2025','Octobre 2025','Septembre 2025','Août 2025','Juillet 2025','Juin 2025','Mai 2025','Avril 2025','Mars 2025','Février 2025','Janvier 2025'] },
+  '2024': { current: 0, labels: ['Décembre 2024','Novembre 2024','Octobre 2024','Septembre 2024','Août 2024','Juillet 2024','Juin 2024','Mai 2024','Avril 2024','Mars 2024','Février 2024','Janvier 2024'] },
+};
+
+/* ── INIT DOTS ── */
+function initDots() {
+  Object.keys(carouselState).forEach(year => {
+    const state = carouselState[year];
+    const container = document.getElementById(`dots-${year}`);
+    container.innerHTML = state.labels.map((_, i) =>
+      `<button class="cdot ${i===0?'active':''}" onclick="goTo('${year}',${i})"></button>`
+    ).join('');
+  });
+}
+
+/* ── NAVIGATE ── */
+function goTo(year, n) {
+  const state = carouselState[year];
+  const slides = document.querySelectorAll(`#carousel-${year} .carousel-slide`);
+  const dots = document.querySelectorAll(`#dots-${year} .cdot`);
+  slides[state.current].classList.remove('active');
+  dots[state.current].classList.remove('active');
+  state.current = (n + slides.length) % slides.length;
+  slides[state.current].classList.add('active');
+  dots[state.current].classList.add('active');
+  document.getElementById(`label-${year}`).textContent = state.labels[state.current];
+  document.getElementById(`counter-${year}`).textContent = `${state.current + 1} / ${slides.length}`;
+}
+
+function moveCarousel(year, dir) {
+  goTo(year, carouselState[year].current + dir);
+}
+
+/* ── YEAR TABS ── */
+function showYear(year, el) {
+  document.querySelectorAll('.year-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(`year-${year}`).classList.add('active');
+  el.classList.add('active');
+}
+
+/* ── VIEW TOGGLE ── */
+function setView(year, view, el) {
+  const carousel = document.getElementById(`carousel-${year}`);
+  const grid = document.getElementById(`grid-${year}`);
+  el.closest('.view-toggle').querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  if (view === 'grid') {
+    carousel.style.display = 'none';
+    grid.classList.add('active');
+  } else {
+    carousel.style.display = '';
+    grid.classList.remove('active');
+  }
+}
+
+/* ── LIGHTBOX ── */
+function openLightbox(src) {
+  document.getElementById('lightboxImg').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ── KEYBOARD NAV ── */
+document.addEventListener('keydown', e => {
+  const activeYear = document.querySelector('.year-section.active')?.id?.replace('year-','');
+  if (!activeYear) return;
+  if (e.key === 'ArrowLeft') moveCarousel(activeYear, -1);
+  if (e.key === 'ArrowRight') moveCarousel(activeYear, 1);
+});
+
+initDots();
+</script>
+</body>
+</html>
