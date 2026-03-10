@@ -747,7 +747,7 @@
     <div class="tempete-left">
       <div class="tempete-label">📨 Newsletter</div>
       <h2 class="section-title" style="color:var(--cream);">Avis de Tempête</h2>
-      <p class="tempete-desc">Notre newsletter, comme une bouteille à la mer : des coups de cœur, des actualités, des événements à venir et les humeurs de notre équipe. Paraît quand l'inspiration frappe.</p>
+      <p class="tempete-desc">Notre newsletter, comme une bouteille à la mer : des coups de cœur, des actualités, des événements à venir et notre humeur. Paraît une fois par mois, quand la tempête arrive..</p>
       <div class="tempete-archives">
         <p style="font-family:'Raleway',sans-serif;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(196,112,112,0.8);margin-bottom:0.8rem;">Tous les numéros</p>
 
@@ -985,9 +985,23 @@ function subscribeNewsletter() {
   const email = document.getElementById('nlEmail').value.trim();
   if (!prenom || !email) { showToast('⚠️ Veuillez renseigner votre prénom et e-mail.'); return; }
   if (!email.includes('@')) { showToast('⚠️ Adresse e-mail invalide.'); return; }
-  document.getElementById('nlPrenom').value = '';
-  document.getElementById('nlEmail').value = '';
-  showToast(`🌊 Merci ${prenom} ! Vous recevrez le prochain Avis de Tempête.`);
+
+  fetch('https://formspree.io/f/mvzwkqzn', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ prenom: prenom, email: email, _subject: 'Nouvelle inscription Avis de Tempête' })
+  })
+  .then(r => r.json())
+  .then(data => {
+    if (data.ok) {
+      document.getElementById('nlPrenom').value = '';
+      document.getElementById('nlEmail').value = '';
+      showToast(`🌊 Merci ${prenom} ! Vous recevrez le prochain Avis de Tempête.`);
+    } else {
+      showToast('⚠️ Une erreur est survenue, réessayez.');
+    }
+  })
+  .catch(() => showToast('⚠️ Une erreur est survenue, réessayez.'));
 }
 
 /* ── RENDER BOOKS ── */
