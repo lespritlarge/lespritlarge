@@ -294,8 +294,11 @@
       border-left: 3px solid var(--amber);
       transition: transform 0.2s;
     }
-    .event-special {
-      border-left: 3px solid var(--amber) !important;
+    .event-fermeture {
+      border-left-color: #888 !important;
+      background: linear-gradient(90deg, rgba(100,100,100,0.06) 0%, var(--cream) 100%) !important;
+      opacity: 0.85;
+    }
       background: linear-gradient(90deg, rgba(212,150,58,0.08) 0%, var(--cream) 100%) !important;
     }
     .event-special .event-title { color: var(--wood-dark); font-size: 1.1rem; }
@@ -679,7 +682,7 @@
   <div class="hero-content">
     <!-- Big real logo -->
     <div class="hero-logo-wrap">
-      <img src="images/logo.png" alt="Librairie L'Esprit Large" style="width:180px;height:180px;object-fit:contain;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.5)) brightness(0) invert(1);opacity:0.95;" />
+      <img src="images/logo.png" alt="Librairie L'Esprit Large" style="width:260px;height:260px;object-fit:contain;filter:drop-shadow(0 4px 32px rgba(0,0,0,0.6)) brightness(0) invert(1);opacity:0.97;" />
     </div>
     <div class="hero-btns" style="margin-top:2rem;">
       <a href="#catalogue" class="btn-primary">Explorer le catalogue</a>
@@ -958,7 +961,17 @@ const EVENTS = [
     time:"19h00", lieu:"Guérande", recurrent:"Tous les mercredis"
   },
   {
-    day:"30", month:"Avr.", year:"2026", type:"🥪 Casse-croûte Littéraire",
+    day:"31", month:"Mars", year:"2026", type:"🔒 Fermeture exceptionnelle",
+    title:"Inventaire — Fermeture exceptionnelle",
+    desc:"La librairie est fermée pour inventaire les lundi 31 mars et mardi 1er avril. Nous vous retrouvons le mercredi 2 avril !",
+    time:"Toute la journée", lieu:"Librairie L'Esprit Large", special:false, fermeture:true
+  },
+  {
+    day:"01", month:"Avr.", year:"2026", type:"🔒 Fermeture exceptionnelle",
+    title:"Inventaire — Fermeture exceptionnelle",
+    desc:"La librairie est fermée pour inventaire les lundi 31 mars et mardi 1er avril. Nous vous retrouvons le mercredi 2 avril !",
+    time:"Toute la journée", lieu:"Librairie L'Esprit Large", special:false, fermeture:true
+  },
     title:"Casse-croûte Littéraire",
     desc:"On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
     time:"12h30 – 14h00", lieu:"Librairie L'Esprit Large"
@@ -1120,9 +1133,26 @@ function renderCoups() {
 /* ── ÉVÉNEMENTS ── */
 function renderEvents() {
   const list = document.getElementById('eventList');
-  list.innerHTML = EVENTS.map(e => `
-    <div class="event-card${e.special ? ' event-special' : ''}">
-      <div class="event-date" style="${e.special ? 'background:var(--amber);' : ''}">
+  const now = new Date();
+  const monthNames = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sep.','Oct.','Nov.','Déc.'];
+  const currentMonthName = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'][now.getMonth()];
+  const shortMonths = ['Jan.','Fév.','Mars','Avr.','Mai','Juin','Juil.','Août','Sep.','Oct.','Nov.','Déc.'];
+  const currentShort = shortMonths[now.getMonth()];
+
+  // Filtre : mois en cours uniquement
+  const monthEvents = EVENTS.filter(e => {
+    const eMonth = e.month; // ex: "Mars", "Avr."
+    return eMonth === currentMonthName || eMonth === currentShort;
+  });
+
+  if (monthEvents.length === 0) {
+    list.innerHTML = `<p style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);padding:1rem 0;">Aucun événement ce mois-ci. <a href="evenements.html" style="color:var(--wood);">Voir tous les événements →</a></p>`;
+    return;
+  }
+
+  list.innerHTML = monthEvents.map(e => `
+    <div class="event-card${e.special ? ' event-special' : ''}${e.fermeture ? ' event-fermeture' : ''}">
+      <div class="event-date" style="${e.special ? 'background:var(--amber);' : e.fermeture ? 'background:#888;' : ''}">
         <div class="event-day">${e.day}</div>
         <div class="event-month">${e.month}</div>
         <div class="event-month" style="font-size:0.6rem;opacity:0.7;">${e.year}</div>
@@ -1133,8 +1163,9 @@ function renderEvents() {
         <div class="event-desc">${e.desc}
           <br/><span style="font-family:'Raleway',sans-serif;font-size:0.72rem;color:var(--wood);font-weight:600;margin-top:0.3rem;display:inline-block;">🕐 ${e.time}${e.lieu ? ' · 📍 '+e.lieu : ''}</span>
         </div>
+        ${e.affiche ? `<div style="margin-top:0.6rem;"><img src="evenements/${e.affiche}" alt="Affiche ${e.title}" style="max-height:120px;border-radius:3px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);" onclick="openAfficheModal('evenements/${e.affiche}','${e.title.replace(/'/g,"\\'")}')"/></div>` : ''}
       </div>
-      <button class="btn-event" onclick="openEventModal('${e.title.replace(/'/g,"\\'")}')">Je m'inscris</button>
+      ${e.fermeture ? '' : `<button class="btn-event" onclick="openEventModal('${e.title.replace(/'/g,"\\'")}')">Je m'inscris</button>`}
     </div>
   `).join('');
 }
@@ -1150,6 +1181,12 @@ function openReserve(id) {
   document.getElementById('reserveModal').classList.add('open');
 }
 function closeModal() { document.getElementById('reserveModal').classList.remove('open'); }
+
+function openAfficheModal(src, title) {
+  document.getElementById('adtImg').src = src;
+  document.getElementById('adtTitle').textContent = title;
+  document.getElementById('adtModal').classList.add('open');
+}
 
 function openEventModal(title) {
   document.getElementById('modalEventTitle').textContent = title;
