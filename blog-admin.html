@@ -154,6 +154,8 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
   <div class="tabs">
     <button class="tab active" onclick="switchTab('blog',this)">📝 Blog</button>
     <button class="tab" onclick="switchTab('events',this)">📅 Événements</button>
+    <button class="tab" onclick="switchTab('coups',this)">❤️ Coups de cœur</button>
+    <button class="tab" onclick="switchTab('coups',this)">❤️ Coups de cœur</button>
   </div>
 
   <div class="body">
@@ -257,6 +259,88 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
         </div>
       </div>
     </div>
+
+    <!-- COUPS DE CŒUR -->
+    <div class="panel" id="panel-coups">
+      <div class="split">
+        <div class="slist">
+          <div class="shead"><h3>Coups de cœur</h3><button class="btn-new" onclick="Coups.nouveau()">+ Ajouter</button></div>
+          <div class="ilist" id="coupsList"><div class="lempty">Chargement…</div></div>
+        </div>
+        <div class="sform">
+          <div class="fhead" id="cHead">Ajouter un coup de cœur</div>
+
+          <div class="f"><label>EAN (code-barres du livre) *</label>
+            <input type="text" id="cEan" placeholder="9782…" maxlength="13" oninput="Coups.rechercher()"/>
+            <small>Saisissez l'EAN — le livre sera cherché dans stock.json</small>
+          </div>
+
+          <!-- Aperçu du livre trouvé -->
+          <div id="cApercu" style="display:none;background:var(--cream);border:1.5px solid rgba(92,26,26,.15);border-radius:4px;padding:1rem;margin-bottom:1rem;display:none;flex-direction:row;gap:1rem;align-items:flex-start;">
+            <img id="cCouv" src="" alt="" style="width:60px;height:80px;object-fit:cover;border-radius:2px;flex-shrink:0;" onerror="this.style.display='none'"/>
+            <div>
+              <div id="cTitreApercu" style="font-family:'Lora',serif;font-size:.9rem;font-weight:500;color:var(--ink);"></div>
+              <div id="cAuteurApercu" style="font-size:.78rem;color:var(--soft);margin-top:.2rem;"></div>
+              <div id="cPrixApercu" style="font-family:'Raleway',sans-serif;font-size:.78rem;color:var(--wood);margin-top:.2rem;font-weight:700;"></div>
+            </div>
+          </div>
+
+          <div class="f"><label>Libraire qui recommande</label>
+            <input type="text" id="cLibraire" placeholder="Ex : Adel, Camille, L'équipe…"/>
+          </div>
+          <div class="f"><label>Citation / Coup de cœur *</label>
+            <textarea id="cCitation" style="min-height:100px" placeholder="Pourquoi ce livre vous a touché…"></textarea>
+          </div>
+
+          <div class="fbtns">
+            <button class="btn-save" onclick="Coups.sauvegarder()">💾 Publier le coup de cœur</button>
+            <button class="btn-del" id="cDel" onclick="Coups.supprimer()" style="display:none">Supprimer</button>
+          </div>
+          <p class="fhint">💡 Sauvegardé dans <strong>coups_de_coeur.json</strong> sur GitHub.</p>
+        </div>
+      </div>
+    </div>
+
+  <!-- COUPS DE CŒUR -->
+  <div class="panel" id="panel-coups">
+    <div style="flex:1;overflow-y:auto;padding:2rem;background:var(--warm);max-width:700px;margin:0 auto;width:100%;">
+      <div class="fhead">❤️ Coups de cœur de l'équipe</div>
+      <p style="font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--soft);margin-bottom:1.5rem;line-height:1.6;">
+        Ajoutez les livres que vous recommandez. Ils apparaîtront dans la section "Coups de cœur" de la page d'accueil avec votre citation et votre prénom.
+      </p>
+
+      <!-- Liste des coups de coeur existants -->
+      <div id="coupsList" style="margin-bottom:2rem;"></div>
+
+      <!-- Formulaire ajout -->
+      <div style="background:var(--cream);border:1.5px solid rgba(92,26,26,.15);border-radius:6px;padding:1.5rem;">
+        <div class="fhead" style="font-size:.9rem;margin-bottom:1rem;">Ajouter un coup de cœur</div>
+        <div class="frow">
+          <div class="f"><label>EAN / ISBN *</label>
+            <input type="text" id="cEan" placeholder="9782738156150" maxlength="13"/>
+            <small>Le code-barres à 13 chiffres du livre</small>
+          </div>
+          <div class="f" style="display:flex;align-items:flex-end;">
+            <button style="width:100%;padding:.7rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.1);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;" onclick="Coups.verifier()">🔍 Vérifier</button>
+          </div>
+        </div>
+        <!-- Aperçu livre -->
+        <div id="cApercu" style="display:none;background:var(--warm);border-radius:4px;padding:.8rem;margin-bottom:1rem;display:none;flex-direction:row;gap:1rem;align-items:center;">
+          <img id="cApercuCouv" src="" style="width:50px;height:70px;object-fit:cover;border-radius:2px;" onerror="this.style.display='none'"/>
+          <div><div id="cApercuTitre" style="font-family:'Lora',serif;font-size:.9rem;font-weight:500;"></div>
+          <div id="cApercuAuteur" style="font-size:.78rem;color:var(--soft);"></div></div>
+        </div>
+        <div class="f"><label>Votre citation *</label>
+          <textarea id="cCitation" style="min-height:80px;" placeholder="Pourquoi vous aimez ce livre, en quelques mots…"></textarea>
+        </div>
+        <div class="f"><label>Votre prénom</label>
+          <input type="text" id="cLibraire" placeholder="Ex : Marie"/></div>
+        <div class="fbtns">
+          <button class="btn-save" onclick="Coups.ajouter()">❤️ Ajouter ce coup de cœur</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   </div>
 </div>
@@ -658,8 +742,210 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 
+// ══════════════════════════════════════════
+//  COUPS DE CŒUR
+// ══════════════════════════════════════════
+var Coups = (() => {
+  let items = [], idx = null, stockCache = null;
+
+  async function chargerStock() {
+    if (stockCache) return stockCache;
+    try {
+      const r = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/stock.json?t=' + Date.now());
+      if (r.ok) stockCache = await r.json();
+    } catch(_) {}
+    return stockCache;
+  }
+
+  async function charger() {
+    document.getElementById('coupsList').innerHTML = '<div class="lempty">⏳ Chargement…</div>';
+    try {
+      const { data } = await ghRead('coups_de_coeur.json');
+      items = data ? (data.coups || []) : [];
+    } catch(e) { items = []; }
+    renderList();
+  }
+
+  function renderList() {
+    const el = document.getElementById('coupsList');
+    if (!items.length) { el.innerHTML = '<div class="lempty">Aucun coup de cœur.<br/>Ajoutez le premier !</div>'; return; }
+    el.innerHTML = items.map((c,i) => `
+      <div class="li ${i===idx?'active':''}" onclick="Coups.select(${i})">
+        <div class="li-dot gold"></div>
+        <div>
+          <div class="li-t">${c.titre||c.ean}</div>
+          <div class="li-m">${c.libraire ? '— '+c.libraire : ''}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  async function rechercher() {
+    const ean = document.getElementById('cEan').value.trim();
+    const apercu = document.getElementById('cApercu');
+    if (ean.length < 10) { apercu.style.display = 'none'; return; }
+    const stock = await chargerStock();
+    if (!stock) return;
+    const livre = (stock.livres || []).find(b => b.ean === ean);
+    if (livre) {
+      document.getElementById('cCouv').src = livre.couverture || '';
+      document.getElementById('cTitreApercu').textContent = livre.titre || '';
+      document.getElementById('cAuteurApercu').textContent = livre.auteur || '';
+      document.getElementById('cPrixApercu').textContent = livre.prix || '';
+      apercu.style.display = 'flex';
+    } else {
+      apercu.style.display = 'none';
+    }
+  }
+
+  function select(i) {
+    idx = i; const c = items[i];
+    document.getElementById('cHead').textContent = 'Modifier le coup de cœur';
+    document.getElementById('cEan').value      = c.ean       || '';
+    document.getElementById('cLibraire').value = c.libraire  || '';
+    document.getElementById('cCitation').value = c.citation  || '';
+    document.getElementById('cDel').style.display = 'inline-block';
+    rechercher();
+    renderList();
+  }
+
+  function nouveau() {
+    idx = null;
+    document.getElementById('cHead').textContent = 'Ajouter un coup de cœur';
+    ['cEan','cLibraire','cCitation'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('cApercu').style.display = 'none';
+    document.getElementById('cDel').style.display = 'none';
+    document.getElementById('cEan').focus();
+    renderList();
+  }
+
+  async function sauvegarder() {
+    const ean      = document.getElementById('cEan').value.trim();
+    const citation = document.getElementById('cCitation').value.trim();
+    if (!ean)      { toast('⚠️ L'EAN est obligatoire.'); return; }
+    if (!citation) { toast('⚠️ La citation est obligatoire.'); return; }
+
+    // Récupérer infos du livre depuis stock.json
+    const stock  = await chargerStock();
+    const livre  = stock ? (stock.livres || []).find(b => b.ean === ean) : null;
+
+    const coup = {
+      id:        idx !== null ? items[idx].id : Date.now().toString(),
+      ean,
+      titre:     livre?.titre   || '',
+      auteur:    livre?.auteur  || '',
+      couverture:livre?.couverture || '',
+      prix:      livre?.prix    || '',
+      libraire:  document.getElementById('cLibraire').value.trim(),
+      citation,
+    };
+
+    if (idx !== null) items[idx] = coup; else items.unshift(coup);
+    const ok = await ghWrite('coups_de_coeur.json', { mis_a_jour: new Date().toISOString(), coups: items }, '❤️ Coup de cœur : ' + (coup.titre || ean));
+    if (ok) { toast('✅ Coup de cœur publié !'); renderList(); }
+  }
+
+  async function supprimer() {
+    if (idx === null) return;
+    if (!confirm('Supprimer ce coup de cœur ?')) return;
+    items.splice(idx, 1); idx = null;
+    const ok = await ghWrite('coups_de_coeur.json', { mis_a_jour: new Date().toISOString(), coups: items }, '🗑️ Suppression coup de cœur');
+    if (ok) { toast('🗑️ Supprimé.'); nouveau(); }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer, rechercher };
+})();
+
+// ══════════════════════════════════════════
+//  COUPS DE CŒUR
+// ══════════════════════════════════════════
+var Coups = (() => {
+  let items = [];
+
+  async function charger() {
+    document.getElementById('coupsList').innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">⏳ Chargement…</p>';
+    try {
+      const { data } = await ghRead('coups.json');
+      items = data ? (data.coups || []) : [];
+    } catch(e) { items = []; }
+    renderList();
+  }
+
+  function renderList() {
+    const el = document.getElementById('coupsList');
+    if (!items.length) { el.innerHTML = '<p style="font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:var(--soft);">Aucun coup de cœur pour l'instant.</p>'; return; }
+    el.innerHTML = items.map((c, i) => `
+      <div style="display:flex;align-items:center;gap:1rem;padding:.8rem;background:var(--cream);border-radius:4px;margin-bottom:.5rem;border:1px solid rgba(92,26,26,.1);">
+        ${c.couverture ? `<img src="${c.couverture}" style="width:40px;height:55px;object-fit:cover;border-radius:2px;flex-shrink:0;" onerror="this.style.display='none'"/>` : '<span style="font-size:1.5rem;flex-shrink:0;">📖</span>'}
+        <div style="flex:1;min-width:0;">
+          <div style="font-family:'Lora',serif;font-size:.88rem;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.titre || c.ean}</div>
+          <div style="font-size:.72rem;color:var(--soft);">${c.auteur || ''}</div>
+          ${c.citation ? `<div style="font-family:'Lora',serif;font-style:italic;font-size:.78rem;color:var(--soft);margin-top:.2rem;">"${c.citation.substring(0,80)}${c.citation.length>80?'…':''}"</div>` : ''}
+          ${c.libraire ? `<div style="font-size:.65rem;font-weight:700;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">— ${c.libraire}</div>` : ''}
+        </div>
+        <button onclick="Coups.supprimer(${i})" style="flex-shrink:0;background:none;border:none;cursor:pointer;font-size:1.1rem;color:#c0392b;padding:.3rem;" title="Supprimer">🗑</button>
+      </div>`).join('');
+  }
+
+  async function verifier() {
+    const ean = document.getElementById('cEan').value.trim();
+    if (!ean || ean.length < 10) { toast('⚠️ EAN invalide.'); return; }
+    // Chercher dans stock.json
+    try {
+      const r = await fetch('stock.json?t=' + Date.now());
+      const data = await r.json();
+      const livre = (data.livres || []).find(b => b.ean === ean);
+      const apercu = document.getElementById('cApercu');
+      if (livre) {
+        document.getElementById('cApercuTitre').textContent = livre.titre || '(Sans titre)';
+        document.getElementById('cApercuAuteur').textContent = livre.auteur || '';
+        document.getElementById('cApercuCouv').src = livre.couverture || '';
+        apercu.style.display = 'flex';
+      } else {
+        toast('⚠️ EAN introuvable dans le stock. Vérifiez le code.');
+        apercu.style.display = 'none';
+      }
+    } catch(e) { toast('⚠️ Impossible de vérifier.'); }
+  }
+
+  async function ajouter() {
+    const ean      = document.getElementById('cEan').value.trim();
+    const citation = document.getElementById('cCitation').value.trim();
+    const libraire = document.getElementById('cLibraire').value.trim();
+    if (!ean)      { toast('⚠️ EAN obligatoire.'); return; }
+    if (!citation) { toast('⚠️ La citation est obligatoire.'); return; }
+    if (items.find(c => c.ean === ean)) { toast('⚠️ Ce livre est déjà dans les coups de cœur.'); return; }
+
+    // Récupérer les infos depuis stock.json
+    let titre = '', auteur = '', couverture = '';
+    try {
+      const r = await fetch('stock.json?t=' + Date.now());
+      const data = await r.json();
+      const livre = (data.livres || []).find(b => b.ean === ean);
+      if (livre) { titre = livre.titre; auteur = livre.auteur; couverture = livre.couverture || ''; }
+    } catch(_) {}
+
+    items.push({ ean, titre, auteur, couverture, citation, libraire });
+    const ok = await ghWrite('coups.json', { mis_a_jour: new Date().toISOString(), coups: items }, '❤️ Coup de cœur : ' + (titre || ean));
+    if (ok) {
+      toast('✅ Coup de cœur ajouté !');
+      ['cEan','cCitation','cLibraire'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('cApercu').style.display = 'none';
+      renderList();
+    }
+  }
+
+  async function supprimer(i) {
+    if (!confirm('Retirer ce coup de cœur ?')) return;
+    items.splice(i, 1);
+    const ok = await ghWrite('coups.json', { mis_a_jour: new Date().toISOString(), coups: items }, '🗑️ Suppression coup de cœur');
+    if (ok) { toast('🗑️ Retiré.'); renderList(); }
+  }
+
+  return { charger, verifier, ajouter, supprimer };
+})();
+
 // ── INIT ──────────────────────────────────
-function init() { loadToken(); Blog.charger(); Evts.charger(); }
+function init() { loadToken(); Blog.charger(); Evts.charger(); Coups.charger(); }
 window.addEventListener('DOMContentLoaded', function() {
   if (sessionStorage.getItem('el_auth') === '1') { showAdmin(); init(); }
 });

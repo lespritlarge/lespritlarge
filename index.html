@@ -666,7 +666,7 @@
     L'<span>Esprit</span> Large
   </a>
   <ul class="nav-links">
-    <li><a href="#catalogue">Catalogue</a></li>
+    <li><a href="catalogue.html">Catalogue</a></li>
     <li><a href="#coups-de-coeur">Coups de cœur</a></li>
     <li><a href="evenements.html">Événements</a></li>
     <li><a href="blog.html">Blog</a></li>
@@ -694,7 +694,7 @@
       <img src="images/logo.png" alt="Librairie L'Esprit Large" style="width:260px;height:260px;object-fit:contain;filter:drop-shadow(0 4px 32px rgba(0,0,0,0.6)) brightness(0) invert(1);opacity:0.97;" />
     </div>
     <div class="hero-btns" style="margin-top:2rem;">
-      <a href="#catalogue" class="btn-primary">Explorer le catalogue</a>
+      <a href="catalogue.html" class="btn-primary">Explorer le catalogue</a>
       <a href="#evenements" class="btn-secondary-light">Voir les événements</a>
     </div>
     <!-- Slide dots -->
@@ -715,25 +715,12 @@
       <h2 class="section-title">Notre catalogue</h2>
       <p class="section-sub">Stock mis à jour en temps réel</p>
     </div>
-    <span class="see-all">Tout voir →</span>
+    <a href="catalogue.html" class="see-all" style="text-decoration:none;">Tout voir →</a>
   </div>
-
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Titre, auteur, genre…" oninput="filterBooks()" />
-    <button onclick="filterBooks()">Rechercher</button>
+  <div class="book-grid" id="bookGrid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr));"></div>
+  <div style="text-align:center;margin-top:2rem;">
+    <a href="catalogue.html" style="display:inline-block;font-family:'Raleway',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;background:var(--wood);color:var(--cream);padding:0.85rem 2.5rem;border-radius:2px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='var(--wood-dark)'" onmouseout="this.style.background='var(--wood)'">Explorer tout le catalogue →</a>
   </div>
-
-  <div class="filter-tags">
-    <button class="tag active" onclick="setFilter('Tous', this)">Tous</button>
-    <button class="tag" onclick="setFilter('Littérature française', this)">Lit. française</button>
-    <button class="tag" onclick="setFilter('Littérature étrangère', this)">Lit. étrangère</button>
-    <button class="tag" onclick="setFilter('Jeunesse', this)">Jeunesse</button>
-    <button class="tag" onclick="setFilter('Bande-dessinée', this)">BD</button>
-    <button class="tag" onclick="setFilter('Essai', this)">Essai</button>
-  
-  </div>
-
-  <div class="book-grid" id="bookGrid"></div>
 </section>
 
 <!-- COUPS DE CŒUR -->
@@ -859,7 +846,7 @@
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:librairie@esprit-large.com" style="color:inherit;">librairie@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="/cdn-cgi/l/email-protection#3854515a4a59514a515d785d4b484a514c1554594a5f5d165b5755" style="color:inherit;"><span class="__cf_email__" data-cfemail="e78b8e8595868e958e82a7829497958e93ca8b86958082c984888a">[email&#160;protected]</span></a></p>
     <p class="footer-desc" style="margin-top:0.8rem;">
       🕐 <strong style="color:var(--amber-light);">Horaires</strong><br/>
       Lun : 14h30 – 18h00<br/>
@@ -872,7 +859,7 @@
     <p class="footer-h">Navigation</p>
     <ul class="footer-links">
       <li onclick="document.getElementById('newsletter').scrollIntoView({behavior:'smooth'})">🌊 Avis de Tempête</li>
-      <li onclick="document.getElementById('catalogue').scrollIntoView({behavior:'smooth'})">Catalogue</li>
+      <li><a href="catalogue.html" style="color:inherit;text-decoration:none;">Catalogue</a></li>
       <li onclick="document.getElementById('coups-de-coeur').scrollIntoView({behavior:'smooth'})">Coups de cœur</li>
       <li onclick="document.getElementById('evenements').scrollIntoView({behavior:'smooth'})">Événements</li>
       <li>Nos services</li>
@@ -940,35 +927,57 @@
   <span class="toast-icon">✓</span><span id="toastMsg"></span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── DATA ── */
 let BOOKS = [];
 
 async function chargerStock() {
   const grid = document.getElementById('bookGrid');
-  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:3rem 0;">⏳ Chargement du catalogue…</p>';
+  grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:2rem 0;">⏳ Chargement…</p>';
   try {
     const r = await fetch('stock.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     const data = await r.json();
     BOOKS = (data.livres || []).map((b, i) => ({
-      id:       i + 1,
-      ean:      b.ean,
-      title:    b.titre,
-      author:   b.auteur,
-      editeur:  b.editeur,
-      genre:    devinerGenre(b.titre, b.auteur, b.editeur),
-      price:    b.prix || '',
-      stock:    b.quantite || 0,
+      id:         i + 1,
+      ean:        b.ean,
+      title:      b.titre,
+      author:     b.auteur,
+      editeur:    b.editeur,
+      genre:      devinerGenre(b.titre, b.auteur, b.editeur),
+      price:      b.prix || '',
+      stock:      b.quantite || 0,
       couverture: b.couverture || '',
-      fav:      false,
+      fav:        false,
     }));
   } catch(e) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:3rem 0;">Le catalogue sera bientôt disponible.</p>';
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:2rem 0;">Le catalogue sera bientôt disponible.</p>';
     return;
   }
-  filterBooks();
-  renderCoups();
+  // Page d'accueil : 6 livres avec couverture, en stock
+  const avecCouv = BOOKS.filter(b => b.stock > 0 && b.couverture);
+  const apercu = avecCouv.sort(() => Math.random() - 0.5).slice(0, 6);
+  renderBooks(apercu);
+  chargerCoups();
+}
+
+async function chargerCoups() {
+  try {
+    const r = await fetch('coups.json?t=' + Date.now());
+    if (!r.ok) return;
+    const data = await r.json();
+    const eans = (data.coups || []).map(c => c.ean);
+    // Marquer les livres comme favoris
+    BOOKS.forEach(b => { b.fav = eans.includes(b.ean); });
+    // Récupérer les infos complètes (citation, libraire)
+    COUPS = (data.coups || []).map(c => {
+      const livre = BOOKS.find(b => b.ean === c.ean);
+      return { ...c, ...livre };
+    }).filter(c => c.title);
+    renderCoups();
+  } catch(e) {
+    // Pas de coups.json encore — section reste vide
+  }
 }
 
 function devinerGenre(titre, auteur, editeur) {
@@ -1174,19 +1183,27 @@ function setFilter(genre, el) {
 }
 
 /* ── COUPS DE CŒUR ── */
+let COUPS = [];
+
 function renderCoups() {
   const grid = document.getElementById('coupGrid');
-  const favs = BOOKS.filter(b => b.fav);
-  grid.innerHTML = favs.map(b => `
+  if (!COUPS.length) { grid.innerHTML = ''; return; }
+  grid.innerHTML = COUPS.map(c => {
+    const couv = c.couverture
+      ? `<img src="${c.couverture}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none'"/>`
+      : `<span style="font-size:2.5rem;">📖</span>`;
+    return `
     <div class="coup-card">
-      <div class="coup-cover" style="background:${b.color}33;">${b.emoji}</div>
-      <div>
-        <div class="book-title" style="font-size:1.05rem;">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <button class="btn-reserve available" style="width:auto;padding:.5rem 1.2rem;" onclick="openReserve(${b.id})">Réserver ce livre</button>
+      <div class="coup-cover" style="background:#e8e4e0;overflow:hidden;">${couv}</div>
+      <div style="flex:1;">
+        <div class="book-title" style="font-size:1.05rem;">${c.title}</div>
+        <div class="book-author">${c.author}</div>
+        ${c.citation ? `<p style="font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--ink-soft);margin:.5rem 0;line-height:1.6;">"${c.citation}"</p>` : ''}
+        ${c.libraire ? `<p style="font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:600;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">— ${c.libraire}</p>` : ''}
+        <button class="btn-reserve available" style="width:auto;padding:.5rem 1.2rem;margin-top:.5rem;" onclick="openReserve(${c.id || 0})">Réserver ce livre</button>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
 }
 
 /* ── ÉVÉNEMENTS ── */
@@ -1271,13 +1288,4 @@ function showToast(msg) {
 }
 
 /* ── CLOSE ON BACKDROP ── */
-document.getElementById('reserveModal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
-document.getElementById('eventModal').addEventListener('click', function(e) { if(e.target === this) closeEventModal(); });
-
-/* ── INIT ── */
-chargerStock();
-renderCoups();
-renderEvents();
-</script>
-</body>
-</html>
+document.getElementById('reserveModal').addEventListener('click', function(e) { if(e.
