@@ -1137,11 +1137,10 @@ function renderBooks(books) {
     return;
   }
   grid.innerHTML = books.slice(0, 60).map((b, i) => {
-    const stockClass = b.stock === 0 ? 'stock-out' : b.stock <= 2 ? 'stock-low' : 'stock-ok';
-    const stockLabel = b.stock === 0 ? 'Épuisé' : b.stock <= 2 ? `Plus que ${b.stock}` : `${b.stock} en stock`;
+    const sClass = b.stock > 0 ? 'stock-ok' : 'stock-out';
+    const sLabel = b.stock > 0 ? 'En stock' : 'À la commande';
     const badge = b.fav ? '<span class="book-badge badge-fav">❤ Coup de cœur</span>' :
-                  b.stock === 0 ? '<span class="book-badge badge-out">Épuisé</span>' :
-                  b.stock <= 2 ? '<span class="book-badge badge-low">Derniers exemplaires</span>' : '';
+                  b.stock === 0 ? '<span class="book-badge badge-out">À la commande</span>' : '';
     const btnClass = b.stock > 0 ? 'available' : 'unavailable';
     const btnLabel = b.stock > 0 ? 'Réserver' : 'Indisponible';
     const couv = b.couverture
@@ -1158,7 +1157,7 @@ function renderBooks(books) {
         <span style="font-family:'Raleway',sans-serif;font-size:0.68rem;letter-spacing:.06em;text-transform:uppercase;background:var(--parchment);color:var(--ink-soft);padding:.15rem .5rem;border-radius:2px;">${b.genre}</span>
         <div class="book-footer">
           <span class="book-price">${b.price}</span>
-          <span class="stock-indicator ${stockClass}">● ${stockLabel}</span>
+          <span class="stock-indicator ${sClass}">● ${sLabel}</span>
         </div>
         <button class="btn-reserve ${btnClass}" onclick="openReserve(${b.id})">${btnLabel}</button>
       </div>
@@ -1287,5 +1286,23 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 3800);
 }
 
-/* ── CLOSE ON BACKDROP ── */
-document.getElementById('reserveModal').addEventListener('click', function(e) { if(e.
+document.getElementById('reserveModal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
+document.getElementById('eventModal').addEventListener('click', function(e) { if(e.target === this) closeEventModal(); });
+
+/* ── STOCK LABEL ── */
+// "En stock" ou "À la commande" uniquement
+function stockLabel(qte) {
+  return qte > 0 ? 'En stock' : 'À la commande';
+}
+function stockClass(qte) {
+  return qte > 0 ? 'stock-ok' : 'stock-out';
+}
+
+/* ── INIT ── */
+window.addEventListener('DOMContentLoaded', function() {
+  chargerStock();
+  renderEvents();
+});
+</script>
+</body>
+</html>
