@@ -1063,30 +1063,32 @@ var Apropos = (() => {
   function renderForms() {
     // Libraires
     const lEl = document.getElementById('librairesForms');
-    lEl.innerHTML = libraires.map((l, i) => `
-      <div style="border:1px solid rgba(92,26,26,.12);border-radius:5px;padding:1.2rem;margin-bottom:1rem;background:var(--warm);position:relative;">
-        <button onclick="Apropos.supprimerLibraire(${i})" style="position:absolute;top:.6rem;right:.6rem;background:none;border:none;cursor:pointer;font-size:1rem;color:#c0392b;" title="Supprimer">🗑</button>
-        <div class="frow">
-          <div class="f"><label>Prénom *</label><input type="text" id="lPrenom${i}" value="${l.prenom||''}"/></div>
-          <div class="f"><label>Rôle</label><input type="text" id="lRole${i}" value="${l.role||''}" placeholder="Libraire · Co-fondateur·rice"/></div>
-        </div>
-        <div class="f"><label>Bio</label><textarea id="lBio${i}" style="min-height:80px;">${l.bio||''}</textarea></div>
-        <div class="frow">
-          <div class="f">
-            <label>Photo</label>
-            <div style="display:flex;gap:.6rem;align-items:flex-start;flex-wrap:wrap;">
-              ${l.photo ? `<img src="${l.photo}" style="width:48px;height:64px;object-fit:cover;border-radius:3px;flex-shrink:0;" onerror="this.style.display='none'" id="lPhotoPreview${i}"/>` : `<div id="lPhotoPreview${i}" style="width:48px;height:64px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;">🧑‍💼</div>`}
-              <div style="flex:1;min-width:160px;">
-                <input type="file" id="lPhotoFile${i}" accept="image/*" style="font-size:.75rem;margin-bottom:.4rem;width:100%;" onchange="Apropos.previewPhoto(${i})"/>
-                <input type="text" id="lPhoto${i}" value="${l.photo||''}" placeholder="images/prenom.jpg" style="font-size:.75rem;"/>
-                <small style="color:var(--soft);">Sélectionnez un fichier — il sera uploadé dans images/ sur GitHub lors de la sauvegarde.</small>
-              </div>
-            </div>
-          </div>
-          <div class="f"><label>Citation</label><input type="text" id="lCitation${i}" value="${l.citation||''}"/></div>
-        </div>
-        <div class="f"><label>Genres (séparés par des virgules)</label><input type="text" id="lGenres${i}" value="${(l.genres||[]).join(', ')}" placeholder="Littérature française, Essais"/></div>
-      </div>`).join('') || '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire — cliquez sur « + Ajouter ».</p>';
+    lEl.innerHTML = libraires.map((l, i) => {
+      const photoPreview = l.photo
+        ? '<img src="' + l.photo + '" style="width:56px;height:74px;object-fit:cover;border-radius:3px;flex-shrink:0;" onerror="this.style.display='none'" id="lPhotoPreview' + i + '"/>'
+        : '<div id="lPhotoPreview' + i + '" style="width:56px;height:74px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0;">🧑‍💼</div>';
+      return '<div style="border:1px solid rgba(92,26,26,.12);border-radius:5px;padding:1.2rem;margin-bottom:1rem;background:var(--warm);position:relative;">'
+        + '<button onclick="Apropos.supprimerLibraire(' + i + ')" style="position:absolute;top:.6rem;right:.6rem;background:none;border:none;cursor:pointer;font-size:1rem;color:#c0392b;" title="Supprimer">🗑</button>'
+        + '<div class="frow">'
+        + '<div class="f"><label>Prénom *</label><input type="text" id="lPrenom' + i + '" value="' + (l.prenom||'').replace(/"/g,'&quot;') + '"/></div>'
+        + '<div class="f"><label>Rôle</label><input type="text" id="lRole' + i + '" value="' + (l.role||'').replace(/"/g,'&quot;') + '" placeholder="Libraire · Co-fondateur·rice"/></div>'
+        + '</div>'
+        + '<div class="f"><label>Bio</label><textarea id="lBio' + i + '" style="min-height:80px;">' + (l.bio||'') + '</textarea></div>'
+        + '<div class="frow">'
+        + '<div class="f">'
+        + '<label>Photo</label>'
+        + '<div style="display:flex;gap:.6rem;align-items:flex-start;flex-wrap:wrap;margin-top:.3rem;">'
+        + photoPreview
+        + '<div style="flex:1;min-width:160px;">'
+        + '<input type="file" id="lPhotoFile' + i + '" accept="image/*" style="font-size:.75rem;margin-bottom:.4rem;width:100%;" onchange="Apropos.previewPhoto(' + i + ')"/>'
+        + '<input type="text" id="lPhoto' + i + '" value="' + (l.photo||'').replace(/"/g,'&quot;') + '" placeholder="images/prenom.jpg" style="font-size:.75rem;margin-top:.2rem;"/>'
+        + '<small style="color:var(--soft);display:block;margin-top:.2rem;">Sélectionnez un fichier — uploadé automatiquement sur GitHub.</small>'
+        + '</div></div></div>'
+        + '<div class="f"><label>Citation</label><input type="text" id="lCitation' + i + '" value="' + (l.citation||'').replace(/"/g,'&quot;') + '"/></div>'
+        + '</div>'
+        + '<div class="f"><label>Genres (séparés par des virgules)</label><input type="text" id="lGenres' + i + '" value="' + (l.genres||[]).join(', ').replace(/"/g,'&quot;') + '" placeholder="Littérature française, Essais"/></div>'
+        + '</div>';
+    }).join('') || '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire — cliquez sur « + Ajouter ».</p>';
 
     // Valeurs
     const vEl = document.getElementById('valeursForms');
