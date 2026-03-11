@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-11T10:32:10.098Z",
+  "mis_a_jour": "2026-03-11T11:28:51.245Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -54,17 +54,17 @@
       "fermeture": false
     },
     {
-      "id": "1741651200000",
       "titre": "Inventaire : Fermeture exceptionnelle",
-      "date": "2026-03-31",
       "time": "Toute la journée",
-      "type": "",
+      "type": "🔒 Fermeture exceptionnelle",
       "lieu": "Librairie L'Esprit Large",
       "desc": "La librairie est fermée pour inventaire les lundi 31 mars et mardi 1er avril. Nous vous retrouvons le mercredi 2 avril !",
       "affiche": "",
       "special": false,
-      "recurrent": false,
-      "fermeture": true
+      "fermeture": true,
+      "id": "1741651200000",
+      "date": "2026-03-30",
+      "recurrent": false
     },
     {
       "id": "1741737600000",
