@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-11T08:56:55.048Z",
+  "mis_a_jour": "2026-03-11T08:57:09.304Z",
   "evenements": [
     {
       "id": "1742601600000",
@@ -133,12 +133,12 @@
     },
     {
       "id": "1750896000000",
-      "titre": "ÃÂchanges autour de la littÃÂ©rature allemande",
+      "titre": "Échanges autour de la littéature allemande",
       "date": "2026-06-25",
       "time": "18h30",
-      "type": "Ã°ÂÂÂ LittÃÂ©rature traduite",
+      "type": "",
       "lieu": "Librairie L'Esprit Large",
-      "desc": "ÃÂchanges autour de la littÃÂ©rature traduite. C'est convivial et ouvert ÃÂ  tous.",
+      "desc": "Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
       "affiche": "",
       "special": false,
       "recurrent": false,
