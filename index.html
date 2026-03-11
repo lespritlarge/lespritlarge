@@ -968,13 +968,19 @@ async function chargerCoups() {
     if (!r.ok) return;
     const data = await r.json();
     const eans = (data.coups || []).map(c => c.ean);
-    // Marquer les livres comme favoris
+    // Marquer les livres comme favoris dans BOOKS (si présents)
     BOOKS.forEach(b => { b.fav = eans.includes(b.ean); });
-    // Récupérer les infos complètes (citation, libraire)
-    COUPS = (data.coups || []).map(c => {
-      const livre = BOOKS.find(b => b.ean === c.ean);
-      return { ...c, ...livre };
-    }).filter(c => c.title);
+    // Utiliser directement les infos stockées dans coups.json
+    // (titre, auteur, couverture sont sauvegardés par l'admin — pas besoin de BOOKS)
+    COUPS = (data.coups || []).map((c, i) => ({
+      id:         i + 1,
+      ean:        c.ean,
+      title:      c.titre  || '',
+      author:     c.auteur || '',
+      couverture: c.couverture || '',
+      citation:   c.citation  || '',
+      libraire:   c.libraire  || '',
+    })).filter(c => c.title);
     renderCoups();
   } catch(e) {
     // Pas de coups.json encore — section reste vide
