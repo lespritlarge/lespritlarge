@@ -173,25 +173,6 @@
       transition: transform 0.2s;
     }
     .event-card:hover { transform: translateX(4px); }
-    .event-card.fermeture {
-      border-left-color: #999 !important;
-      background: linear-gradient(90deg, rgba(120,120,120,0.07) 0%, var(--cream) 100%) !important;
-      opacity: 0.8;
-    }
-    .affiche-overlay {
-      position:fixed;inset:0;z-index:300;
-      background:rgba(10,5,5,0.92);backdrop-filter:blur(6px);
-      display:none;align-items:center;justify-content:center;padding:1rem;
-    }
-    .affiche-overlay.open { display:flex; }
-    .affiche-overlay img { max-width:90vw;max-height:90vh;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,0.5); }
-    .affiche-close {
-      position:absolute;top:1.5rem;right:1.5rem;
-      font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
-      color:rgba(242,240,239,0.6);background:transparent;border:1px solid rgba(242,240,239,0.2);
-      padding:0.4rem 1rem;cursor:pointer;border-radius:2px;transition:all 0.2s;
-    }
-    .affiche-close:hover { color:var(--cream);border-color:var(--cream); }
     .event-card.special {
       border-left-color: var(--amber);
       background: linear-gradient(90deg, rgba(158,58,58,0.06) 0%, var(--cream) 100%);
@@ -374,12 +355,6 @@
 
 </div>
 
-<!-- AFFICHE MODAL -->
-<div class="affiche-overlay" id="afficheOverlay" onclick="closeAfficheModal()">
-  <button class="affiche-close" onclick="closeAfficheModal()">✕ Fermer</button>
-  <img id="afficheImg" src="" alt="Affiche" onclick="event.stopPropagation()" />
-</div>
-
 <!-- MODAL INSCRIPTION -->
 <div class="modal-overlay" id="inscriptionModal">
   <div class="modal">
@@ -415,15 +390,43 @@
 </div>
 
 <script>
-/* ── DONNÉES ── */
-const EVENTS = [
-  // Fermeture inventaire
-  { day:31, month:3, year:2026, type:"🔒 Fermeture exceptionnelle", title:"Inventaire — Fermeture exceptionnelle",
-    desc:"La librairie est fermée pour inventaire les lundi 31 mars et mardi 1er avril. Nous vous retrouvons le mercredi 2 avril !",
-    time:"Toute la journée", lieu:"Librairie L'Esprit Large", special:false, recurrent:false, fermeture:true },
-  { day:1, month:4, year:2026, type:"🔒 Fermeture exceptionnelle", title:"Inventaire — Fermeture exceptionnelle",
-    desc:"La librairie est fermée pour inventaire les lundi 31 mars et mardi 1er avril. Nous vous retrouvons le mercredi 2 avril !",
-    time:"Toute la journée", lieu:"Librairie L'Esprit Large", special:false, recurrent:false, fermeture:true },
+/* ── DONNÉES — chargées depuis evenements.json ── */
+let EVENTS = [];
+
+async function chargerEvenements() {
+  try {
+    const res = await fetch('evenements.json?t=' + Date.now());
+    if (!res.ok) throw new Error();
+    const data = await res.json();
+    // Convertir le format JSON (date ISO) vers le format interne {day, month, year}
+    EVENTS = (data.evenements || []).map(e => {
+      const d = new Date(e.date);
+      return {
+        day:       d.getDate(),
+        month:     d.getMonth() + 1,
+        year:      d.getFullYear(),
+        title:     e.titre,
+        type:      e.type     || '',
+        desc:      e.desc     || '',
+        time:      e.time     || '',
+        lieu:      e.lieu     || '',
+        affiche:   e.affiche  || '',
+        special:   !!e.special,
+        recurrent: !!e.recurrent,
+        fermeture: !!e.fermeture,
+      };
+    });
+  } catch(err) {
+    // Fallback : tableau vide, message affiché
+    EVENTS = [];
+    console.warn('evenements.json introuvable, affichage vide.');
+  }
+  renderCalendar();
+  renderList();
+}
+
+// ← ancien tableau supprimé, tout vient de evenements.json
+const EVENTS_PLACEHOLDER = [
   // Casse-croûte Littéraire — dates exactes
   ...[
     {day:26, month:3}, {day:30, month:4}, {day:21, month:5}, {day:11, month:6}
@@ -524,7 +527,7 @@ const EVENTS = [
     time:"À confirmer", lieu:"Guérande",
     special:true, recurrent:false
   },
-];
+]; // EVENTS_PLACEHOLDER (non utilisé — données dans evenements.json)
 
 /* ── STATE ── */
 const today = new Date();
@@ -600,8 +603,8 @@ function renderList() {
     html += `<h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;font-style:italic;color:var(--wood-dark);margin:2rem 0 1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(92,26,26,0.15);">${monthLabel}</h3>`;
     events.forEach(e => {
       html += `
-      <div class="event-card${e.special?' special':''}${e.fermeture?' fermeture':''}">
-        <div class="event-date-box" style="${e.special?'background:var(--amber);':e.fermeture?'background:#888;':''}">
+      <div class="event-card${e.special?' special':''}">
+        <div class="event-date-box" style="${e.special?'background:var(--amber);':''}">
           <div class="event-day">${e.day}</div>
           <div class="event-month">${MONTHS_FR[e.month-1].substring(0,3)}.</div>
           <div class="event-year">${e.year}</div>
@@ -611,7 +614,7 @@ function renderList() {
           <div class="event-title">${e.title}</div>
           <div class="event-desc">${e.desc}</div>
           <div class="event-meta">🕐 ${e.time} · 📍 ${e.lieu}</div>
-          ${e.affiche ? `<div style="margin-top:0.8rem;"><img src="evenements/${e.affiche}" alt="Affiche" style="max-height:140px;border-radius:3px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.15);" onclick="openAfficheModal('evenements/${e.affiche}','${e.title.replace(/'/g,"\\'")}')"/></div>` : ''}
+          ${e.affiche ? `<div style="margin-top:.6rem;"><img src="evenements/${e.affiche}" alt="Affiche" style="max-height:110px;border-radius:3px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);" /></div>` : ''}
         </div>
         ${e.fermeture ? '' : `<button class="btn-inscris" onclick="openModal('${e.title.replace(/'/g,"\\'")}')">Je m'inscris</button>`}
       </div>`;
@@ -628,12 +631,6 @@ function switchView(view, el) {
   document.getElementById('calendarView').style.display = view === 'calendar' ? 'block' : 'none';
   document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
 }
-
-function openAfficheModal(src, title) {
-  document.getElementById('afficheImg').src = src;
-  document.getElementById('afficheOverlay').classList.add('open');
-}
-function closeAfficheModal() { document.getElementById('afficheOverlay').classList.remove('open'); }
 
 /* ── MODAL ── */
 function openModal(title) {
@@ -683,8 +680,7 @@ function showToast(msg) {
 }
 
 /* ── INIT ── */
-renderCalendar();
-renderList();
+chargerEvenements();
 </script>
 </body>
 </html>

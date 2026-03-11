@@ -3,313 +3,358 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Blog — L'Esprit Large</title>
+  <title>Administration — L'Esprit Large</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Lora:ital,wght@0,400;1,400&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --cream:#f2f0ef; --warm-white:#f7f5f4;
+      --cream:#f2f0ef; --warm:#f7f5f4;
       --wood:#8b2e2e; --wood-dark:#5c1a1a; --wood-light:#b86060;
       --amber:#9e3a3a; --amber-light:#c47070;
       --ink:#1e1e1e; --ink-soft:#3a3a3a; --parchment:#ebe8e8;
     }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Raleway',sans-serif; background:var(--warm-white); color:var(--ink); min-height:100vh; }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html,body{height:100%;}
+    body{font-family:'Raleway',sans-serif;background:var(--warm);color:var(--ink);}
 
-    /* ── ÉCRAN MOT DE PASSE ── */
-    #loginScreen {
-      min-height:100vh; display:flex; align-items:center; justify-content:center;
-      background:linear-gradient(135deg, var(--wood-dark) 0%, #3a1010 100%);
+    /* ── LOGIN ── */
+    #loginScreen{
+      min-height:100vh;display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--wood-dark) 0%,#2a0a0a 100%);
     }
-    .login-box {
-      background:var(--cream); border-radius:8px; padding:3rem;
-      max-width:380px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.4);
-      text-align:center;
+    .login-box{
+      background:var(--cream);border-radius:8px;padding:3rem;
+      max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.5);text-align:center;
     }
-    .login-box img { width:80px; height:80px; object-fit:contain; margin-bottom:1rem; }
-    .login-box h1 {
-      font-family:'Playfair Display',serif; font-size:1.6rem;
-      font-weight:800; font-style:italic; color:var(--wood-dark);
-      margin-bottom:0.3rem;
+    .login-box img{width:80px;height:80px;object-fit:contain;margin-bottom:1rem;}
+    .login-box h1{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;font-style:italic;color:var(--wood-dark);margin-bottom:.3rem;}
+    .login-box p{font-family:'Lora',serif;font-size:.85rem;color:var(--ink-soft);font-style:italic;margin-bottom:2rem;}
+    .login-box input{
+      width:100%;padding:.85rem 1rem;font-size:1.1rem;font-family:'Lora',serif;
+      border:1.5px solid rgba(92,26,26,.25);border-radius:3px;
+      background:var(--warm);color:var(--ink);outline:none;
+      text-align:center;letter-spacing:.3em;margin-bottom:1rem;transition:border-color .2s;
     }
-    .login-box p { font-family:'Lora',serif; font-size:0.85rem; color:var(--ink-soft); font-style:italic; margin-bottom:2rem; }
-    .login-box input {
-      width:100%; padding:0.85rem 1rem; font-size:1rem; font-family:'Lora',serif;
-      border:1.5px solid rgba(92,26,26,0.25); border-radius:3px;
-      background:var(--warm-white); color:var(--ink); outline:none;
-      text-align:center; letter-spacing:0.2em; margin-bottom:1rem;
-      transition:border-color 0.2s;
+    .login-box input:focus{border-color:var(--wood);}
+    .btn-login{
+      width:100%;padding:.9rem;font-weight:700;font-size:.85rem;
+      letter-spacing:.1em;text-transform:uppercase;
+      background:var(--wood-dark);color:var(--cream);border:none;
+      cursor:pointer;border-radius:2px;transition:background .2s;
     }
-    .login-box input:focus { border-color:var(--wood); }
-    .login-btn {
-      width:100%; padding:0.9rem; font-family:'Raleway',sans-serif;
-      font-size:0.85rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
-      background:var(--wood-dark); color:var(--cream); border:none;
-      cursor:pointer; border-radius:2px; transition:background 0.2s;
-    }
-    .login-btn:hover { background:var(--ink); }
-    .login-error {
-      color:#c0392b; font-size:0.8rem; margin-top:0.8rem;
-      font-family:'Lora',serif; font-style:italic; display:none;
-    }
+    .btn-login:hover{background:var(--ink);}
+    .login-error{color:#c0392b;font-size:.8rem;margin-top:.8rem;font-style:italic;display:none;}
 
-    /* ── INTERFACE ADMIN ── */
-    #adminScreen { display:none; }
+    /* ── SHELL ── */
+    #adminScreen{display:none;height:100vh;flex-direction:column;}
 
-    header {
-      background:var(--wood-dark); color:var(--cream);
-      padding:1rem 2rem; display:flex; align-items:center;
-      justify-content:space-between; position:sticky; top:0; z-index:50;
+    /* HEADER */
+    .adm-header{
+      background:var(--wood-dark);color:var(--cream);
+      padding:0 2rem;height:56px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:space-between;
     }
-    .header-logo {
-      font-family:'Playfair Display',serif; font-size:1.1rem;
-      font-weight:800; font-style:italic;
+    .adm-logo{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:800;font-style:italic;}
+    .adm-logo span{color:var(--amber-light);}
+    .adm-right{display:flex;align-items:center;gap:1rem;}
+    .adm-right a{font-size:.7rem;color:rgba(242,240,239,.55);text-decoration:none;transition:color .2s;}
+    .adm-right a:hover{color:var(--cream);}
+    .btn-logout{
+      font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      background:transparent;color:rgba(242,240,239,.45);
+      border:1px solid rgba(242,240,239,.2);padding:.3rem .8rem;
+      cursor:pointer;border-radius:2px;transition:all .2s;
     }
-    .header-logo span { color:var(--amber-light); }
-    .header-actions { display:flex; gap:0.8rem; align-items:center; }
-    .btn-deconnect {
-      font-family:'Raleway',sans-serif; font-size:0.7rem; font-weight:600;
-      letter-spacing:0.08em; text-transform:uppercase;
-      background:transparent; color:rgba(242,240,239,0.5);
-      border:1px solid rgba(242,240,239,0.2); padding:0.35rem 0.8rem;
-      cursor:pointer; border-radius:2px; transition:all 0.2s;
-    }
-    .btn-deconnect:hover { color:var(--cream); border-color:rgba(242,240,239,0.5); }
+    .btn-logout:hover{color:var(--cream);border-color:rgba(242,240,239,.5);}
 
-    .admin-layout { display:grid; grid-template-columns:1fr 380px; gap:0; min-height:calc(100vh - 56px); }
+    /* TOKEN BAR */
+    .token-bar{
+      background:rgba(92,26,26,.06);border-bottom:1px solid rgba(92,26,26,.1);
+      padding:.5rem 2rem;display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;flex-shrink:0;
+    }
+    .token-bar label{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);white-space:nowrap;}
+    .token-bar input{
+      flex:1;min-width:180px;max-width:340px;padding:.35rem .7rem;
+      font-family:'Lora',serif;font-size:.8rem;
+      border:1px solid rgba(92,26,26,.2);border-radius:2px;
+      background:var(--cream);color:var(--ink);outline:none;
+    }
+    .token-bar button{
+      font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+      background:var(--wood);color:var(--cream);border:none;
+      padding:.35rem .9rem;cursor:pointer;border-radius:2px;
+    }
+    .tok-dot{width:8px;height:8px;border-radius:50%;background:#e74c3c;flex-shrink:0;transition:background .3s;}
+    .tok-dot.ok{background:#27ae60;}
+    .tok-hint{font-size:.68rem;color:rgba(60,40,40,.4);font-style:italic;}
 
-    /* ── LISTE ARTICLES ── */
-    .panel-list {
-      background:var(--cream); border-right:1px solid rgba(92,26,26,0.12);
-      display:flex; flex-direction:column;
+    /* TABS */
+    .adm-tabs{
+      display:flex;background:var(--cream);
+      border-bottom:2px solid rgba(92,26,26,.1);flex-shrink:0;
     }
-    .panel-list-header {
-      padding:1.5rem 2rem; border-bottom:1px solid rgba(92,26,26,0.1);
-      display:flex; align-items:center; justify-content:space-between;
+    .adm-tab{
+      padding:.9rem 2rem;font-size:.78rem;font-weight:700;
+      letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+      border:none;border-bottom:3px solid transparent;margin-bottom:-2px;
+      color:var(--ink-soft);background:transparent;transition:all .2s;
     }
-    .panel-list-header h2 {
-      font-family:'Playfair Display',serif; font-size:1.15rem;
-      font-weight:700; font-style:italic; color:var(--wood-dark);
-    }
-    .btn-new {
-      font-family:'Raleway',sans-serif; font-size:0.72rem; font-weight:700;
-      letter-spacing:0.08em; text-transform:uppercase;
-      background:var(--wood); color:var(--cream); border:none;
-      padding:0.5rem 1.1rem; cursor:pointer; border-radius:2px; transition:background 0.2s;
-    }
-    .btn-new:hover { background:var(--wood-dark); }
-    .articles-list { flex:1; overflow-y:auto; }
-    .article-item {
-      padding:1rem 2rem; border-bottom:1px solid rgba(92,26,26,0.08);
-      cursor:pointer; transition:background 0.15s; display:flex;
-      align-items:flex-start; gap:1rem;
-    }
-    .article-item:hover { background:rgba(139,46,46,0.05); }
-    .article-item.active { background:rgba(139,46,46,0.08); border-left:3px solid var(--wood); }
-    .item-dot {
-      width:8px; height:8px; border-radius:50%; margin-top:6px; flex-shrink:0;
-      background:var(--wood-light);
-    }
-    .item-title {
-      font-family:'Lora',serif; font-size:0.92rem; font-weight:500;
-      color:var(--ink); line-height:1.4;
-    }
-    .item-meta {
-      font-family:'Raleway',sans-serif; font-size:0.65rem;
-      color:var(--ink-soft); opacity:0.6; margin-top:0.2rem;
-    }
-    .empty-list {
-      padding:3rem 2rem; text-align:center;
-      font-family:'Lora',serif; font-style:italic; color:var(--ink-soft);
-    }
+    .adm-tab:hover{color:var(--wood);}
+    .adm-tab.active{color:var(--wood-dark);border-bottom-color:var(--wood);}
 
-    /* ── FORMULAIRE ── */
-    .panel-form {
-      padding:2rem; overflow-y:auto; max-height:calc(100vh - 56px);
-      background:var(--warm-white);
-    }
-    .form-title {
-      font-family:'Playfair Display',serif; font-size:1.2rem;
-      font-weight:700; font-style:italic; color:var(--wood-dark);
-      margin-bottom:1.5rem; padding-bottom:0.8rem;
-      border-bottom:1px solid rgba(92,26,26,0.12);
-    }
-    .field { margin-bottom:1.2rem; }
-    .field label {
-      display:block; font-size:0.68rem; font-weight:700;
-      letter-spacing:0.1em; text-transform:uppercase;
-      color:var(--ink-soft); margin-bottom:0.4rem;
-    }
-    .field input, .field select, .field textarea {
-      width:100%; padding:0.75rem 0.9rem;
-      font-family:'Lora',serif; font-size:0.9rem;
-      border:1.5px solid rgba(92,26,26,0.2); border-radius:3px;
-      background:var(--cream); color:var(--ink); outline:none;
-      transition:border-color 0.2s;
-    }
-    .field input:focus, .field select:focus, .field textarea:focus { border-color:var(--wood); }
-    .field textarea { resize:vertical; min-height:220px; line-height:1.7; }
-    .field small { font-size:0.7rem; color:var(--ink-soft); opacity:0.6; margin-top:0.3rem; display:block; }
-    .field select { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235c1a1a' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 1rem center; }
+    /* BODY */
+    .adm-body{flex:1;overflow:hidden;display:flex;min-height:0;}
+    .adm-panel{display:none;width:100%;height:100%;}
+    .adm-panel.active{display:flex;}
 
-    .form-btns { display:flex; gap:0.8rem; margin-top:1.5rem; flex-wrap:wrap; }
-    .btn-save {
-      flex:1; padding:0.85rem; font-family:'Raleway',sans-serif;
-      font-size:0.8rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
-      background:var(--wood-dark); color:var(--cream); border:none;
-      cursor:pointer; border-radius:2px; transition:background 0.2s;
+    /* SPLIT */
+    .split{display:flex;width:100%;height:100%;overflow:hidden;}
+    .split-list{
+      width:290px;flex-shrink:0;border-right:1px solid rgba(92,26,26,.1);
+      display:flex;flex-direction:column;background:var(--cream);
     }
-    .btn-save:hover { background:var(--ink); }
-    .btn-delete {
-      padding:0.85rem 1.2rem; font-family:'Raleway',sans-serif; font-size:0.8rem;
-      font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
-      background:transparent; color:#c0392b;
-      border:1.5px solid rgba(192,57,43,0.3); cursor:pointer; border-radius:2px;
-      transition:all 0.2s;
+    .split-head{
+      padding:1rem 1.2rem;border-bottom:1px solid rgba(92,26,26,.1);
+      display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
     }
-    .btn-delete:hover { background:rgba(192,57,43,0.08); }
+    .split-head h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;font-style:italic;color:var(--wood-dark);}
+    .btn-new{
+      font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+      background:var(--wood);color:var(--cream);border:none;
+      padding:.4rem .9rem;cursor:pointer;border-radius:2px;transition:background .2s;white-space:nowrap;
+    }
+    .btn-new:hover{background:var(--wood-dark);}
+    .items-list{flex:1;overflow-y:auto;}
+    .li{
+      padding:.8rem 1.2rem;border-bottom:1px solid rgba(92,26,26,.07);
+      cursor:pointer;transition:background .15s;display:flex;align-items:flex-start;gap:.7rem;
+    }
+    .li:hover{background:rgba(139,46,46,.05);}
+    .li.active{background:rgba(139,46,46,.09);border-left:3px solid var(--wood);padding-left:calc(1.2rem - 3px);}
+    .li-dot{width:7px;height:7px;border-radius:50%;background:var(--wood-light);margin-top:5px;flex-shrink:0;}
+    .li-dot.grey{background:#999;}
+    .li-dot.gold{background:var(--amber);}
+    .li-title{font-family:'Lora',serif;font-size:.88rem;font-weight:500;color:var(--ink);line-height:1.35;}
+    .li-meta{font-size:.63rem;color:rgba(60,40,40,.45);margin-top:.15rem;}
+    .list-empty{padding:2rem 1.2rem;text-align:center;font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);font-size:.88rem;}
+
+    /* FORM */
+    .split-form{flex:1;overflow-y:auto;padding:2rem;background:var(--warm);}
+    .form-heading{
+      font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;font-style:italic;
+      color:var(--wood-dark);margin-bottom:1.5rem;padding-bottom:.8rem;
+      border-bottom:1px solid rgba(92,26,26,.1);
+    }
+    .f{margin-bottom:1.1rem;}
+    .f label{display:block;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:.35rem;}
+    .f input,.f select,.f textarea{
+      width:100%;padding:.7rem .9rem;
+      font-family:'Lora',serif;font-size:.88rem;
+      border:1.5px solid rgba(92,26,26,.18);border-radius:3px;
+      background:var(--cream);color:var(--ink);outline:none;transition:border-color .2s;
+    }
+    .f input:focus,.f select:focus,.f textarea:focus{border-color:var(--wood);}
+    .f textarea{resize:vertical;line-height:1.7;}
+    .f small{font-size:.68rem;color:rgba(60,40,40,.4);margin-top:.25rem;display:block;font-style:italic;}
+    .f-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+    .f select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235c1a1a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .9rem center;}
+    .f-check{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem;}
+    .f-check input[type=checkbox]{width:16px;height:16px;accent-color:var(--wood);cursor:pointer;flex-shrink:0;}
+    .f-check label{font-size:.78rem;color:var(--ink-soft);text-transform:none;letter-spacing:0;font-weight:500;cursor:pointer;}
+
+    .form-actions{display:flex;gap:.8rem;margin-top:1.5rem;flex-wrap:wrap;}
+    .btn-save{
+      flex:1;padding:.8rem;font-weight:700;font-size:.78rem;
+      letter-spacing:.08em;text-transform:uppercase;
+      background:var(--wood-dark);color:var(--cream);border:none;
+      cursor:pointer;border-radius:2px;transition:background .2s;
+    }
+    .btn-save:hover{background:var(--ink);}
+    .btn-del{
+      padding:.8rem 1.1rem;font-size:.75rem;font-weight:600;
+      letter-spacing:.06em;text-transform:uppercase;
+      background:transparent;color:#c0392b;
+      border:1.5px solid rgba(192,57,43,.25);cursor:pointer;border-radius:2px;transition:all .2s;
+    }
+    .btn-del:hover{background:rgba(192,57,43,.07);}
+    .form-hint{margin-top:1rem;font-size:.72rem;font-style:italic;color:rgba(60,40,40,.38);line-height:1.6;}
 
     /* TOAST */
-    .toast {
-      position:fixed; bottom:2rem; right:2rem; z-index:300;
-      background:var(--wood-dark); color:var(--cream);
-      font-family:'Raleway',sans-serif; font-size:0.85rem;
-      padding:1rem 1.5rem; border-radius:4px;
-      box-shadow:0 6px 24px rgba(0,0,0,0.25);
-      transform:translateY(100px); opacity:0;
-      transition:all 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+    .toast{
+      position:fixed;bottom:2rem;right:2rem;z-index:999;
+      background:var(--wood-dark);color:var(--cream);
+      font-size:.85rem;padding:.9rem 1.4rem;border-radius:4px;
+      box-shadow:0 6px 24px rgba(0,0,0,.25);
+      transform:translateY(120px);opacity:0;
+      transition:all .4s cubic-bezier(.175,.885,.32,1.275);max-width:340px;
     }
-    .toast.show { transform:translateY(0); opacity:1; }
+    .toast.show{transform:translateY(0);opacity:1;}
 
-    /* CONFIG GITHUB */
-    .config-bar {
-      background:rgba(92,26,26,0.06); border-bottom:1px solid rgba(92,26,26,0.1);
-      padding:0.6rem 2rem; display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
-    }
-    .config-bar span { font-size:0.7rem; color:var(--ink-soft); font-weight:600; letter-spacing:0.06em; text-transform:uppercase; }
-    .config-bar input {
-      flex:1; min-width:200px; padding:0.4rem 0.7rem;
-      font-family:'Lora',serif; font-size:0.82rem;
-      border:1px solid rgba(92,26,26,0.2); border-radius:2px;
-      background:var(--cream); color:var(--ink); outline:none;
-    }
-    .config-save {
-      font-family:'Raleway',sans-serif; font-size:0.68rem; font-weight:700;
-      letter-spacing:0.08em; text-transform:uppercase;
-      background:var(--wood); color:var(--cream); border:none;
-      padding:0.4rem 0.9rem; cursor:pointer; border-radius:2px;
-    }
-    .status-dot { width:8px; height:8px; border-radius:50%; background:#27ae60; flex-shrink:0; }
-    .status-dot.red { background:#e74c3c; }
-
-    @media(max-width:900px) {
-      .admin-layout { grid-template-columns:1fr; }
-      .panel-list { max-height:40vh; }
+    @media(max-width:768px){
+      .split{flex-direction:column;}
+      .split-list{width:100%;max-height:35vh;}
+      .f-row{grid-template-columns:1fr;}
+      .adm-tab{padding:.7rem 1rem;font-size:.7rem;}
     }
   </style>
 </head>
 <body>
 
-<!-- ÉCRAN MOT DE PASSE -->
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
-    <img src="images/logo.png" alt="Logo" />
+    <img src="images/logo.png" alt="Logo" onerror="this.style.display='none'" />
     <h1>L'Esprit Large</h1>
-    <p>Interface d'administration du blog</p>
-    <input type="password" id="pwdInput" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()" />
-    <button class="login-btn" onclick="login()">Accéder →</button>
-    <p class="login-error" id="loginError">Mot de passe incorrect.</p>
+    <p>Interface d'administration</p>
+    <input type="password" id="pwdInput" placeholder="••••••••"
+           onkeydown="if(event.key==='Enter')login()" autocomplete="current-password" />
+    <button class="btn-login" onclick="login()">Accéder →</button>
+    <p class="login-error" id="loginErr">Mot de passe incorrect.</p>
   </div>
 </div>
 
-<!-- INTERFACE ADMIN -->
+<!-- ADMIN -->
 <div id="adminScreen">
 
-  <header>
-    <div class="header-logo">Admin — L'<span>Esprit</span> Large</div>
-    <div class="header-actions">
-      <a href="blog.html" target="_blank" style="font-family:'Raleway',sans-serif;font-size:0.7rem;color:rgba(242,240,239,0.6);text-decoration:none;">Voir le blog →</a>
-      <button class="btn-deconnect" onclick="deconnect()">Déconnexion</button>
+  <div class="adm-header">
+    <div class="adm-logo">Admin — L'<span>Esprit</span> Large</div>
+    <div class="adm-right">
+      <a href="blog.html" target="_blank">Voir le blog →</a>
+      <a href="evenements.html" target="_blank">Voir les événements →</a>
+      <button class="btn-logout" onclick="logout()">Déconnexion</button>
     </div>
-  </header>
-
-  <!-- Barre config GitHub token -->
-  <div class="config-bar">
-    <span>GitHub Token</span>
-    <input type="password" id="githubToken" placeholder="ghp_votre_token_github" />
-    <div class="status-dot red" id="tokenStatus" title="Token non configuré"></div>
-    <button class="config-save" onclick="sauvegarderToken()">Enregistrer</button>
-    <span style="opacity:0.5;">Le token est stocké dans votre navigateur uniquement.</span>
   </div>
 
-  <div class="admin-layout">
+  <div class="token-bar">
+    <label>GitHub Token</label>
+    <input type="password" id="ghToken" placeholder="github_pat_…" />
+    <div class="tok-dot" id="tokDot"></div>
+    <button onclick="saveToken()">Enregistrer</button>
+    <span class="tok-hint">Stocké uniquement dans votre navigateur.</span>
+  </div>
 
-    <!-- LISTE -->
-    <div class="panel-list">
-      <div class="panel-list-header">
-        <h2>Articles</h2>
-        <button class="btn-new" onclick="nouvelArticle()">+ Nouvel article</button>
-      </div>
-      <div class="articles-list" id="articlesList">
-        <div class="empty-list">Chargement…</div>
+  <div class="adm-tabs">
+    <button class="adm-tab active" onclick="switchTab('blog',this)">📝 Blog</button>
+    <button class="adm-tab" onclick="switchTab('events',this)">📅 Événements</button>
+  </div>
+
+  <div class="adm-body">
+
+    <!-- ══ BLOG ══ -->
+    <div class="adm-panel active" id="panel-blog">
+      <div class="split">
+        <div class="split-list">
+          <div class="split-head">
+            <h3>Articles</h3>
+            <button class="btn-new" onclick="Blog.nouveau()">+ Nouveau</button>
+          </div>
+          <div class="items-list" id="blogList"><div class="list-empty">Chargement…</div></div>
+        </div>
+        <div class="split-form">
+          <div class="form-heading" id="bHeading">Sélectionnez ou créez un article</div>
+          <div class="f"><label>Titre *</label>
+            <input type="text" id="bTitre" placeholder="Le titre de l'article" /></div>
+          <div class="f-row">
+            <div class="f"><label>Catégorie</label>
+              <select id="bCat">
+                <option value="">— Choisir —</option>
+                <option>Vie de la librairie</option>
+                <option>Coup de cœur</option>
+                <option>Événement</option>
+                <option>Littérature</option>
+                <option>Nouveauté</option>
+                <option>Autre</option>
+              </select></div>
+            <div class="f"><label>Date</label>
+              <input type="date" id="bDate" /></div>
+          </div>
+          <div class="f"><label>Texte / récit *</label>
+            <textarea id="bTexte" style="min-height:200px" placeholder="Écrivez votre article ici…"></textarea></div>
+          <div class="f"><label>Image (URL ou chemin)</label>
+            <input type="text" id="bImage" placeholder="images/ma-photo.jpg" />
+            <small>Uploadez d'abord l'image dans le dossier images/ sur GitHub.</small></div>
+          <div class="f-row">
+            <div class="f"><label>Lien externe</label>
+              <input type="url" id="bLien" placeholder="https://…" /></div>
+            <div class="f"><label>Texte du bouton lien</label>
+              <input type="text" id="bLienLabel" placeholder="En savoir plus…" /></div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-save" onclick="Blog.sauvegarder()">💾 Publier l'article</button>
+            <button class="btn-del" id="bDel" onclick="Blog.supprimer()" style="display:none">Supprimer</button>
+          </div>
+          <p class="form-hint">💡 Sauvegardé dans <strong>blog.json</strong> sur GitHub. Le blog public se met à jour automatiquement.</p>
+        </div>
       </div>
     </div>
 
-    <!-- FORMULAIRE -->
-    <div class="panel-form">
-      <div class="form-title" id="formTitle">Sélectionnez ou créez un article</div>
+    <!-- ══ ÉVÉNEMENTS ══ -->
+    <div class="adm-panel" id="panel-events">
+      <div class="split">
+        <div class="split-list">
+          <div class="split-head">
+            <h3>Événements</h3>
+            <button class="btn-new" onclick="Evts.nouveau()">+ Nouveau</button>
+          </div>
+          <div class="items-list" id="evtList"><div class="list-empty">Chargement…</div></div>
+        </div>
+        <div class="split-form">
+          <div class="form-heading" id="eHeading">Sélectionnez ou créez un événement</div>
 
-      <div class="field">
-        <label>Titre *</label>
-        <input type="text" id="fTitre" placeholder="Le titre de votre article" />
-      </div>
+          <div class="f"><label>Titre *</label>
+            <input type="text" id="eTitre" placeholder="Ex : Rencontre avec Séverine Cressan" /></div>
 
-      <div class="field">
-        <label>Catégorie</label>
-        <select id="fCat">
-          <option value="">— Choisir —</option>
-          <option>Vie de la librairie</option>
-          <option>Coup de cœur</option>
-          <option>Événement</option>
-          <option>Littérature</option>
-          <option>Nouveauté</option>
-          <option>Autre</option>
-        </select>
-      </div>
+          <div class="f-row">
+            <div class="f"><label>Date *</label>
+              <input type="date" id="eDate" /></div>
+            <div class="f"><label>Horaire</label>
+              <input type="text" id="eTime" placeholder="18h30 – 20h00" /></div>
+          </div>
 
-      <div class="field">
-        <label>Date de publication</label>
-        <input type="date" id="fDate" />
-      </div>
+          <div class="f-row">
+            <div class="f"><label>Type</label>
+              <select id="eType">
+                <option value="">— Choisir —</option>
+                <option>Rencontre auteur</option>
+                <option>🌍 Littérature traduite</option>
+                <option>🥪 Casse-croûte Littéraire</option>
+                <option>📚 Les Madeleines des libraires</option>
+                <option>Lecture hebdo 📖</option>
+                <option>🎉 Anniversaire</option>
+                <option>🔒 Fermeture exceptionnelle</option>
+                <option>Autre</option>
+              </select></div>
+            <div class="f"><label>Lieu</label>
+              <input type="text" id="eLieu" placeholder="Librairie L'Esprit Large" /></div>
+          </div>
 
-      <div class="field">
-        <label>Texte / récit *</label>
-        <textarea id="fTexte" placeholder="Écrivez votre article ici…"></textarea>
-        <small>Le texte sera affiché tel quel, les sauts de ligne sont conservés.</small>
-      </div>
+          <div class="f"><label>Description</label>
+            <textarea id="eDesc" style="min-height:100px" placeholder="Décrivez l'événement…"></textarea></div>
 
-      <div class="field">
-        <label>URL de l'image (facultatif)</label>
-        <input type="url" id="fImage" placeholder="https://… ou images/monimage.jpg" />
-        <small>Uploadez d'abord l'image dans le dossier images/ de GitHub, puis copiez son chemin ici.</small>
-      </div>
+          <div class="f"><label>Affiche (nom du fichier)</label>
+            <input type="text" id="eAffiche" placeholder="mon-affiche.jpg" />
+            <small>Uploadez l'affiche dans le dossier evenements/ sur GitHub, puis indiquez son nom ici.</small></div>
 
-      <div class="field">
-        <label>Lien externe (facultatif)</label>
-        <input type="url" id="fLien" placeholder="https://…" />
-      </div>
+          <div class="f"><label>Options</label>
+            <div class="f-check">
+              <input type="checkbox" id="eSpecial" />
+              <label for="eSpecial">🎉 Événement spécial (fond doré, mis en avant)</label>
+            </div>
+            <div class="f-check">
+              <input type="checkbox" id="eRecurrent" />
+              <label for="eRecurrent">🔁 Événement récurrent (ex : tous les mercredis)</label>
+            </div>
+            <div class="f-check">
+              <input type="checkbox" id="eFermeture" />
+              <label for="eFermeture">🔒 Fermeture exceptionnelle (style grisé, sans bouton inscription)</label>
+            </div>
+          </div>
 
-      <div class="field">
-        <label>Texte du bouton lien</label>
-        <input type="text" id="fLienLabel" placeholder="Ex : Voir l'événement, En savoir plus…" />
-      </div>
-
-      <div class="form-btns">
-        <button class="btn-save" onclick="sauvegarder()">💾 Publier l'article</button>
-        <button class="btn-delete" id="btnSuppr" onclick="supprimer()" style="display:none;">Supprimer</button>
-      </div>
-
-      <div style="margin-top:1rem;font-family:'Lora',serif;font-size:0.78rem;font-style:italic;color:rgba(60,40,40,0.4);line-height:1.6;">
-        💡 Les articles sont sauvegardés dans <strong>blog.json</strong> sur votre GitHub. Le blog public se met à jour automatiquement.
+          <div class="form-actions">
+            <button class="btn-save" onclick="Evts.sauvegarder()">💾 Publier l'événement</button>
+            <button class="btn-del" id="eDel" onclick="Evts.supprimer()" style="display:none">Supprimer</button>
+          </div>
+          <p class="form-hint">💡 Sauvegardé dans <strong>evenements.json</strong> sur GitHub. Les pages événements et accueil se mettent à jour automatiquement.</p>
+        </div>
       </div>
     </div>
 
@@ -319,271 +364,291 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ── CONFIGURATION ─────────────────────────────────────────────
-
-// ⚠️  CHANGEZ CE MOT DE PASSE avant de mettre en ligne !
+// ═══════════════════════════════════════════════════
+//  ⚠️  CHANGEZ CE MOT DE PASSE avant de mettre en ligne
 const MOT_DE_PASSE = "espritlarge2026";
+// ═══════════════════════════════════════════════════
 
-const GITHUB_OWNER = "lespritlarge";
-const GITHUB_REPO  = "lespritlarge.github.io";
-const GITHUB_FILE  = "blog.json";
+const GH_OWNER = "lespritlarge";
+const GH_REPO  = "lespritlarge.github.io";
 
-// ── ÉTAT ─────────────────────────────────────────────────────
-
-let articles = [];
-let articleActifIdx = null;
-let sha = null; // SHA du fichier GitHub actuel
-
-// ── AUTHENTIFICATION ─────────────────────────────────────────
+// ── AUTH ────────────────────────────────────────────
 
 function login() {
-  const val = document.getElementById('pwdInput').value;
-  if (val === MOT_DE_PASSE) {
-    sessionStorage.setItem('el_auth', '1');
+  if (document.getElementById('pwdInput').value === MOT_DE_PASSE) {
+    sessionStorage.setItem('el_auth','1');
     document.getElementById('loginScreen').style.display = 'none';
-    document.getElementById('adminScreen').style.display = 'block';
-    chargerToken();
-    chargerArticles();
+    const a = document.getElementById('adminScreen');
+    a.style.display = 'flex'; a.style.flexDirection = 'column';
+    init();
   } else {
-    document.getElementById('loginError').style.display = 'block';
+    document.getElementById('loginErr').style.display = 'block';
     document.getElementById('pwdInput').value = '';
-    document.getElementById('pwdInput').focus();
   }
 }
+function logout() { sessionStorage.removeItem('el_auth'); location.reload(); }
 
-function deconnect() {
-  sessionStorage.removeItem('el_auth');
-  location.reload();
-}
+// ── TOKEN ───────────────────────────────────────────
 
-// Auto-login si session active
-if (sessionStorage.getItem('el_auth') === '1') {
-  document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('adminScreen').style.display = 'block';
-  chargerToken();
-  chargerArticles();
-}
-
-// ── GITHUB TOKEN ─────────────────────────────────────────────
-
-function chargerToken() {
+function loadToken() {
   const t = localStorage.getItem('el_gh_token');
-  if (t) {
-    document.getElementById('githubToken').value = t;
-    document.getElementById('tokenStatus').classList.remove('red');
-  }
+  if (t) { document.getElementById('ghToken').value = t; document.getElementById('tokDot').classList.add('ok'); }
 }
-
-function sauvegarderToken() {
-  const t = document.getElementById('githubToken').value.trim();
+function saveToken() {
+  const t = document.getElementById('ghToken').value.trim();
   if (!t) return;
   localStorage.setItem('el_gh_token', t);
-  document.getElementById('tokenStatus').classList.remove('red');
+  document.getElementById('tokDot').classList.add('ok');
   toast('✅ Token enregistré dans votre navigateur.');
 }
+function getToken() { return localStorage.getItem('el_gh_token') || document.getElementById('ghToken').value.trim(); }
 
-function getToken() {
-  return localStorage.getItem('el_gh_token') || document.getElementById('githubToken').value.trim();
+// ── TABS ─────────────────────────────────────────────
+
+function switchTab(name, el) {
+  document.querySelectorAll('.adm-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.adm-panel').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('panel-' + name).classList.add('active');
 }
 
-// ── CHARGEMENT ARTICLES ──────────────────────────────────────
+// ── GITHUB HELPERS ───────────────────────────────────
 
-async function chargerArticles() {
-  try {
-    const token = getToken();
-    const headers = { 'Accept': 'application/vnd.github+json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
+async function ghGet(file) {
+  const token = getToken();
+  const headers = { 'Accept': 'application/vnd.github+json' };
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+  const r = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${file}`, { headers });
+  if (r.status === 404) return { data: null, sha: null };
+  if (!r.ok) throw new Error(r.status);
+  const d = await r.json();
+  return { data: JSON.parse(atob(d.content.replace(/\n/g,''))), sha: d.sha };
+}
 
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-      { headers }
-    );
+async function ghPut(file, content, sha, message) {
+  const token = getToken();
+  if (!token) { toast('⚠️ Configurez votre GitHub Token d\'abord.'); return false; }
+  const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(content, null, 2))));
+  const body = { message, content: encoded, ...(sha ? { sha } : {}) };
+  const r = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${file}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  });
+  if (r.ok || r.status === 201) { const d = await r.json(); return d.content?.sha || sha || true; }
+  const err = await r.json();
+  toast(`❌ Erreur GitHub : ${err.message}`);
+  return false;
+}
 
-    if (res.status === 404) {
-      // Fichier inexistant — on démarre vide
-      articles = []; sha = null;
-      afficherListe(); return;
-    }
+// ════════════════════════════════════════════════════
+//  BLOG
+// ════════════════════════════════════════════════════
 
-    if (!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    sha = data.sha;
-    const decoded = JSON.parse(atob(data.content.replace(/\n/g,'')));
-    articles = decoded.articles || [];
-    articles.sort((a,b) => new Date(b.date) - new Date(a.date));
-    afficherListe();
-  } catch(e) {
-    // Fallback lecture publique
+const Blog = (() => {
+  let items = [], sha = null, idx = null;
+
+  async function charger() {
     try {
-      const res2 = await fetch(`https://raw.githubusercontent.com/${GITHUB_OWNER}/${GITHUB_REPO}/main/${GITHUB_FILE}?t=${Date.now()}`);
-      if (res2.ok) { const d = await res2.json(); articles = d.articles||[]; }
-    } catch(_) {}
-    afficherListe();
-    if (!getToken()) toast('⚠️ Configurez votre GitHub Token pour pouvoir publier.');
-  }
-}
-
-// ── LISTE ────────────────────────────────────────────────────
-
-function afficherListe() {
-  const container = document.getElementById('articlesList');
-  if (articles.length === 0) {
-    container.innerHTML = '<div class="empty-list">Aucun article.<br/>Créez le premier !</div>';
-    return;
-  }
-  container.innerHTML = articles.map((a, i) => `
-    <div class="article-item ${i===articleActifIdx?'active':''}" onclick="selectionner(${i})">
-      <div class="item-dot"></div>
-      <div>
-        <div class="item-title">${a.titre || '(Sans titre)'}</div>
-        <div class="item-meta">${a.categorie || ''} · ${formaterDate(a.date)}</div>
-      </div>
-    </div>
-  `).join('');
-}
-
-function selectionner(i) {
-  articleActifIdx = i;
-  const a = articles[i];
-  document.getElementById('formTitle').textContent = 'Modifier l\'article';
-  document.getElementById('fTitre').value     = a.titre      || '';
-  document.getElementById('fCat').value       = a.categorie  || '';
-  document.getElementById('fDate').value      = a.date       || '';
-  document.getElementById('fTexte').value     = a.texte      || '';
-  document.getElementById('fImage').value     = a.image      || '';
-  document.getElementById('fLien').value      = a.lien       || '';
-  document.getElementById('fLienLabel').value = a.lien_label || '';
-  document.getElementById('btnSuppr').style.display = 'inline-block';
-  afficherListe();
-}
-
-function nouvelArticle() {
-  articleActifIdx = null;
-  document.getElementById('formTitle').textContent = 'Nouvel article';
-  document.getElementById('fTitre').value     = '';
-  document.getElementById('fCat').value       = '';
-  document.getElementById('fDate').value      = new Date().toISOString().split('T')[0];
-  document.getElementById('fTexte').value     = '';
-  document.getElementById('fImage').value     = '';
-  document.getElementById('fLien').value      = '';
-  document.getElementById('fLienLabel').value = '';
-  document.getElementById('btnSuppr').style.display = 'none';
-  document.getElementById('fTitre').focus();
-  afficherListe();
-}
-
-// ── SAUVEGARDE ───────────────────────────────────────────────
-
-async function sauvegarder() {
-  const titre = document.getElementById('fTitre').value.trim();
-  const texte = document.getElementById('fTexte').value.trim();
-  if (!titre) { toast('⚠️ Le titre est obligatoire.'); return; }
-  if (!texte) { toast('⚠️ Le texte est obligatoire.'); return; }
-
-  const token = getToken();
-  if (!token) { toast('⚠️ Configurez votre GitHub Token d\'abord.'); return; }
-
-  const article = {
-    id:         articleActifIdx !== null ? articles[articleActifIdx].id : Date.now().toString(),
-    titre,
-    categorie:  document.getElementById('fCat').value,
-    date:       document.getElementById('fDate').value || new Date().toISOString().split('T')[0],
-    texte,
-    image:      document.getElementById('fImage').value.trim(),
-    lien:       document.getElementById('fLien').value.trim(),
-    lien_label: document.getElementById('fLienLabel').value.trim(),
-  };
-
-  if (articleActifIdx !== null) {
-    articles[articleActifIdx] = article;
-  } else {
-    articles.unshift(article);
-    articleActifIdx = 0;
+      const { data, sha: s } = await ghGet('blog.json');
+      sha = s; items = data ? (data.articles || []) : [];
+      items.sort((a,b) => new Date(b.date) - new Date(a.date));
+    } catch(e) { items = []; }
+    renderList();
   }
 
-  await publier(token);
-}
-
-async function supprimer() {
-  if (articleActifIdx === null) return;
-  if (!confirm(`Supprimer « ${articles[articleActifIdx].titre} » ? Cette action est irréversible.`)) return;
-
-  const token = getToken();
-  if (!token) { toast('⚠️ Configurez votre GitHub Token d\'abord.'); return; }
-
-  articles.splice(articleActifIdx, 1);
-  articleActifIdx = null;
-  nouvelArticle();
-  await publier(token);
-}
-
-async function publier(token) {
-  const payload = {
-    mis_a_jour: new Date().toISOString(),
-    articles
-  };
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
-
-  const body = {
-    message: `📝 Blog mis à jour — ${new Date().toLocaleDateString('fr-FR')}`,
-    content,
-    ...(sha ? { sha } : {})
-  };
-
-  try {
-    const res = await fetch(
-      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json'
-        },
-        payload: JSON.stringify(body)
-      }
-    );
-
-    // fetch avec payload → body
-    const res2 = await fetch(
-      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/vnd.github+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-      }
-    );
-
-    if (res2.ok || res2.status === 201) {
-      const data = await res2.json();
-      sha = data.content?.sha || sha;
-      toast('✅ Article publié sur le blog !');
-      afficherListe();
-    } else {
-      const err = await res2.json();
-      toast(`❌ Erreur GitHub : ${err.message}`);
-    }
-  } catch(e) {
-    toast('❌ Erreur réseau. Vérifiez votre connexion.');
+  function renderList() {
+    const el = document.getElementById('blogList');
+    if (!items.length) { el.innerHTML = '<div class="list-empty">Aucun article.<br/>Créez le premier !</div>'; return; }
+    el.innerHTML = items.map((a,i) => `
+      <div class="li ${i===idx?'active':''}" onclick="Blog.select(${i})">
+        <div class="li-dot"></div>
+        <div>
+          <div class="li-title">${a.titre || '(Sans titre)'}</div>
+          <div class="li-meta">${a.categorie||''} · ${fmtDate(a.date)}</div>
+        </div>
+      </div>`).join('');
   }
-}
 
-// ── UTILITAIRES ───────────────────────────────────────────────
+  function select(i) {
+    idx = i; const a = items[i];
+    document.getElementById('bHeading').textContent = 'Modifier l\'article';
+    document.getElementById('bTitre').value     = a.titre      || '';
+    document.getElementById('bCat').value       = a.categorie  || '';
+    document.getElementById('bDate').value      = a.date       || '';
+    document.getElementById('bTexte').value     = a.texte      || '';
+    document.getElementById('bImage').value     = a.image      || '';
+    document.getElementById('bLien').value      = a.lien       || '';
+    document.getElementById('bLienLabel').value = a.lien_label || '';
+    document.getElementById('bDel').style.display = 'inline-block';
+    renderList();
+  }
 
-function formaterDate(iso) {
+  function nouveau() {
+    idx = null;
+    document.getElementById('bHeading').textContent = 'Nouvel article';
+    ['bTitre','bTexte','bImage','bLien','bLienLabel'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('bCat').value  = '';
+    document.getElementById('bDate').value = today();
+    document.getElementById('bDel').style.display = 'none';
+    document.getElementById('bTitre').focus();
+    renderList();
+  }
+
+  async function sauvegarder() {
+    const titre = document.getElementById('bTitre').value.trim();
+    const texte = document.getElementById('bTexte').value.trim();
+    if (!titre) { toast('⚠️ Le titre est obligatoire.'); return; }
+    if (!texte) { toast('⚠️ Le texte est obligatoire.'); return; }
+    const article = {
+      id:         idx !== null ? items[idx].id : Date.now().toString(),
+      titre,
+      categorie:  document.getElementById('bCat').value,
+      date:       document.getElementById('bDate').value || today(),
+      texte,
+      image:      document.getElementById('bImage').value.trim(),
+      lien:       document.getElementById('bLien').value.trim(),
+      lien_label: document.getElementById('bLienLabel').value.trim(),
+    };
+    if (idx !== null) items[idx] = article; else { items.unshift(article); idx = 0; }
+    const newSha = await ghPut('blog.json', { mis_a_jour: new Date().toISOString(), articles: items }, sha, `📝 ${titre}`);
+    if (newSha) { sha = newSha; toast('✅ Article publié sur le blog !'); renderList(); }
+  }
+
+  async function supprimer() {
+    if (idx === null) return;
+    if (!confirm(`Supprimer « ${items[idx].titre} » ?`)) return;
+    items.splice(idx, 1); idx = null;
+    const newSha = await ghPut('blog.json', { mis_a_jour: new Date().toISOString(), articles: items }, sha, '🗑️ Suppression article');
+    if (newSha !== false) { sha = newSha; toast('🗑️ Article supprimé.'); nouveau(); }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer };
+})();
+
+// ════════════════════════════════════════════════════
+//  ÉVÉNEMENTS
+// ════════════════════════════════════════════════════
+
+const Evts = (() => {
+  let items = [], sha = null, idx = null;
+
+  async function charger() {
+    try {
+      const { data, sha: s } = await ghGet('evenements.json');
+      sha = s; items = data ? (data.evenements || []) : [];
+      items.sort((a,b) => new Date(a.date) - new Date(b.date));
+    } catch(e) { items = []; }
+    renderList();
+  }
+
+  function renderList() {
+    const el = document.getElementById('evtList');
+    if (!items.length) { el.innerHTML = '<div class="list-empty">Aucun événement.<br/>Créez le premier !</div>'; return; }
+    el.innerHTML = items.map((e,i) => `
+      <div class="li ${i===idx?'active':''}" onclick="Evts.select(${i})">
+        <div class="li-dot ${e.fermeture?'grey':e.special?'gold':''}"></div>
+        <div>
+          <div class="li-title">${e.titre || '(Sans titre)'}</div>
+          <div class="li-meta">${fmtDate(e.date)}${e.time?' · '+e.time:''}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  function select(i) {
+    idx = i; const e = items[i];
+    document.getElementById('eHeading').textContent = 'Modifier l\'événement';
+    document.getElementById('eTitre').value    = e.titre    || '';
+    document.getElementById('eDate').value     = e.date     || '';
+    document.getElementById('eTime').value     = e.time     || '';
+    document.getElementById('eType').value     = e.type     || '';
+    document.getElementById('eLieu').value     = e.lieu     || "Librairie L'Esprit Large";
+    document.getElementById('eDesc').value     = e.desc     || '';
+    document.getElementById('eAffiche').value  = e.affiche  || '';
+    document.getElementById('eSpecial').checked   = !!e.special;
+    document.getElementById('eRecurrent').checked = !!e.recurrent;
+    document.getElementById('eFermeture').checked = !!e.fermeture;
+    document.getElementById('eDel').style.display = 'inline-block';
+    renderList();
+  }
+
+  function nouveau() {
+    idx = null;
+    document.getElementById('eHeading').textContent = 'Nouvel événement';
+    ['eTitre','eTime','eAffiche'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('eDate').value     = today();
+    document.getElementById('eType').value     = '';
+    document.getElementById('eLieu').value     = "Librairie L'Esprit Large";
+    document.getElementById('eDesc').value     = '';
+    document.getElementById('eSpecial').checked   = false;
+    document.getElementById('eRecurrent').checked = false;
+    document.getElementById('eFermeture').checked = false;
+    document.getElementById('eDel').style.display = 'none';
+    document.getElementById('eTitre').focus();
+    renderList();
+  }
+
+  async function sauvegarder() {
+    const titre = document.getElementById('eTitre').value.trim();
+    const date  = document.getElementById('eDate').value;
+    if (!titre) { toast('⚠️ Le titre est obligatoire.'); return; }
+    if (!date)  { toast('⚠️ La date est obligatoire.'); return; }
+    const evt = {
+      id:        idx !== null ? items[idx].id : Date.now().toString(),
+      titre,
+      date,
+      time:      document.getElementById('eTime').value.trim(),
+      type:      document.getElementById('eType').value,
+      lieu:      document.getElementById('eLieu').value.trim(),
+      desc:      document.getElementById('eDesc').value.trim(),
+      affiche:   document.getElementById('eAffiche').value.trim(),
+      special:   document.getElementById('eSpecial').checked,
+      recurrent: document.getElementById('eRecurrent').checked,
+      fermeture: document.getElementById('eFermeture').checked,
+    };
+    if (idx !== null) items[idx] = evt; else items.push(evt);
+    items.sort((a,b) => new Date(a.date) - new Date(b.date));
+    idx = items.findIndex(e => e.id === evt.id);
+    const newSha = await ghPut('evenements.json', { mis_a_jour: new Date().toISOString(), evenements: items }, sha, `📅 ${titre}`);
+    if (newSha) { sha = newSha; toast('✅ Événement publié !'); renderList(); }
+  }
+
+  async function supprimer() {
+    if (idx === null) return;
+    if (!confirm(`Supprimer « ${items[idx].titre} » ?`)) return;
+    items.splice(idx, 1); idx = null;
+    const newSha = await ghPut('evenements.json', { mis_a_jour: new Date().toISOString(), evenements: items }, sha, '🗑️ Suppression événement');
+    if (newSha !== false) { sha = newSha; toast('🗑️ Événement supprimé.'); nouveau(); }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer };
+})();
+
+// ── UTILS ─────────────────────────────────────────────
+
+function fmtDate(iso) {
   if (!iso) return '';
-  return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'long', year:'numeric' });
+  return new Date(iso).toLocaleDateString('fr-FR', { day:'numeric', month:'short', year:'numeric' });
 }
-
+function today() { return new Date().toISOString().split('T')[0]; }
 function toast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
+  t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3800);
+}
+
+// ── INIT ──────────────────────────────────────────────
+
+function init() { loadToken(); Blog.charger(); Evts.charger(); }
+if (sessionStorage.getItem('el_auth') === '1') {
+  document.getElementById('loginScreen').style.display = 'none';
+  const a = document.getElementById('adminScreen');
+  a.style.display = 'flex'; a.style.flexDirection = 'column';
+  init();
 }
 </script>
 </body>
