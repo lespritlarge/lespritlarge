@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-11T16:12:20.481Z",
+  "mis_a_jour": "2026-03-11T16:54:24.278Z",
   "libraires": [
     {
       "prenom": "Nadine",
@@ -27,24 +27,24 @@
   ],
   "valeurs": [
     {
-      "icone": "📖",
+      "icone": "",
       "titre": "Le conseil humain",
-      "texte": "Pas d'algorithme ici. Chaque recommandation vient d'un libraire qui a lu, aimé (ou pas), et qui prend le temps de comprendre ce que vous cherchez — même quand vous ne le savez pas encore."
+      "texte": "Pas d'algorithme ici. Chaque recommandation vient d'un libraire qui a lu, aimé (ou pas), et qui prend le temps de comprendre ce que vous cherchez — même quand vous ne le savez pas encore. Et si on a pas tout lu, on fera semblant !"
     },
     {
-      "icone": "🌍",
+      "icone": "",
       "titre": "L'ouverture au monde",
-      "texte": "Littératures traduites, voix peu entendues, regards différents… Nous croyons que les livres sont le meilleur moyen d'aller au-delà de sa propre expérience."
+      "texte": "Littératures traduites, voix peu entendues, regards différents… Nous croyons que les livres sont le meilleur moyen d'aller au-delà de sa propre expérience. Nouvelles cultures, nouvelles découvertes, c'est un choix particulier que nous essayons de faire pour que vous trouviez ici ce que vous ne trouverez pas là bas."
     },
     {
-      "icone": "🤝",
+      "icone": "",
       "titre": "Ancrage local",
-      "texte": "Librairie indépendante à Guérande depuis 2006, nous faisons partie de la vie de la presqu'île. Soutenir L'Esprit Large, c'est soutenir un commerce qui vous ressemble."
+      "texte": "Librairie indépendante à Guérande depuis 2006, nous faisons partie de la vie de la presqu'île... Aller en librairie indépendante, c'est soutenir une économie locale, solidaire, c'est acheter des livres qui sont au même prix que partout ailleurs (Loi Lang - 1981), et c'est prendre soin de l'environnement !"
     },
     {
-      "icone": "🎉",
-      "titre": "La librairie vivante",
-      "texte": "Rencontres, lectures, casse-croûtes… nous aimons que la librairie soit un endroit où on revient, où on reste, où l'on se retrouve autour de ce qui nous lie : les histoires."
+      "icone": "",
+      "titre": "Une librairie animée",
+      "texte": "Rencontres, lectures, casse-croûtes… nous aimons que la librairie soit un endroit où on revient, où on reste, où l'on se retrouve autour de ce qui nous lie : les histoires. C'est pour cela que nous mettons en place, tout au long de l'année, de multiples animations allant du théâtre à la musique, en passant par des lectures, des conférences et des signatures..."
     }
   ]
 }
