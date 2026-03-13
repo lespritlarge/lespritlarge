@@ -6,6 +6,72 @@
   <title>Qui sommes-nous — L'Esprit Large</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--wood-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .55rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 800; color: var(--cream);
+    }
+    .nav-logo-text em { color: var(--wood-light); font-style: italic; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(242,240,239,.72); text-decoration: none;
+      padding: .45rem .75rem; border-radius: 3px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+    .nav-links a.nav-active {
+      color: var(--cream);
+      background: rgba(255,255,255,.15);
+      font-weight: 700;
+    }
+    @media (max-width: 800px) { .nav-links { display: none; } }
+    .page-banner {
+      background: var(--wood-dark);
+      padding: 3rem 2.5rem 2.5rem;
+      border-bottom: 3px solid var(--wood-light);
+    }
+    .page-banner-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--wood-light); margin-bottom: .6rem;
+    }
+    .page-banner h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900; font-style: italic;
+      color: var(--cream); line-height: 1.1; margin-bottom: .5rem;
+    }
+    .page-banner p {
+      font-family: 'Lora', serif;
+      font-size: .92rem; font-style: italic;
+      color: rgba(242,240,239,.6);
+    }
+    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
+    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: .6rem; }
+    .footer-desc { font-size: .82rem; opacity: .65; line-height: 1.7; }
+    .footer-desc a { color: var(--cream); }
+    .footer-h { font-family: 'Raleway',sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: .8rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: .4rem; }
+    .footer-links a { font-size: .82rem; opacity: .7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-bottom { background: #3a0e0e; text-align: center; font-size: .72rem; padding: .8rem; opacity: .5; font-family: 'Raleway',sans-serif; }
+    @media (max-width: 800px) { }
     :root {
       --cream:#f2f0ef;--parchment:#e8e2d9;--wood:#8b2e2e;--wood-dark:#5c1a1a;
       --wood-light:#b86060;--amber:#9e3a3a;--amber-light:#c47070;
@@ -13,19 +79,6 @@
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
     body{font-family:'Lora',serif;background:var(--warm-white);color:var(--ink);line-height:1.7;}
-
-    nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(242,240,239,0.97);
-      backdrop-filter:blur(8px);border-bottom:1px solid rgba(92,26,26,0.12);
-      padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:80px;}
-    .nav-logo{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;font-style:italic;
-      color:var(--wood-dark);letter-spacing:-0.02em;white-space:nowrap;
-      display:flex;align-items:center;gap:0.75rem;text-decoration:none;}
-    .nav-logo span{color:var(--amber);}
-    .nav-links{display:flex;gap:1.4rem;list-style:none;}
-    .nav-links a{font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:500;
-      letter-spacing:0.07em;text-transform:uppercase;text-decoration:none;
-      color:var(--ink-soft);white-space:nowrap;transition:color 0.2s;}
-    .nav-links a:hover,.nav-links a.active{color:var(--wood);}
     .nav-cart{font-family:'Raleway',sans-serif;font-size:0.75rem;font-weight:600;
       letter-spacing:0.05em;background:var(--wood);color:var(--cream);
       border:none;cursor:pointer;padding:0.35rem 1rem;border-radius:2px;transition:background 0.2s;}
@@ -134,29 +187,13 @@
     code{font-size:0.85em;background:var(--parchment);padding:0.1em 0.3em;border-radius:2px;}
 
     /* FOOTER */
-    footer{background:var(--ink);color:var(--cream);padding:3rem 2rem 2rem;
-      display:grid;grid-template-columns:2fr 1fr;gap:3rem;}
-    .footer-logo{font-family:'Playfair Display',serif;font-size:1.2rem;
-      font-weight:800;font-style:italic;color:var(--cream);margin-bottom:0.75rem;}
-    .footer-desc{font-size:0.82rem;opacity:0.65;line-height:1.6;}
-    .footer-desc a{color:inherit;}
-    .footer-h{font-family:'Raleway',sans-serif;font-size:0.65rem;font-weight:700;
-      letter-spacing:0.12em;text-transform:uppercase;color:var(--amber-light);margin-bottom:0.9rem;}
-    .footer-links{list-style:none;}
-    .footer-links li{font-size:0.82rem;opacity:0.7;margin-bottom:0.4rem;}
-    .footer-links li:hover{opacity:1;}
-    .footer-links a{color:inherit;text-decoration:none;}
-    .footer-bottom{background:var(--ink);color:rgba(242,240,239,0.4);text-align:center;
-      padding:1rem;font-family:'Raleway',sans-serif;font-size:0.7rem;letter-spacing:0.06em;}
 
     @media(max-width:900px){
-      .nav-links{display:none;}
       .equipe-grid{grid-template-columns:1fr;}
       .libraire-card{grid-template-columns:140px 1fr;gap:1.2rem;padding:1.2rem;}
       .valeurs-grid{grid-template-columns:repeat(2,1fr);}
       .galerie-grid{grid-template-columns:repeat(2,1fr);}
       .gal-item:nth-child(n){grid-column:span 1;grid-row:span 1;}
-      footer{grid-template-columns:1fr;}
     }
     @media(max-width:500px){
       .valeurs-grid{grid-template-columns:1fr;}
@@ -167,12 +204,10 @@
 <body>
 
 <nav>
-  <div class="nav-logo">
-    <a href="https://esprit-large.com/" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
-      <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;object-fit:contain;" />
-      <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--cream);">L'<span style="color:var(--wood-light);font-style:italic;">Esprit</span> Large</span>
-    </a>
-  </div>
+  <a class="nav-logo" href="https://esprit-large.com/">
+    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
+    <span class="nav-logo-text">L'<em>Esprit</em> Large</span>
+  </a>
   <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
     <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
@@ -180,12 +215,18 @@
     <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
     <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
     <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
-    <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    <li><a href="https://esprit-large.com/a-propos.html" class="nav-active">À propos</a></li>
   </ul>
 </nav>
 
-<div class="hero">
-  <div class="hero-label">La librairie</div>
+<div class="page-banner">
+  <div class="page-banner-label">✦ L'Esprit Large</div>
+  <h1>À propos</h1>
+  <p>La librairie, l'équipe & notre histoire</p>
+</div>
+  <h1>À propos</h1>
+  <p>La librairie, l'équipe & notre histoire</p>
+</div>
   <h1>Qui sommes-nous ?</h1>
   <p>Une équipe de libraires passionnés, au cœur de Guérande, depuis 2006.</p>
 </div>

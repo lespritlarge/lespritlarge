@@ -6,6 +6,50 @@
   <title>L'Esprit Large — Librairie</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--wood-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .55rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 800; color: var(--cream);
+    }
+    .nav-logo-text em { color: var(--wood-light); font-style: italic; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(242,240,239,.72); text-decoration: none;
+      padding: .45rem .75rem; border-radius: 3px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+    .nav-links a.nav-active {
+      color: var(--cream);
+      background: rgba(255,255,255,.15);
+      font-weight: 700;
+    }
+    @media (max-width: 800px) { .nav-links { display: none; } }
+    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
+    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: .6rem; }
+    .footer-desc { font-size: .82rem; opacity: .65; line-height: 1.7; }
+    .footer-desc a { color: var(--cream); }
+    .footer-h { font-family: 'Raleway',sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: .8rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: .4rem; }
+    .footer-links a { font-size: .82rem; opacity: .7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-bottom { background: #3a0e0e; text-align: center; font-size: .72rem; padding: .8rem; opacity: .5; font-family: 'Raleway',sans-serif; }
+    @media (max-width: 800px) { }
     :root {
       --cream: #f2f0ef;
       --warm-white: #f7f5f4;
@@ -45,34 +89,6 @@
       color: var(--ink);
       overflow-x: hidden;
     }
-
-    /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(242,240,239,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(92,26,26,0.1);
-      padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 48px;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 800; font-style: italic;
-      color: var(--wood-dark);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-    }
-    .nav-logo span { color: var(--amber); }
-    .nav-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: nowrap; }
-    .nav-links a {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em;
-      text-transform: uppercase; text-decoration: none;
-      color: var(--ink-soft); white-space: nowrap;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--wood); }
     .nav-cart {
       font-family: 'Raleway', sans-serif; font-size: 0.75rem;
       font-weight: 600; letter-spacing: 0.05em;
@@ -252,7 +268,7 @@
       font-family: 'Lora', serif; font-style: italic;
       font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 0.6rem;
     }
-    .book-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 0.8rem; }
+    .book-
     .book-price {
       font-family: 'Raleway', sans-serif; font-weight: 700;
       font-size: 1rem; color: var(--wood);
@@ -289,7 +305,7 @@
     .blog-card-cat.type-tempete { color: #1a3a5c; }
     .blog-card-titre { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: .5rem; line-height: 1.35; }
     .blog-card-extrait { font-family: 'Lora', serif; font-size: .83rem; color: var(--ink-soft); line-height: 1.6; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    .blog-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: .8rem; }
+    .blog-card-
     .blog-card-date { font-size: .7rem; color: var(--ink-soft); }
     .blog-card-lire { font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--wood); text-decoration: none; }
     .blog-card-lire:hover { text-decoration: underline; }
@@ -371,41 +387,6 @@
     .btn-event:hover { background: var(--wood); color: var(--cream); }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--ink); color: var(--cream);
-      padding: 3rem 4rem;
-      display: grid; grid-template-columns: 2fr 1fr 1fr;
-      gap: 3rem;
-    }
-    .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem; font-weight: 800; font-style: italic;
-      color: var(--amber-light); margin-bottom: 0.8rem;
-    }
-    .footer-desc {
-      font-family: 'Lora', serif; font-size: 0.85rem;
-      line-height: 1.7; color: rgba(245,240,232,0.6);
-    }
-    .footer-h {
-      font-family: 'Raleway', sans-serif; font-size: 0.7rem;
-      font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-      color: var(--amber-light); margin-bottom: 1rem;
-    }
-    .footer-links { list-style: none; }
-    .footer-links li {
-      font-family: 'Lora', serif; font-size: 0.85rem;
-      color: rgba(245,240,232,0.6); margin-bottom: 0.5rem; cursor: pointer;
-      transition: color 0.2s;
-    }
-    .footer-links li:hover { color: var(--cream); }
-    .footer-links a { color: rgba(245,240,232,0.6); text-decoration: none; transition: color .2s; }
-    .footer-links a:hover { color: var(--cream); }
-    .footer-bottom {
-      background: var(--wood-dark); text-align: center;
-      padding: 1rem; font-family: 'Raleway', sans-serif;
-      font-size: 0.72rem; letter-spacing: 0.06em;
-      color: rgba(245,240,232,0.4);
-    }
 
     /* ── MODAL ── */
     .modal-overlay {
@@ -470,14 +451,6 @@
     }
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast .toast-icon { color: var(--amber-light); margin-right: 0.5rem; }
-
-    .nav-tempete {
-      color: var(--wood) !important;
-      font-weight: 700 !important;
-      border-bottom: 2px solid var(--wood-light);
-      padding-bottom: 2px;
-    }
-    .nav-tempete:hover { color: var(--wood-dark) !important; }
 
     /* ── HERO SLIDESHOW ── */
     #hero {
@@ -667,11 +640,8 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
       #hero { padding: 100px 1.5rem 3rem; }
       section { padding: 3rem 1.5rem; }
-      footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
       .hero-stats { gap: 1.5rem; }
       .book-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
       .coup-grid { grid-template-columns: 1fr; }
@@ -684,20 +654,19 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">
-    <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;vertical-align:middle;margin-right:0.5rem;object-fit:contain;" />
-    L'<span>Esprit</span> Large
-  </div>
-    <ul class="nav-links">
+  <a class="nav-logo" href="https://esprit-large.com/">
+    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
+    <span class="nav-logo-text">L'<em>Esprit</em> Large</span>
+  </a>
+  <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
     <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
     <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
     <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
-    <li><a href="https://esprit-large.com/avisdetempete.html" class="nav-tempete">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
     <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
     <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
   </ul>
-  <button class="nav-cart" onclick="showToast('🛒 Panier bientôt disponible !')">Mon panier</button>
 </nav>
 
 <!-- HERO -->
@@ -846,9 +815,9 @@
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="80ece9e2f2e1e9f2e9e5c0e5f3f0f2e9f4adece1f2e7e5aee3efed">[email&#160;protected]</a></p>
-    <p class="footer-desc" style="margin-top:0.8rem;">
-      🕐 <strong style="color:var(--amber-light);">Horaires</strong><br/>
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">
+      🕐 <strong style="color:#b86060;">Horaires</strong><br/>
       Lun : 14h30 – 18h00<br/>
       Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
       Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
@@ -856,7 +825,7 @@
     </p>
   </div>
   <div>
-        <p class="footer-h">Navigation</p>
+    <p class="footer-h">Navigation</p>
     <ul class="footer-links">
       <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
       <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
@@ -871,513 +840,14 @@
   <div>
     <p class="footer-h">Infos pratiques</p>
     <ul class="footer-links">
-      <li>Commande & réservation</li>
+      <li>Commande &amp; réservation</li>
       <li>Carte cadeau</li>
       <li>🥪 Casse-croûte Littéraire</li>
-      <li>🚲 Livraison locale<br/><span style="font-size:0.75rem;opacity:0.7;font-style:italic;">Gratuite à Guérande sur commande</span></li>
+      <li>🚲 Livraison locale</li>
       <li>Mentions légales</li>
     </ul>
   </div>
 </footer>
 <div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
-<!-- MODAL RÉSERVATION -->
-<div class="modal-overlay" id="reserveModal">
-  <div class="modal">
-    <h2>Réserver un livre</h2>
-    <p id="modalBookTitle">Nous le mettons de côté pour vous !</p>
-    <label>Votre prénom & nom</label>
-    <input type="text" id="rNom" placeholder="Marie Dupont" />
-    <label>Téléphone</label>
-    <input type="tel" id="rTel" placeholder="06 XX XX XX XX" />
-    <label>Email</label>
-    <input type="email" id="rEmail" placeholder="vous@email.com" />
-    <label>Date de retrait souhaitée</label>
-    <input type="date" id="rDate" />
-    <label>Message (facultatif)</label>
-    <textarea id="rMsg" placeholder="Une question ? Un commentaire ?"></textarea>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeModal()">Annuler</button>
-      <button class="btn-confirm" onclick="confirmReservation()">Confirmer la réservation</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL ÉVÉNEMENT -->
-<div class="modal-overlay" id="eventModal">
-  <div class="modal">
-    <h2>S'inscrire à l'événement</h2>
-    <p id="modalEventTitle">Réservez votre place !</p>
-    <label>Votre prénom & nom</label>
-    <input type="text" id="eNom" placeholder="Marie Dupont" />
-    <label>Email</label>
-    <input type="email" id="eEmail" placeholder="vous@email.com" />
-    <label>Nombre de personnes</label>
-    <select id="eNb">
-      <option>1</option><option>2</option><option>3</option><option>4</option>
-    </select>
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="closeEventModal()">Annuler</button>
-      <button class="btn-confirm" onclick="confirmEvent()">Confirmer l'inscription</button>
-    </div>
-  </div>
-</div>
-
-<!-- MODAL AVIS DE TEMPÊTE -->
-<div class="adt-modal-overlay" id="adtModal">
-  <div class="adt-modal">
-    <img id="adtImg" src="" alt="Avis de Tempête" />
-    <div class="adt-modal-bar">
-      <span class="adt-modal-title" id="adtTitle"></span>
-      <button class="adt-close" onclick="closeAdt()">✕ Fermer</button>
-    </div>
-  </div>
-</div>
-<div class="toast" id="toast">
-  <span class="toast-icon">✓</span><span id="toastMsg"></span>
-</div>
-
-<script>
-/* ── DATA ── */
-const BOOKS = [
-  { id:1, title:"Le sigisbée ", author:"Mathilde Desaché", genre:"Littérature française", price:"18 €", stock:2, emoji:"📖", color:"#d4956a", fav:true, },
-  { id:2, title:"Les fantômes de Shearwater", author:"Charlotte McConaghy", genre:"Littérature étrangère", price:"23.90 €", stock:2, emoji:"🪞", color:"#8b9e7a", fav:true },
-  { id:3, title:"Petit pas", author:"Marion Richez", genre:"Littérature française", price:"20 €", stock:0, emoji:"🌙", color:"#5c7a9e", fav:true },
-  { id:4, title:"Karl", author:"Cyril Bonin", genre:"Bande-dessinée", price:"22 €", stock:8, emoji:"⭐", color:"#e8c96a", fav:true },
-  { id:5, title:"Mariage fantôme", author:"David Park", genre:"Littérature étrangère", price:"23 €", stock:3, emoji:"🍇", color:"#9e6a8b", fav:true },
- 
-];
-
-const EVENTS = [
-  {
-    day:"12", month:"Mars", year:"2026", type:"🌍 Littérature traduite",
-    title:"Échanges autour du monde hispanophone",
-    desc:"Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
-    time:"18h30", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"24", month:"Mars", year:"2026", type:"Rencontre auteur",
-    title:"Rencontre avec Séverine Cressan",
-    desc:"Dédicace et échanges autour de son dernier roman. Une soirée à ne pas manquer.",
-    time:"18h30 – 20h00", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"26", month:"Mars", year:"2026", type:"🌍 Littérature traduite",
-    title:"Échanges autour de la littérature italienne",
-    desc:"Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
-    time:"18h30", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"26", month:"Mars", year:"2026", type:"🥪 Casse-croûte Littéraire",
-    title:"Casse-croûte Littéraire",
-    desc:"On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
-    time:"12h30 – 14h00", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"26", month:"Mars", year:"2026", type:"Lecture 📖 hebdo",
-    title:"Les Lectures d'Adel du Mercredi",
-    desc:"Chaque mercredi, une lectrice de l'équipée d'Adel vous lit un texte à voix haute. Pour petits et grands enfants... et gratuit.",
-    time:"19h00", lieu:"Guérande", recurrent:"Tous les mercredis"
-  },
-  {
-    day:"30", month:"Avr.", year:"2026", type:"🥪 Casse-croûte Littéraire",
-    title:"Casse-croûte Littéraire",
-    desc:"On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
-    time:"12h30 – 14h00", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"12", month:"Mai", year:"2026", type:"📚 Les Madeleines des libraires",
-    title:"Les Madeleines des libraires",
-    desc:"Soirée conviviale de partage autour d'un verre. Venez parler de vos dernières lectures !",
-    time:"18h30 – 20h30", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"21", month:"Mai", year:"2026", type:"🥪 Casse-croûte Littéraire",
-    title:"Casse-croûte Littéraire",
-    desc:"On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
-    time:"12h30 – 14h00", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"02", month:"Juin", year:"2026", type:"Rencontre auteur",
-    title:"Rencontre autour de « Première Vague »",
-    desc:"Venez échanger autour de ce livre lors d'une rencontre conviviale à la librairie.",
-    time:"18h30", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"11", month:"Juin", year:"2026", type:"🥪 Casse-croûte Littéraire",
-    title:"Casse-croûte Littéraire",
-    desc:"On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
-    time:"12h30 – 14h00", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"25", month:"Juin", year:"2026", type:"🌍 Littérature traduite",
-    title:"Échanges autour de la littérature allemande",
-    desc:"Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
-    time:"18h30", lieu:"Librairie L'Esprit Large"
-  },
-  {
-    day:"05", month:"Sep.", year:"2026", type:"🎉 Anniversaire",
-    title:"Fête des 20 ans de la Librairie !",
-    desc:"L'Esprit Large souffle ses 20 bougies ! Grande fête avec animations, surprises, auteurs et beaucoup de joie. Tout le monde est invité !",
-    time:"À confirmer", lieu:"Guérande", special:true
-  },
-];
-
-let currentFilter = 'Tous';
-let selectedBook = null;
-
-/* ── SLIDESHOW ── */
-let currentSlide = 0;
-function goSlide(n) {
-  const slides = document.querySelectorAll('.hero-slide');
-  const dots = document.querySelectorAll('.dot');
-  slides[currentSlide].classList.remove('active');
-  dots[currentSlide].classList.remove('active');
-  currentSlide = ((n % slides.length) + slides.length) % slides.length;
-  slides[currentSlide].classList.add('active');
-  dots[currentSlide].classList.add('active');
-}
-setInterval(() => goSlide(currentSlide + 1), 5000);
-
-/* ── AVIS DE TEMPÊTE ── */
-function openAdt(src, title) {
-  document.getElementById('adtImg').src = src;
-  document.getElementById('adtTitle').textContent = title;
-  document.getElementById('adtModal').classList.add('open');
-}
-function closeAdt() { document.getElementById('adtModal').classList.remove('open'); }
-document.getElementById('adtModal').addEventListener('click', function(e) { if(e.target === this) closeAdt(); });
-
-/* ── NEWSLETTER ── */
-function subscribeNewsletter() {
-  const prenom = document.getElementById('nlPrenom').value.trim();
-  const email = document.getElementById('nlEmail').value.trim();
-  if (!prenom || !email) { showToast('⚠️ Veuillez renseigner votre prénom et e-mail.'); return; }
-  if (!email.includes('@')) { showToast('⚠️ Adresse e-mail invalide.'); return; }
-
-  fetch('https://formspree.io/f/mvzwkqzn', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({ prenom: prenom, email: email, _subject: 'Nouvelle inscription Avis de Tempête' })
-  })
-  .then(r => r.json())
-  .then(data => {
-    if (data.ok) {
-      document.getElementById('nlPrenom').value = '';
-      document.getElementById('nlEmail').value = '';
-      showToast(`🌊 Merci ${prenom} ! Vous recevrez le prochain Avis de Tempête.`);
-    } else {
-      showToast('⚠️ Une erreur est survenue, réessayez.');
-    }
-  })
-  .catch(() => showToast('⚠️ Une erreur est survenue, réessayez.'));
-}
-
-/* ── RENDER BOOKS ── */
-function renderBooks(books) {
-  const grid = document.getElementById('bookGrid');
-  if (books.length === 0) {
-    grid.innerHTML = `<p style="font-style:italic;color:var(--ink-soft);grid-column:1/-1;padding:2rem 0;">Aucun livre trouvé pour cette recherche.</p>`;
-    return;
-  }
-  grid.innerHTML = books.map((b, i) => {
-    const stockClass = b.stock === 0 ? 'stock-out' : b.stock <= 2 ? 'stock-low' : 'stock-ok';
-    const stockLabel = b.stock === 0 ? 'Épuisé' : b.stock <= 2 ? `Plus que ${b.stock}` : `${b.stock} en stock`;
-    const badge = b.fav ? '<span class="book-badge badge-fav">❤ Coup de cœur</span>' :
-                  b.stock === 0 ? '<span class="book-badge badge-out">Épuisé</span>' :
-                  b.stock <= 2 ? '<span class="book-badge badge-low">Derniers exemplaires</span>' : '';
-    const btnClass = b.stock > 0 ? 'available' : 'unavailable';
-    const btnLabel = b.stock > 0 ? 'Réserver' : 'Indisponible';
-    return `<div class="book-card" style="animation-delay:${i*0.06}s">
-      <div class="book-cover" style="background:${b.color}22;">
-        ${badge}
-        <span style="font-size:3rem">${b.emoji}</span>
-      </div>
-      <div class="book-info">
-        <div class="book-title">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <span style="font-family:'Raleway',sans-serif;font-size:0.68rem;letter-spacing:.06em;text-transform:uppercase;background:var(--parchment);color:var(--ink-soft);padding:.15rem .5rem;border-radius:2px;">${b.genre}</span>
-        <div class="book-footer">
-          <span class="book-price">${b.price}</span>
-          <span class="stock-indicator ${stockClass}">● ${stockLabel}</span>
-        </div>
-        <button class="btn-reserve ${btnClass}" onclick="openReserve(${b.id})">${btnLabel}</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-/* ── FILTER ── */
-function filterBooks() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  let books = BOOKS;
-  if (currentFilter !== 'Tous') books = books.filter(b => b.genre === currentFilter);
-  if (q) books = books.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || b.genre.toLowerCase().includes(q));
-  renderBooks(books);
-}
-
-function setFilter(genre, el) {
-  currentFilter = genre;
-  document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  filterBooks();
-}
-
-/* ── COUPS DE CŒUR ── */
-function renderCoups() {
-  const grid = document.getElementById('coupGrid');
-  const favs = BOOKS.filter(b => b.fav);
-  grid.innerHTML = favs.map(b => `
-    <div class="coup-card">
-      <div class="coup-cover" style="background:${b.color}33;">${b.emoji}</div>
-      <div>
-        <div class="book-title" style="font-size:1.05rem;">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <button class="btn-reserve available" style="width:auto;padding:.5rem 1.2rem;" onclick="openReserve(${b.id})">Réserver ce livre</button>
-      </div>
-    </div>
-  `).join('');
-}
-
-/* ── ÉVÉNEMENTS ── */
-function renderEvents() {
-  const list = document.getElementById('eventList');
-  list.innerHTML = EVENTS.map(e => `
-    <div class="event-card${e.special ? ' event-special' : ''}">
-      <div class="event-date" style="${e.special ? 'background:var(--amber);' : ''}">
-        <div class="event-day">${e.day}</div>
-        <div class="event-month">${e.month}</div>
-        <div class="event-month" style="font-size:0.6rem;opacity:0.7;">${e.year}</div>
-      </div>
-      <div class="event-info">
-        <div class="event-type">${e.type}${e.recurrent ? ' · <span style="font-style:italic;font-weight:400;">'+e.recurrent+'</span>' : ''}</div>
-        <div class="event-title">${e.title}</div>
-        <div class="event-desc">${e.desc}
-          <br/><span style="font-family:'Raleway',sans-serif;font-size:0.72rem;color:var(--wood);font-weight:600;margin-top:0.3rem;display:inline-block;">🕐 ${e.time}${e.lieu ? ' · 📍 '+e.lieu : ''}</span>
-        </div>
-      </div>
-      <button class="btn-event" onclick="openEventModal('${e.title.replace(/'/g,"\\'")}')">Je m'inscris</button>
-    </div>
-  `).join('');
-}
-
-/* ── MODALS ── */
-function openReserve(id) {
-  const book = BOOKS.find(b => b.id === id);
-  if (!book || book.stock === 0) return;
-  selectedBook = book;
-  document.getElementById('modalBookTitle').textContent = `« ${book.title} » par ${book.author}`;
-  const d = new Date(); d.setDate(d.getDate() + 1);
-  document.getElementById('rDate').value = d.toISOString().split('T')[0];
-  document.getElementById('reserveModal').classList.add('open');
-}
-function closeModal() { document.getElementById('reserveModal').classList.remove('open'); }
-
-function openEventModal(title) {
-  document.getElementById('modalEventTitle').textContent = title;
-  document.getElementById('eventModal').classList.add('open');
-}
-function closeEventModal() { document.getElementById('eventModal').classList.remove('open'); }
-
-function confirmReservation() {
-  const nom = document.getElementById('rNom').value.trim();
-  const email = document.getElementById('rEmail').value.trim();
-  if (!nom || !email) { showToast('⚠️ Veuillez remplir nom et email.'); return; }
-  closeModal();
-  showToast(`✓ Réservation confirmée ! Nous vous contacterons sous 24h, ${nom.split(' ')[0]}.`);
-  // Update stock visually
-  const book = BOOKS.find(b => b.id === selectedBook.id);
-  if (book) { book.stock = Math.max(0, book.stock - 1); filterBooks(); }
-}
-
-function confirmEvent() {
-  const nom = document.getElementById('eNom').value.trim();
-  const email = document.getElementById('eEmail').value.trim();
-  if (!nom || !email) { showToast('⚠️ Veuillez remplir nom et email.'); return; }
-  closeEventModal();
-  showToast(`✓ Inscription enregistrée ! À très bientôt, ${nom.split(' ')[0]} !`);
-}
-
-/* ── TOAST ── */
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  document.getElementById('toastMsg').textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3800);
-}
-
-/* ── CLOSE ON BACKDROP ── */
-document.getElementById('reserveModal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
-document.getElementById('eventModal').addEventListener('click', function(e) { if(e.target === this) closeEventModal(); });
-
-/* -- INIT DYNAMIQUE -- */
-function goSearch() {
-  var q = document.getElementById('searchInput').value.trim();
-  if (q) window.location.href = 'https://esprit-large.com/catalogue.html?q=' + encodeURIComponent(q);
-}
-
-async function chargerBlog() {
-  var grid = document.getElementById('blogHomeGrid');
-  if (!grid) return;
-  try {
-    var items = [];
-    // Articles de blog
-    try {
-      var r = await fetch('blog.json?t=' + Date.now());
-      if (r.ok) {
-        var d = await r.json();
-        (d.articles || []).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');})
-          .slice(0, 3).forEach(function(a) { items.push({
-            type:'blog', date:a.date||'', titre:a.titre||'', image:a.image||'',
-            extrait:(a.texte||'').replace(/<[^>]+>/g,'').slice(0,160)+'...',
-            cat:a.categorie||'Article', lien:a.lien||'blog.html', lienLabel:a.lien_label||'Lire la suite',
-          });});
-      }
-    } catch(e) {}
-    // Dernier avis de tempête
-    try {
-      var r2 = await fetch('avisdetempete.json?t=' + Date.now());
-      if (r2.ok) {
-        var d2 = await r2.json();
-        var avis = (d2.avis || []).sort(function(a,b){return (b.date||'').localeCompare(a.date||'');}).slice(0,1);
-        avis.forEach(function(a) { items.push({
-          type:'tempete', date:a.date||'', titre:a.titre||'Avis de Tempête', image:a.image||'',
-          extrait:(a.texte||a.description||'').replace(/<[^>]+>/g,'').slice(0,160)+'...',
-          cat:'🌊 Avis de Tempête', lien:'avisdetempete.html', lienLabel:'Lire le numéro',
-        });});
-      }
-    } catch(e) {}
-
-    if (!items.length) {
-      grid.innerHTML = '<p class="blog-empty">Aucun article pour le moment — revenez bientôt !</p>';
-      return;
-    }
-    grid.innerHTML = items.map(function(a) {
-      var imgHtml = a.image
-        ? '<img src="' + a.image + '" alt="" onerror="this.parentElement.textContent=String.fromCodePoint(128221)">'
-        : (a.type==='tempete' ? '🌊' : '📝');
-      var dateLabel = a.date ? new Date(a.date).toLocaleDateString('fr-FR',{day:'numeric',month:'long',year:'numeric'}) : '';
-      return '<div class="blog-card">' +
-        '<div class="blog-card-img">' + imgHtml + '</div>' +
-        '<div class="blog-card-body">' +
-          '<div class="blog-card-cat type-' + a.type + '">' + a.cat + '</div>' +
-          '<div class="blog-card-titre">' + a.titre + '</div>' +
-          '<div class="blog-card-extrait">' + a.extrait + '</div>' +
-          '<div class="blog-card-footer">' +
-            '<span class="blog-card-date">' + dateLabel + '</span>' +
-            '<a href="' + a.lien + '" class="blog-card-lire">' + a.lienLabel + ' →</a>' +
-          '</div></div></div>';
-    }).join('');
-  } catch(e) {
-    if (grid) grid.innerHTML = '<p class="blog-empty">Impossible de charger les articles.</p>';
-  }
-}
-
-async function chargerEvenements() {
-  var list = document.getElementById('evtHomeList');
-  if (!list) return;
-  try {
-    var r = await fetch('evenements.json?t=' + Date.now());
-    if (!r.ok) { list.innerHTML = ''; return; }
-    var data = await r.json();
-    var today = new Date().toISOString().slice(0,10);
-    var evts = (data.evenements || [])
-      .filter(function(e){ return e.date >= today; })
-      .sort(function(a,b){ return a.date.localeCompare(b.date); })
-      .slice(0, 4);
-    if (!evts.length) {
-      list.innerHTML = '<p class="blog-empty">Aucun événement à venir pour le moment.</p>';
-      return;
-    }
-    list.innerHTML = evts.map(function(e) {
-      var d = new Date(e.date);
-      var jour = d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
-      jour = jour.charAt(0).toUpperCase() + jour.slice(1);
-      return '<div style="display:flex;gap:1.2rem;align-items:flex-start;background:#fff;border-radius:6px;padding:1.1rem 1.4rem;box-shadow:0 2px 8px rgba(42,31,20,.07);border-left:4px solid var(--wood);">' +
-        '<div style="flex-shrink:0;text-align:center;min-width:48px;">' +
-          '<div style="font-family:Raleway,sans-serif;font-size:1.4rem;font-weight:900;color:var(--wood);line-height:1;">' + d.getDate() + '</div>' +
-          '<div style="font-family:Raleway,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);">' + d.toLocaleDateString('fr-FR',{month:'short'}) + '</div>' +
-        '</div>' +
-        '<div style="flex:1;min-width:0;">' +
-          '<div style="font-family:Playfair Display,serif;font-size:.98rem;font-weight:700;color:var(--ink);margin-bottom:.2rem;">' + (e.titre||'') + '</div>' +
-          (e.lieu ? '<div style="font-family:Raleway,sans-serif;font-size:.7rem;color:var(--ink-soft);">📍 ' + e.lieu + (e.heure ? '&nbsp;·&nbsp;🕐 ' + e.heure : '') + '</div>' : '') +
-          (e.description ? '<div style="font-family:Lora,serif;font-size:.82rem;color:var(--ink-soft);margin-top:.3rem;font-style:italic;">' + e.description.slice(0,120) + (e.description.length>120?'…':'') + '</div>' : '') +
-        '</div>' +
-        '<a href="https://esprit-large.com/evenements.html" style="flex-shrink:0;font-family:Raleway,sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood);text-decoration:none;align-self:center;">→</a>' +
-      '</div>';
-    }).join('');
-  } catch(e) {
-    if (list) list.innerHTML = '';
-  }
-}
-
-function toggleCoups() {
-  const wrapper = document.getElementById('coupGridWrapper');
-  const btn     = document.getElementById('coupToggleBtn');
-  const fade    = document.getElementById('coupFade');
-  const isOpen  = wrapper.style.maxHeight === 'none' || parseInt(wrapper.style.maxHeight) > 220;
-  if (isOpen) {
-    wrapper.style.maxHeight = '220px';
-    btn.textContent = 'Voir tous les coups de cœur ▾';
-    fade.style.display = 'block';
-    wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  } else {
-    wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
-    btn.textContent = 'Réduire ▴';
-    fade.style.display = 'none';
-  }
-}
-
-async function chargerCoups() {
-  try {
-    var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
-    if (!r.ok) return;
-    var data = await r.json();
-    var grid = document.getElementById('coupGrid');
-    if (!grid) return;
-    var coups = (data.coups || []).filter(function(c){return c.titre;});
-    if (!coups.length) return;
-    grid.innerHTML = coups.map(function(c) {
-      var img = c.couverture
-        ? '<img src="' + c.couverture + '" alt="" style="width:80px;height:116px;object-fit:cover;border-radius:3px;box-shadow:0 4px 12px rgba(0,0,0,.2);">'
-        : '<div style="width:80px;height:116px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:2rem;">&#x1F4D6;</div>';
-      return '<div class="coup-card">' +
-        '<div class="coup-cover">' + img + '</div>' +
-        '<div>' +
-          '<div class="book-title" style="font-size:1.05rem;">' + (c.titre||'') + '</div>' +
-          '<div class="book-author">' + (c.auteur||'') + '</div>' +
-          (c.citation ? '<div style="font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);margin-top:.5rem;line-height:1.6;">' + c.citation + (c.libraire ? ' — ' + c.libraire : '') + '</div>' : '') +
-        '</div></div>';
-    }).join('');
-  } catch(e) {}
-}
-
-async function chargerApercu() {
-  try {
-    var r = await fetch('stock.json?t=' + Date.now());
-    if (!r.ok) return;
-    var data = await r.json();
-    var livres = (data.livres || []).slice(0, 8);
-    var grid = document.getElementById('catalogueGrid');
-    if (!grid || !livres.length) return;
-    grid.innerHTML = livres.map(function(b) {
-      var cover = b.couverture || b.cover || '';
-      var imgHtml = cover
-        ? '<img src="' + cover + '" alt="' + (b.titre||'').replace(/"/g,'&quot;') + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.textContent=String.fromCodePoint(128218)">'
-        : '&#x1F4D6;';
-      return '<div style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(42,31,20,.08);cursor:pointer;" onclick="window.location=\'catalogue.html\'">' +
-        '<div style="height:140px;background:var(--parchment);display:flex;align-items:center;justify-content:center;font-size:2.5rem;">' + imgHtml + '</div>' +
-        '<div style="padding:.7rem .9rem;">' +
-          '<div style="font-family:Playfair Display,serif;font-size:.85rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (b.titre||'') + '</div>' +
-          '<div style="font-family:Lora,serif;font-size:.75rem;color:var(--ink-soft);font-style:italic;">' + (b.auteur||'') + '</div>' +
-        '</div></div>';
-    }).join('');
-  } catch(e) {}
-}
-
-chargerBlog();
-chargerCoups();
-chargerEvenements();
-</script>
 </body>
 </html>

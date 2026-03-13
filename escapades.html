@@ -6,6 +6,71 @@
 <title>Les Escapades — Librairie L'Esprit Large</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
 <style>
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .55rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 800; color: var(--cream);
+    }
+    .nav-logo-text em { color: #b86060; font-style: italic; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(242,240,239,.72); text-decoration: none;
+      padding: .45rem .75rem; border-radius: 3px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+    .nav-links a.nav-active {
+      color: var(--cream);
+      background: rgba(255,255,255,.15);
+      font-weight: 700;
+    }
+    @media (max-width: 800px) { .nav-links { display: none; } }
+    .page-banner {
+      background: var(--dark);
+      padding: 3rem 2.5rem 2.5rem;
+      border-bottom: 3px solid #b86060;
+    }
+    .page-banner-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: #b86060; margin-bottom: .6rem;
+    }
+    .page-banner h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900; font-style: italic;
+      color: var(--cream); line-height: 1.1; margin-bottom: .5rem;
+    }
+    .page-banner p {
+      font-family: 'Lora', serif;
+      font-size: .92rem; font-style: italic;
+      color: rgba(242,240,239,.6);
+    }
+    footer { background: var(--dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
+    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: .6rem; }
+    .footer-desc { font-size: .82rem; opacity: .65; line-height: 1.7; }
+    .footer-desc a { color: var(--cream); }
+    .footer-h { font-family: 'Raleway',sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: #b86060; margin-bottom: .8rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: .4rem; }
+    .footer-links a { font-size: .82rem; opacity: .7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-bottom { background: #3a0e0e; text-align: center; font-size: .72rem; padding: .8rem; opacity: .5; font-family: 'Raleway',sans-serif; }
 :root {
   --cream: #f2f0ef;
   --warm:  #f7f5f4;
@@ -23,22 +88,10 @@ html{scroll-behavior:smooth;}
 body{font-family:'Lora',serif;background:var(--warm);color:var(--ink);overflow-x:hidden;}
 
 /* ── NAV ── */
-nav {
-  position:fixed;top:0;left:0;right:0;z-index:100;
-  background:rgba(242,240,239,0.97);backdrop-filter:blur(8px);
-  border-bottom:1px solid rgba(92,26,26,0.12);
-  padding:0 2rem;height:80px;
-  display:flex;align-items:center;justify-content:space-between;
-}
-.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:800;font-style:italic;color:var(--dark);}
-.nav-logo img{width:64px;height:64px;object-fit:contain;}
-.nav-logo span{color:var(--amber);}
-.nav-back{font-family:'Raleway',sans-serif;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);text-decoration:none;border:1px solid rgba(92,26,26,.2);padding:.4rem 1rem;border-radius:2px;transition:all .2s;}
-.nav-back:hover{color:var(--wood);border-color:var(--wood);}
 
 /* ── HERO ── */
 .hero {
-  margin-top:0;
+  margin-top:80px;
   padding:5rem 4rem 4rem;
   background:var(--dark);
   position:relative;overflow:hidden;
@@ -290,11 +343,6 @@ nav {
 .how-desc{font-family:'Lora',serif;font-size:.88rem;color:var(--soft);line-height:1.65;font-style:italic;}
 
 /* ── FOOTER ── */
-footer{
-  text-align:center;padding:2rem;
-  font-family:'Lora',serif;font-style:italic;font-size:.82rem;
-  color:var(--soft);border-top:1px solid rgba(92,26,26,.1);
-}
 footer a{color:var(--wood);text-decoration:none;}
 
 /* ── TOAST ── */
@@ -315,33 +363,15 @@ footer a{color:var(--wood);text-decoration:none;}
   .section-form{padding:3rem 1.2rem;}
   .section-how{padding:3rem 1.2rem;}
 }
-    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark); display:flex; align-items:center; justify-content:space-between; padding:0.8rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.25); }
-    .nav-logo a { display:flex; align-items:center; gap:.5rem; text-decoration:none; }
-    .nav-links { display:flex; gap:1.3rem; list-style:none; flex-wrap:nowrap; }
-    .nav-links a { font-family:'Raleway',sans-serif; font-size:0.73rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(242,240,239,.78); text-decoration:none; transition:color .2s; }
-    .nav-links a:hover { color:#fff; }
-    @media(max-width:750px) { .nav-links { display:none; } }
-      footer { background:var(--wood-dark); color:var(--cream); padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
-    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
-    .footer-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
-    .footer-desc a { color:var(--cream); }
-    .footer-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
-    .footer-links { list-style:none; }
-    .footer-links li { margin-bottom:.4rem; }
-    .footer-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:var(--cream); transition:opacity .2s; }
-    .footer-links a:hover { opacity:1; }
-    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
-  </style>
+</style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">
-    <a href="https://esprit-large.com/" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
-      <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;object-fit:contain;" />
-      <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--cream);">L'<span style="color:var(--wood-light);font-style:italic;">Esprit</span> Large</span>
-    </a>
-  </div>
+  <a class="nav-logo" href="https://esprit-large.com/">
+    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
+    <span class="nav-logo-text">L'<em>Esprit</em> Large</span>
+  </a>
   <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
     <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
@@ -352,6 +382,11 @@ footer a{color:var(--wood);text-decoration:none;}
     <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
   </ul>
 </nav>
+<div class="page-banner">
+  <div class="page-banner-label">✦ L'Esprit Large</div>
+  <h1>Les Escapades</h1>
+  <p>Nos sélections thématiques & voyages littéraires</p>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -635,9 +670,9 @@ footer a{color:var(--wood);text-decoration:none;}
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com" style="color:var(--cream);opacity:.7;">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
     <p class="footer-desc" style="margin-top:.8rem;">
-      🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
+      🕐 <strong style="color:#b86060;">Horaires</strong><br/>
       Lun : 14h30 – 18h00<br/>
       Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
       Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
@@ -663,7 +698,7 @@ footer a{color:var(--wood);text-decoration:none;}
       <li>Commande &amp; réservation</li>
       <li>Carte cadeau</li>
       <li>🥪 Casse-croûte Littéraire</li>
-      <li>🚲 Livraison locale<br/><span style="font-size:.75rem;opacity:.7;font-style:italic;">Gratuite à Guérande sur commande</span></li>
+      <li>🚲 Livraison locale</li>
       <li>Mentions légales</li>
     </ul>
   </div>

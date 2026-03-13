@@ -6,6 +6,72 @@
   <title>Coups de cœur — L'Esprit Large</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--wood-dark);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.7rem 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,.3);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .55rem;
+      text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 800; color: var(--cream);
+    }
+    .nav-logo-text em { color: var(--wood-light); font-style: italic; }
+    .nav-links { display: flex; gap: 0; list-style: none; }
+    .nav-links a {
+      font-family: 'Raleway', sans-serif;
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase;
+      color: rgba(242,240,239,.72); text-decoration: none;
+      padding: .45rem .75rem; border-radius: 3px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
+    .nav-links a.nav-active {
+      color: var(--cream);
+      background: rgba(255,255,255,.15);
+      font-weight: 700;
+    }
+    @media (max-width: 800px) { .nav-links { display: none; } }
+    .page-banner {
+      background: var(--wood-dark);
+      padding: 3rem 2.5rem 2.5rem;
+      border-bottom: 3px solid var(--wood-light);
+    }
+    .page-banner-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: .68rem; font-weight: 700;
+      letter-spacing: .2em; text-transform: uppercase;
+      color: var(--wood-light); margin-bottom: .6rem;
+    }
+    .page-banner h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 900; font-style: italic;
+      color: var(--cream); line-height: 1.1; margin-bottom: .5rem;
+    }
+    .page-banner p {
+      font-family: 'Lora', serif;
+      font-size: .92rem; font-style: italic;
+      color: rgba(242,240,239,.6);
+    }
+    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
+    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: .6rem; }
+    .footer-desc { font-size: .82rem; opacity: .65; line-height: 1.7; }
+    .footer-desc a { color: var(--cream); }
+    .footer-h { font-family: 'Raleway',sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: .8rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: .4rem; }
+    .footer-links a { font-size: .82rem; opacity: .7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-bottom { background: #3a0e0e; text-align: center; font-size: .72rem; padding: .8rem; opacity: .5; font-family: 'Raleway',sans-serif; }
+    @media (max-width: 800px) { }
     :root {
       --cream: #f2f0ef;
       --warm-white: #f7f5f4;
@@ -21,15 +87,7 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { font-family: 'Lora', serif; background: var(--warm-white); color: var(--ink); }
-
-    /* ── NAV ── */
-    nav { position: sticky; top: 0; z-index: 100; background: var(--wood-dark); display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
-    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 800; color: var(--cream); text-decoration: none; letter-spacing: 0.02em; }
-    .nav-logo span { color: var(--wood-light); font-style: italic; }
-    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
-    .nav-links a { font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,240,239,.75); text-decoration: none; transition: color .2s; }
-    .nav-links a:hover { color: var(--cream); }
-    @media (max-width: 700px) { .nav-links { display: none; } }
+    @media (max-width: 700px) { }
 
     /* ── HÉRO ── */
     .hero {
@@ -171,15 +229,6 @@
     .coups-vide span { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
 
     /* ── FOOTER ── */
-    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 4rem; }
-    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: 0.6rem; }
-    .footer-desc { font-size: 0.82rem; opacity: 0.65; line-height: 1.7; }
-    .footer-h { font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: 0.8rem; }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 0.4rem; }
-    .footer-links a { font-size: 0.82rem; opacity: 0.7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
-    .footer-links a:hover { opacity: 1; }
-    .footer-bottom { background: #3a0e0e; text-align: center; font-size: 0.72rem; padding: 0.8rem; opacity: 0.5; }
 
     @media (max-width: 600px) {
       .coups-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
@@ -191,9 +240,13 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="https://esprit-large.com/">L'<span>Esprit</span> Large</a>
+  <a class="nav-logo" href="https://esprit-large.com/">
+    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
+    <span class="nav-logo-text">L'<em>Esprit</em> Large</span>
+  </a>
   <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/coups.html" class="nav-active">❤️ Coups de cœur</a></li>
     <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
     <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
     <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
@@ -203,8 +256,14 @@
 </nav>
 
 <!-- HÉRO -->
-<div class="hero">
-  <div class="hero-label">❤️ L'équipe vous recommande</div>
+<div class="page-banner">
+  <div class="page-banner-label">✦ L'Esprit Large</div>
+  <h1>Nos Coups de cœur</h1>
+  <p>La sélection de l'équipe, avec amour</p>
+</div>
+  <h1>Nos Coups de cœur</h1>
+  <p>La sélection de l'équipe, avec amour</p>
+</div>
   <h1>Nos Coups de cœur</h1>
   <div class="hero-divider"></div>
   <p>Des livres choisis avec passion par l'équipe de la librairie — romans, BD, essais, jeunesse. Ce qu'on a adoré, et pourquoi.</p>
@@ -232,9 +291,9 @@
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">
-      🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">
+      🕐 <strong style="color:#b86060;">Horaires</strong><br/>
       Lun : 14h30 – 18h00<br/>
       Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
       Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
@@ -245,78 +304,26 @@
     <p class="footer-h">Navigation</p>
     <ul class="footer-links">
       <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
-      <li><a href="https://esprit-large.com/coups.html">Coups de cœur</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
       <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
       <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
       <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
       <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
       <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
     </ul>
   </div>
+  <div>
+    <p class="footer-h">Infos pratiques</p>
+    <ul class="footer-links">
+      <li>Commande &amp; réservation</li>
+      <li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li>
+      <li>🚲 Livraison locale</li>
+      <li>Mentions légales</li>
+    </ul>
+  </div>
 </footer>
 <div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
-<script>
-let tousLesCoups = [];
-let filtreActif = 'tous';
-
-const EMOJI = { Roman: '📖', BD: '🎨', Jeunesse: '🌟', Essai: '💡' };
-
-function filtrer(cat, btn) {
-  filtreActif = cat;
-  document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderCoups();
-}
-
-function renderCoups() {
-  const grid = document.getElementById('coups-grid');
-  const count = document.getElementById('coups-count');
-
-  const visibles = filtreActif === 'tous'
-    ? tousLesCoups
-    : tousLesCoups.filter(c => c.categorie === filtreActif);
-
-  count.textContent = visibles.length + ' coup' + (visibles.length > 1 ? 's' : '') + ' de cœur';
-
-  if (!visibles.length) {
-    grid.innerHTML = `<div class="coups-vide" style="grid-column:1/-1"><span>📚</span>Aucun coup de cœur dans cette catégorie pour l'instant.</div>`;
-    return;
-  }
-
-  grid.innerHTML = visibles.map(c => {
-    const emoji = EMOJI[c.categorie] || '📖';
-    const cover = c.couverture
-      ? `<img class="coup-cover" src="${c.couverture}" alt="${c.titre}" loading="lazy" onerror="this.outerHTML='<div class=coup-cover-ph>${emoji}</div>'">`
-      : `<div class="coup-cover-ph">${emoji}</div>`;
-    return `<div class="coup-card">
-      <div class="coup-cover-wrap">
-        ${cover}
-        ${c.categorie ? `<div class="coup-categorie-badge">${c.categorie}</div>` : ''}
-      </div>
-      <div class="coup-body">
-        <div class="coup-titre">${c.titre || '(Sans titre)'}</div>
-        ${c.auteur ? `<div class="coup-auteur">${c.auteur}</div>` : ''}
-        ${c.citation ? `<div class="coup-citation">${c.citation}</div>` : ''}
-        ${c.libraire ? `<div class="coup-libraire">— ${c.libraire}</div>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-}
-
-async function charger() {
-  try {
-    const r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
-    if (!r.ok) throw new Error();
-    const data = await r.json();
-    tousLesCoups = data.coups || [];
-    renderCoups();
-  } catch(e) {
-    document.getElementById('coups-grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;font-family:\'Lora\',serif;font-style:italic;color:var(--ink-soft);">Impossible de charger les coups de cœur.</div>';
-  }
-}
-
-charger();
-</script>
 </body>
 </html>
