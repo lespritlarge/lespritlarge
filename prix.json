@@ -5,14 +5,6 @@
     "description": "Chaque année, la librairie L'Esprit Large récompense un premier roman remarquable. Un prix né de la conviction que les premières voix méritent d'être entendues.",
     "editions": [
       {
-        "annee": 2013,
-        "titre": "La Fabrique du Monde",
-        "auteur": "Sophie Van-der-Linden",
-        "editeur": "Buchet-Castel",
-        "couverture": "https://www.babelio.com/couv/CVT_La-fabrique-du-monde_3049.jpg",
-        "note": ""
-      },
-      {
         "annee": 2025,
         "titre": "Nourrices",
         "auteur": "Séverine Cressan",
@@ -123,6 +115,14 @@
         "editeur": "Albin Michel",
         "couverture": "https://www.livreshebdo.fr/sites/default/files/styles/book_full_top/public/assets/images/9782226258274.jpg?itok=FfL9zQtH",
         "note": ""
+      },
+      {
+        "annee": 2013,
+        "titre": "La Fabrique du Monde",
+        "auteur": "Sophie Van-der-Linden",
+        "editeur": "Buchet-Castel",
+        "couverture": "https://www.babelio.com/couv/CVT_La-fabrique-du-monde_3049.jpg",
+        "note": ""
       }
     ]
   },
@@ -131,6 +131,46 @@
     "description": "Pendant 6 mois, les lecteurs et lectrices de la librairie et des médiathèques participantes lisent une sélection de 6 bandes dessinées choisies selon des critères stricts : parution dans l'année précédente, auteur·rice peu ou méconnu·e, œuvre « one shot » sans suite. Rencontres et débats sont organisés à l'initiative des établissements. Un vote par points clôture la session : 5 points à distribuer sur 3 BD maximum, vote nominatif et non anonyme, plusieurs votes par famille acceptés. En partenariat avec les médiathèques de la région.",
     "partenaires": "Médiathèques de la région",
     "editions": [
+      {
+        "annee": 2026,
+        "titre": "",
+        "auteur": "",
+        "editeur": "",
+        "couverture": "",
+        "note": "",
+        "selection": [
+          {
+            "titre": "Katya",
+            "auteur": "Antoine Schiffers",
+            "couverture": "https://www.casterman.com/media/cache/couverture_large/casterman_img/Couvertures/9782203284241.jpg"
+          },
+          {
+            "titre": "Em silêncio",
+            "auteur": "Adeline Casier",
+            "couverture": "https://www.la-boite-a-bulles.com/assets/CatalogueArticle/820/9782849535257_21853_R400.jpg"
+          },
+          {
+            "titre": "L'amourante",
+            "auteur": "Pierre Alexandrine",
+            "couverture": "https://media.hachette.fr/fit-in/500x500/imgArticle/GLENAT/2025/9782344059692-001-X.jpeg?source=web&v=5995c05d73741078cb1fc46828d4281d"
+          },
+          {
+            "titre": "A travers la nuit",
+            "auteur": "Joanna lorho",
+            "couverture": "https://employe-du-moi.org/IMG/logo/a_travers_la_nuit_couv.jpg?1752672300"
+          },
+          {
+            "titre": "Les étincelles",
+            "auteur": "Pauline Lega",
+            "couverture": "https://editions-sarbacane.com/media/pages/bd/les-etincelles/7b30e2edc6-1743581881/les-etincelles_couv_web_ok-400x-q80.webp"
+          },
+          {
+            "titre": "Démontagner",
+            "auteur": "Maxime Cain",
+            "couverture": "https://www.la-marelle.org/media/yootheme/cache/c6/c6e90787.webp"
+          }
+        ]
+      },
       {
         "annee": 2025,
         "titre": "Quand j'ai froid",
