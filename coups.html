@@ -6,239 +6,72 @@
   <title>Coups de cœur — L'Esprit Large</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--wood-dark);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.7rem 2.5rem;
-      box-shadow: 0 2px 12px rgba(0,0,0,.3);
-    }
-    .nav-logo {
-      display: flex; align-items: center; gap: .55rem;
-      text-decoration: none; flex-shrink: 0;
-    }
-    .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
-    .nav-logo-text {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 800; color: var(--cream);
-    }
-    .nav-logo-text em { color: var(--wood-light); font-style: italic; }
-    .nav-links { display: flex; gap: 0; list-style: none; }
-    .nav-links a {
-      font-family: 'Raleway', sans-serif;
-      font-size: .72rem; font-weight: 600;
-      letter-spacing: .07em; text-transform: uppercase;
-      color: rgba(242,240,239,.72); text-decoration: none;
-      padding: .45rem .75rem; border-radius: 3px;
-      transition: color .2s, background .2s;
-    }
-    .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,.08); }
-    .nav-links a.nav-active {
-      color: var(--cream);
-      background: rgba(255,255,255,.15);
-      font-weight: 700;
-    }
-    @media (max-width: 800px) { .nav-links { display: none; } }
-    .page-banner {
-      background: var(--wood-dark);
-      padding: 3rem 2.5rem 2.5rem;
-      border-bottom: 3px solid var(--wood-light);
-    }
-    .page-banner-label {
-      font-family: 'Raleway', sans-serif;
-      font-size: .68rem; font-weight: 700;
-      letter-spacing: .2em; text-transform: uppercase;
-      color: var(--wood-light); margin-bottom: .6rem;
-    }
-    .page-banner h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      font-weight: 900; font-style: italic;
-      color: var(--cream); line-height: 1.1; margin-bottom: .5rem;
-    }
-    .page-banner p {
-      font-family: 'Lora', serif;
-      font-size: .92rem; font-style: italic;
-      color: rgba(242,240,239,.6);
-    }
-    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
-    .footer-logo { font-family: 'Playfair Display',serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: .6rem; }
-    .footer-desc { font-size: .82rem; opacity: .65; line-height: 1.7; }
-    .footer-desc a { color: var(--cream); }
-    .footer-h { font-family: 'Raleway',sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: .8rem; }
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: .4rem; }
-    .footer-links a { font-size: .82rem; opacity: .7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
-    .footer-links a:hover { opacity: 1; }
-    .footer-bottom { background: #3a0e0e; text-align: center; font-size: .72rem; padding: .8rem; opacity: .5; font-family: 'Raleway',sans-serif; }
-    @media (max-width: 800px) { }
     :root {
-      --cream: #f2f0ef;
-      --warm-white: #f7f5f4;
-      --wood: #8b2e2e;
-      --wood-dark: #5c1a1a;
-      --wood-light: #b86060;
-      --amber: #9e3a3a;
-      --ink: #1e1e1e;
-      --ink-soft: #5a4a4a;
-      --parchment: #ebe8e8;
+      --cream: #f2f0ef; --warm-white: #f7f5f4;
+      --wood: #8b2e2e; --wood-dark: #5c1a1a; --wood-light: #b86060;
+      --ink: #1e1e1e; --ink-soft: #5a4a4a; --parchment: #ebe8e8;
       --shadow: rgba(30,10,10,0.13);
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Lora', serif; background: var(--warm-white); color: var(--ink); }
-    @media (max-width: 700px) { }
-
-    /* ── HÉRO ── */
-    .hero {
-      background: var(--wood-dark);
-      padding: 4.5rem 2rem 3.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '❤';
-      position: absolute;
-      font-size: 26rem;
-      color: rgba(255,255,255,.025);
-      top: -4rem; left: 50%;
-      transform: translateX(-50%);
-      pointer-events: none;
-    }
-    .hero-label { font-family: 'Raleway', sans-serif; font-size: .7rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--wood-light); margin-bottom: .9rem; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; font-style: italic; color: var(--cream); line-height: 1.1; margin-bottom: 1rem; }
-    .hero p { font-family: 'Lora', serif; font-size: .95rem; color: rgba(242,240,239,.6); max-width: 520px; margin: 0 auto; line-height: 1.7; }
-    .hero-divider { width: 50px; height: 2px; background: var(--wood-light); margin: 1.5rem auto; border-radius: 2px; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Lora',serif; background:var(--warm-white); color:var(--ink); }
+    /* ── NAV ── */
+    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
+    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo img { width:40px; height:40px; object-fit:contain; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:var(--cream); }
+    .nav-logo-text em { color:var(--wood-light); font-style:italic; }
+    .nav-links { display:flex; gap:0; list-style:none; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
+    .nav-links a:hover { color:var(--cream); background:rgba(255,255,255,.08); }
+    .nav-links a.nav-active { color:var(--cream); background:rgba(255,255,255,.15); font-weight:700; }
+    @media(max-width:800px){ .nav-links{display:none;} }
+    /* ── BANNER ── */
+    .page-banner { background:var(--wood-dark); padding:3rem 2.5rem 2.5rem; border-bottom:3px solid var(--wood-light); }
+    .page-banner-label { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.6rem; }
+    .page-banner h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; font-style:italic; color:var(--cream); line-height:1.1; margin-bottom:.5rem; }
+    .page-banner p { font-family:'Lora',serif; font-size:.92rem; font-style:italic; color:rgba(242,240,239,.6); }
     /* ── FILTRES ── */
-    .filtres-bar {
-      background: #fff;
-      border-bottom: 1px solid var(--parchment);
-      padding: .9rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: .6rem;
-      flex-wrap: wrap;
-      position: sticky;
-      top: 52px;
-      z-index: 90;
-    }
-    .filtre-btn {
-      font-family: 'Raleway', sans-serif;
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      background: var(--warm-white);
-      border: 1.5px solid var(--parchment);
-      border-radius: 20px;
-      padding: .4rem 1.1rem;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .filtre-btn:hover { border-color: var(--wood-light); color: var(--wood); }
-    .filtre-btn.active { background: var(--wood); color: var(--cream); border-color: var(--wood); }
-
+    .filtres-bar { background:#fff; border-bottom:1px solid var(--parchment); padding:.9rem 2rem; display:flex; justify-content:center; gap:.6rem; flex-wrap:wrap; position:sticky; top:55px; z-index:90; }
+    .filtre-btn { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); background:var(--warm-white); border:1.5px solid var(--parchment); border-radius:20px; padding:.4rem 1.1rem; cursor:pointer; transition:all .2s; }
+    .filtre-btn:hover { border-color:var(--wood-light); color:var(--wood); }
+    .filtre-btn.active { background:var(--wood); color:var(--cream); border-color:var(--wood); }
     /* ── GRILLE ── */
-    .coups-container { max-width: 1100px; margin: 3rem auto; padding: 0 2rem; }
-    .coups-count { font-family: 'Raleway', sans-serif; font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 1.5rem; }
-    .coups-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.8rem;
-    }
-
+    .coups-container { max-width:1100px; margin:3rem auto; padding:0 2rem; }
+    .coups-count { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:1.5rem; }
+    .coups-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.8rem; }
     /* ── CARTE ── */
-    .coup-card {
-      background: #fff;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 2px 12px var(--shadow);
-      display: flex;
-      flex-direction: column;
-      transition: transform .2s, box-shadow .2s;
-      cursor: pointer;
-    }
-    .coup-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(42,31,20,.15); }
-    .coup-cover-wrap {
-      position: relative;
-      padding-top: 140%;
-      background: var(--parchment);
-      overflow: hidden;
-    }
-    .coup-cover {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform .3s;
-    }
-    .coup-card:hover .coup-cover { transform: scale(1.04); }
-    .coup-cover-ph {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
-    .coup-categorie-badge {
-      position: absolute;
-      top: .6rem;
-      left: .6rem;
-      font-family: 'Raleway', sans-serif;
-      font-size: .58rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      background: var(--wood);
-      color: var(--cream);
-      border-radius: 3px;
-      padding: .2rem .5rem;
-    }
-    .coup-body { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; gap: .35rem; }
-    .coup-titre { font-family: 'Playfair Display', serif; font-size: .95rem; font-weight: 700; color: var(--ink); line-height: 1.3; }
-    .coup-auteur { font-family: 'Lora', serif; font-size: .8rem; font-style: italic; color: var(--ink-soft); }
-    .coup-citation {
-      font-family: 'Lora', serif;
-      font-size: .8rem;
-      font-style: italic;
-      color: var(--ink-soft);
-      line-height: 1.55;
-      flex: 1;
-      margin-top: .3rem;
-      padding-top: .5rem;
-      border-top: 1px solid var(--parchment);
-    }
-    .coup-citation::before { content: '« '; color: var(--wood-light); }
-    .coup-citation::after  { content: ' »'; color: var(--wood-light); }
-    .coup-libraire {
-      font-family: 'Raleway', sans-serif;
-      font-size: .65rem;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--wood);
-    }
-
-    /* ── VIDE ── */
-    .coups-vide { text-align: center; padding: 4rem 2rem; font-family: 'Lora', serif; font-style: italic; color: var(--ink-soft); }
-    .coups-vide span { font-size: 2.5rem; display: block; margin-bottom: 1rem; }
-
+    .coup-card { background:#fff; border-radius:8px; overflow:hidden; box-shadow:0 2px 12px var(--shadow); display:flex; flex-direction:column; transition:transform .2s,box-shadow .2s; }
+    .coup-card:hover { transform:translateY(-4px); box-shadow:0 10px 28px rgba(42,31,20,.15); }
+    .coup-cover-wrap { position:relative; padding-top:140%; background:var(--parchment); overflow:hidden; }
+    .coup-cover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .3s; }
+    .coup-card:hover .coup-cover { transform:scale(1.04); }
+    .coup-cover-ph { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+    .coup-cat-badge { position:absolute; top:.6rem; left:.6rem; font-family:'Raleway',sans-serif; font-size:.58rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:var(--wood); color:var(--cream); border-radius:3px; padding:.2rem .5rem; }
+    .coup-body { padding:1rem 1.1rem 1.2rem; flex:1; display:flex; flex-direction:column; gap:.35rem; }
+    .coup-titre { font-family:'Playfair Display',serif; font-size:.95rem; font-weight:700; color:var(--ink); line-height:1.3; }
+    .coup-auteur { font-family:'Lora',serif; font-size:.8rem; font-style:italic; color:var(--ink-soft); }
+    .coup-citation { font-family:'Lora',serif; font-size:.8rem; font-style:italic; color:var(--ink-soft); line-height:1.55; flex:1; margin-top:.3rem; padding-top:.5rem; border-top:1px solid var(--parchment); }
+    .coup-citation::before { content:'« '; color:var(--wood-light); }
+    .coup-citation::after  { content:' »'; color:var(--wood-light); }
+    .coup-libraire { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--wood); }
+    .coups-vide { grid-column:1/-1; text-align:center; padding:4rem 2rem; font-family:'Lora',serif; font-style:italic; color:var(--ink-soft); }
     /* ── FOOTER ── */
-
-    @media (max-width: 600px) {
-      .coups-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1rem; }
-      .filtres-bar { padding: .7rem 1rem; }
-    }
+    footer { background:var(--wood-dark); color:var(--cream); padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
+    .footer-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
+    .footer-desc a { color:var(--cream); }
+    .footer-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:.4rem; }
+    .footer-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:var(--cream); transition:opacity .2s; }
+    .footer-links a:hover { opacity:1; }
+    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
+    @media(max-width:600px) { .coups-grid{ grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; } }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="https://esprit-large.com/">
     <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
@@ -255,30 +88,20 @@
   </ul>
 </nav>
 
-<!-- HÉRO -->
 <div class="page-banner">
   <div class="page-banner-label">✦ L'Esprit Large</div>
   <h1>Nos Coups de cœur</h1>
   <p>La sélection de l'équipe, avec amour</p>
 </div>
-  <h1>Nos Coups de cœur</h1>
-  <p>La sélection de l'équipe, avec amour</p>
-</div>
-  <h1>Nos Coups de cœur</h1>
-  <div class="hero-divider"></div>
-  <p>Des livres choisis avec passion par l'équipe de la librairie — romans, BD, essais, jeunesse. Ce qu'on a adoré, et pourquoi.</p>
-</div>
 
-<!-- FILTRES -->
 <div class="filtres-bar">
-  <button class="filtre-btn active" onclick="filtrer('tous', this)">Tous</button>
-  <button class="filtre-btn" onclick="filtrer('Roman', this)">Romans</button>
-  <button class="filtre-btn" onclick="filtrer('BD', this)">BD</button>
-  <button class="filtre-btn" onclick="filtrer('Jeunesse', this)">Jeunesse</button>
-  <button class="filtre-btn" onclick="filtrer('Essai', this)">Essais</button>
+  <button class="filtre-btn active" onclick="filtrer('tous',this)">Tous</button>
+  <button class="filtre-btn" onclick="filtrer('Roman',this)">Romans</button>
+  <button class="filtre-btn" onclick="filtrer('BD',this)">BD</button>
+  <button class="filtre-btn" onclick="filtrer('Jeunesse',this)">Jeunesse</button>
+  <button class="filtre-btn" onclick="filtrer('Essai',this)">Essais</button>
 </div>
 
-<!-- GRILLE -->
 <div class="coups-container">
   <div class="coups-count" id="coups-count"></div>
   <div class="coups-grid" id="coups-grid">
@@ -286,19 +109,12 @@
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer id="contact">
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
     <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
-    <p class="footer-desc" style="margin-top:.8rem;">
-      🕐 <strong style="color:#b86060;">Horaires</strong><br/>
-      Lun : 14h30 – 18h00<br/>
-      Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
-      Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
-      Dim &amp; Fériés : fermé
-    </p>
+    <p class="footer-desc" style="margin-top:.8rem;">🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>Lun : 14h30 – 18h00<br/>Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
     <p class="footer-h">Navigation</p>
@@ -316,14 +132,67 @@
   <div>
     <p class="footer-h">Infos pratiques</p>
     <ul class="footer-links">
-      <li>Commande &amp; réservation</li>
-      <li>Carte cadeau</li>
-      <li>🥪 Casse-croûte Littéraire</li>
-      <li>🚲 Livraison locale</li>
+      <li>Commande &amp; réservation</li><li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li><li>🚲 Livraison locale</li>
       <li>Mentions légales</li>
     </ul>
   </div>
 </footer>
 <div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+
+<script>
+let tousLesCoups = [];
+let filtreActif = 'tous';
+const EMOJI = { Roman:'📖', BD:'🎨', Jeunesse:'🌟', Essai:'💡' };
+
+function filtrer(cat, btn) {
+  filtreActif = cat;
+  document.querySelectorAll('.filtre-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCoups();
+}
+
+function renderCoups() {
+  const grid = document.getElementById('coups-grid');
+  const countEl = document.getElementById('coups-count');
+  const visibles = filtreActif === 'tous' ? tousLesCoups : tousLesCoups.filter(c => c.categorie === filtreActif);
+  countEl.textContent = visibles.length + ' coup' + (visibles.length > 1 ? 's' : '') + ' de cœur';
+  if (!visibles.length) {
+    grid.innerHTML = '<div class="coups-vide"><span>📚</span>Aucun coup de cœur dans cette catégorie.</div>';
+    return;
+  }
+  grid.innerHTML = visibles.map(c => {
+    const emoji = EMOJI[c.categorie] || '📖';
+    const cover = c.couverture
+      ? `<img class="coup-cover" src="${c.couverture}" alt="${c.titre}" loading="lazy" onerror="this.outerHTML='<div class=coup-cover-ph>${emoji}</div>'">`
+      : `<div class="coup-cover-ph">${emoji}</div>`;
+    return `<div class="coup-card">
+      <div class="coup-cover-wrap">
+        ${cover}
+        ${c.categorie ? `<div class="coup-cat-badge">${c.categorie}</div>` : ''}
+      </div>
+      <div class="coup-body">
+        <div class="coup-titre">${c.titre || '(Sans titre)'}</div>
+        ${c.auteur ? `<div class="coup-auteur">${c.auteur}</div>` : ''}
+        ${c.citation ? `<div class="coup-citation">${c.citation}</div>` : ''}
+        ${c.libraire ? `<div class="coup-libraire">— ${c.libraire}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function charger() {
+  try {
+    const r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    tousLesCoups = data.coups || [];
+    renderCoups();
+  } catch(e) {
+    document.getElementById('coups-grid').innerHTML = '<div class="coups-vide"><span>😔</span>Impossible de charger les coups de cœur.</div>';
+  }
+}
+charger();
+</script>
 </body>
 </html>
