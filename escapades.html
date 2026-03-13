@@ -38,7 +38,7 @@ nav {
 
 /* ── HERO ── */
 .hero {
-  margin-top:80px;
+  margin-top:0;
   padding:5rem 4rem 4rem;
   background:var(--dark);
   position:relative;overflow:hidden;
@@ -315,16 +315,42 @@ footer a{color:var(--wood);text-decoration:none;}
   .section-form{padding:3rem 1.2rem;}
   .section-how{padding:3rem 1.2rem;}
 }
-</style>
+    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark); display:flex; align-items:center; justify-content:space-between; padding:0.8rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.25); }
+    .nav-logo a { display:flex; align-items:center; gap:.5rem; text-decoration:none; }
+    .nav-links { display:flex; gap:1.3rem; list-style:none; flex-wrap:nowrap; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:0.73rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(242,240,239,.78); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:#fff; }
+    @media(max-width:750px) { .nav-links { display:none; } }
+      footer { background:var(--wood-dark); color:var(--cream); padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
+    .footer-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
+    .footer-desc a { color:var(--cream); }
+    .footer-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:.4rem; }
+    .footer-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:var(--cream); transition:opacity .2s; }
+    .footer-links a:hover { opacity:1; }
+    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
+  </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-logo">
-    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'"/>
-    L'<span>Esprit</span> Large
-  </a>
-  <a href="index.html" class="nav-back">← Retour au site</a>
+  <div class="nav-logo">
+    <a href="https://esprit-large.com/" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+      <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;object-fit:contain;" />
+      <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--cream);">L'<span style="color:var(--wood-light);font-style:italic;">Esprit</span> Large</span>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+    <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+    <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+    <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+    <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -605,153 +631,43 @@ footer a{color:var(--wood);text-decoration:none;}
   </div>
 </section>
 
-<footer>
-  © 2026 Librairie L'Esprit Large · 12 Rue Vannetaise, Guérande · <a href="tel:0240234444">02 40 23 44 44</a> · <a href="index.html">Retour au site</a>
+<footer id="contact">
+  <div>
+    <div class="footer-logo">L'Esprit Large</div>
+    <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com" style="color:var(--cream);opacity:.7;">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">
+      🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
+      Lun : 14h30 – 18h00<br/>
+      Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
+      Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
+      Dim &amp; Fériés : fermé
+    </p>
+  </div>
+  <div>
+    <p class="footer-h">Navigation</p>
+    <ul class="footer-links">
+      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
+      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-h">Infos pratiques</p>
+    <ul class="footer-links">
+      <li>Commande &amp; réservation</li>
+      <li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li>
+      <li>🚲 Livraison locale<br/><span style="font-size:.75rem;opacity:.7;font-style:italic;">Gratuite à Guérande sur commande</span></li>
+      <li>Mentions légales</li>
+    </ul>
+  </div>
 </footer>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ── FORMULE SÉLECTIONNÉE ──────────────────
-
-const formuleData = {
-  petite:    { label: 'Petite Escapade',    prix: '10€/mois',  value: 'Petite Escapade — 10€/mois' },
-  escapade:  { label: 'Escapade',           prix: '20€/mois',  value: 'Escapade — 20€/mois' },
-  grande:    { label: 'Grande Escapade',    prix: '25€/mois',  value: 'Grande Escapade — 25€/mois' },
-  jeune:     { label: 'Jeune Escapade',     prix: '18€/mois',  value: 'Jeune Escapade — 18€/mois' },
-  illustree: { label: 'Escapade Illustrée', prix: '25€/mois',  value: 'Escapade Illustrée — 25€/mois' },
-};
-
-let selectedFormule = null;
-
-function choisirFormule(key, card) {
-  // Mettre à jour les cartes visuelles
-  document.querySelectorAll('.formule-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
-  selectedFormule = formuleData[key];
-
-  // Synchroniser le formulaire en bas
-  document.querySelectorAll('.form-formule-opt').forEach(opt => {
-    opt.classList.remove('selected');
-    const radio = opt.querySelector('input[type=radio]');
-    if (radio.value === selectedFormule.value) {
-      opt.classList.add('selected');
-      radio.checked = true;
-    }
-  });
-
-  mettreAJourRecap();
-
-  // Scroll vers le formulaire
-  setTimeout(() => {
-    document.getElementById('inscription').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 300);
-}
-
-function choisirFormuleForm(value, label) {
-  document.querySelectorAll('.form-formule-opt').forEach(o => o.classList.remove('selected'));
-  label.classList.add('selected');
-  // Trouver la formule correspondante
-  selectedFormule = Object.values(formuleData).find(f => f.value === value) || null;
-  mettreAJourRecap();
-}
-
-// ── GENRES ───────────────────────────────
-
-const genresAimes  = new Set();
-const genresEvites = new Set();
-
-function toggleGenre(el, type) {
-  const set = type === 'aime' ? genresAimes : genresEvites;
-  el.classList.toggle('active');
-  if (el.classList.contains('active')) set.add(el.textContent);
-  else set.delete(el.textContent);
-}
-
-// ── RÉCAPITULATIF ─────────────────────────
-
-function mettreAJourRecap() {
-  const prenom = document.getElementById('fPrenom').value.trim();
-  const nom    = document.getElementById('fNom').value.trim();
-  const email  = document.getElementById('fEmail').value.trim();
-  if (!selectedFormule) return;
-  document.getElementById('rFormule').textContent = selectedFormule.label;
-  document.getElementById('rNom').textContent     = [prenom, nom].filter(Boolean).join(' ') || '—';
-  document.getElementById('rEmail').textContent   = email || '—';
-  document.getElementById('rPrix').textContent    = selectedFormule.prix;
-  document.getElementById('recap').classList.add('show');
-}
-
-['fPrenom','fNom','fEmail'].forEach(id => {
-  document.getElementById(id).addEventListener('input', mettreAJourRecap);
-});
-
-// ── SOUMISSION ────────────────────────────
-
-async function soumettre() {
-  const prenom  = document.getElementById('fPrenom').value.trim();
-  const nom     = document.getElementById('fNom').value.trim();
-  const email   = document.getElementById('fEmail').value.trim();
-
-  if (!selectedFormule) { toast('⚠️ Veuillez choisir une formule.'); return; }
-  if (!prenom) { toast('⚠️ Veuillez indiquer votre prénom.'); return; }
-  if (!email || !email.includes('@')) { toast('⚠️ Veuillez indiquer un email valide.'); return; }
-
-  const btn = document.getElementById('btnSubmit');
-  btn.disabled = true;
-  btn.textContent = '⏳  Envoi en cours…';
-
-  const body = {
-    formule:    selectedFormule.value,
-    prenom,
-    nom,
-    email,
-    telephone:  document.getElementById('fTel').value.trim(),
-    pour:       document.getElementById('fPour').value,
-    genres_aimes:  [...genresAimes].join(', ') || 'Non précisé',
-    genres_evites: [...genresEvites].join(', ') || 'Non précisé',
-    livres_aimes:  document.getElementById('fAimes').value.trim() || 'Non précisé',
-    livres_evites: document.getElementById('fEvites').value.trim() || 'Non précisé',
-    message:    document.getElementById('fMessage').value.trim(),
-    _subject:   `Nouvelle Escapade : ${selectedFormule.label} — ${prenom} ${nom}`,
-  };
-
-  try {
-    const res = await fetch('https://formspree.io/f/mvzwkqzn', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(body)
-    });
-    const data = await res.json();
-    if (data.ok) {
-      document.getElementById('sPrenom').textContent = prenom;
-      document.getElementById('sEmail').textContent  = email;
-      document.getElementById('theForm').style.display = 'none';
-      document.getElementById('successMsg').classList.add('show');
-      window.scrollTo({ top: document.getElementById('inscription').offsetTop - 100, behavior: 'smooth' });
-    } else {
-      toast('⚠️ Une erreur est survenue. Réessayez ou appelez-nous au 02 40 23 44 44.');
-      btn.disabled = false;
-      btn.innerHTML = '✉️ &nbsp; Envoyer ma demande d\'inscription';
-    }
-  } catch(e) {
-    toast('⚠️ Erreur réseau. Vérifiez votre connexion.');
-    btn.disabled = false;
-    btn.innerHTML = '✉️ &nbsp; Envoyer ma demande d\'inscription';
-  }
-}
-
-// ── TOAST ─────────────────────────────────
-function toast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
-}
-
-// Synchroniser si on revient via le hash #formules
-if (location.hash === '#inscription') {
-  document.getElementById('inscription').scrollIntoView();
-}
-</script>
+<div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
 </body>
 </html>

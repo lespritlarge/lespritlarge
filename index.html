@@ -688,7 +688,7 @@
     <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;vertical-align:middle;margin-right:0.5rem;object-fit:contain;" />
     L'<span>Esprit</span> Large
   </div>
-  <ul class="nav-links">
+    <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
     <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
     <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
@@ -749,7 +749,15 @@
     </div>
     <a href="https://esprit-large.com/coups.html" class="voir-tout">Tous nos coups de cœur →</a>
   </div>
-  <div class="coup-grid" id="coupGrid"></div>
+  <div id="coupGridWrapper" style="overflow:hidden;transition:max-height .5s cubic-bezier(.4,0,.2,1);max-height:230px;position:relative;">
+    <div class="coup-grid" id="coupGrid"></div>
+    <div id="coupFade" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent, var(--parchment));pointer-events:none;"></div>
+  </div>
+  <div style="text-align:center;margin-top:1rem;">
+    <button id="coupToggleBtn" onclick="toggleCoups()" style="font-family:'Raleway',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);background:none;border:1.5px solid rgba(139,46,46,.3);border-radius:20px;padding:.45rem 1.4rem;cursor:pointer;transition:all .2s;">
+      Voir tous les coups de cœur ▾
+    </button>
+  </div>
 </section>
 
 <!-- ÉVÉNEMENTS À VENIR -->
@@ -848,16 +856,16 @@
     </p>
   </div>
   <div>
-    <p class="footer-h">Navigation</p>
+        <p class="footer-h">Navigation</p>
     <ul class="footer-links">
-      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
       <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
-    <li><a href="https://esprit-large.com/coups.html">Coups de cœur</a></li>
-      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
       <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
       <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
-      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
       <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
     </ul>
   </div>
   <div>
@@ -1303,9 +1311,26 @@ async function chargerEvenements() {
   }
 }
 
+function toggleCoups() {
+  const wrapper = document.getElementById('coupGridWrapper');
+  const btn     = document.getElementById('coupToggleBtn');
+  const fade    = document.getElementById('coupFade');
+  const isOpen  = wrapper.style.maxHeight === 'none' || parseInt(wrapper.style.maxHeight) > 220;
+  if (isOpen) {
+    wrapper.style.maxHeight = '220px';
+    btn.textContent = 'Voir tous les coups de cœur ▾';
+    fade.style.display = 'block';
+    wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } else {
+    wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+    btn.textContent = 'Réduire ▴';
+    fade.style.display = 'none';
+  }
+}
+
 async function chargerCoups() {
   try {
-    var r = await fetch('coups.json?t=' + Date.now());
+    var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
     if (!r.ok) return;
     var data = await r.json();
     var grid = document.getElementById('coupGrid');

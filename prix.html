@@ -526,12 +526,19 @@
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="https://esprit-large.com/">L'<span>Esprit</span> Large</a>
+  <div class="nav-logo">
+    <a href="https://esprit-large.com/" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+      <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;object-fit:contain;" />
+      <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--cream);">L'<span style="color:var(--wood-light);font-style:italic;">Esprit</span> Large</span>
+    </a>
+  </div>
   <ul class="nav-links">
     <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
     <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
     <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
     <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
     <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
   </ul>
 </nav>
@@ -627,8 +634,8 @@
   <div>
     <div class="footer-logo">L'Esprit Large</div>
     <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44</p>
-    <p class="footer-desc" style="margin-top:0.8rem;">
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com" style="color:var(--cream);opacity:.7;">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">
       🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
       Lun : 14h30 – 18h00<br/>
       Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
@@ -640,169 +647,26 @@
     <p class="footer-h">Navigation</p>
     <ul class="footer-links">
       <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
       <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
       <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
       <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
-      <li><a href="https://esprit-large.com/prix.html">Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
+      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
       <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-h">Infos pratiques</p>
+    <ul class="footer-links">
+      <li>Commande &amp; réservation</li>
+      <li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li>
+      <li>🚲 Livraison locale<br/><span style="font-size:.75rem;opacity:.7;font-style:italic;">Gratuite à Guérande sur commande</span></li>
+      <li>Mentions légales</li>
     </ul>
   </div>
 </footer>
 <div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
-<script>
-function switchPrix(id, btn) {
-  document.querySelectorAll('.prix-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.prix-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('section-' + id).classList.add('active');
-  btn.classList.add('active');
-}
-
-function toggleAccordeon(btn) {
-  btn.classList.toggle('open');
-  btn.nextElementSibling.classList.toggle('open');
-}
-
-function renderPalmares(editions, containerId) {
-  const container = document.getElementById(containerId);
-  if (!editions || !editions.length) {
-    container.innerHTML = '<div class="loading">Aucun lauréat enregistré pour l\'instant.</div>';
-    return;
-  }
-
-  const isVague = containerId.includes('vague');
-  const sorted = [...editions].sort((a, b) => b.annee - a.annee);
-
-  container.innerHTML = sorted.map((e, i) => {
-    const isLatest = i === 0;
-    const vide = !e.titre || e.titre === 'À compléter';
-    const emoji = isVague ? '🎨' : '📖';
-    const coverHtml = e.couverture
-      ? `<img class="palmares-cover" src="${e.couverture}" alt="${e.titre}" onerror="this.outerHTML='<div class=palmares-cover-ph>${emoji}</div>'">`
-      : `<div class="palmares-cover-ph">${emoji}</div>`;
-
-    const sel = e.selection || [];
-    const hasSelection = sel.length > 0;
-    const labelSel = isVague ? 'Voir la sélection' : 'Voir les nominés';
-
-    const selItems = sel.map(s => {
-      const isWinner = e.titre && s.titre && s.titre.trim() === e.titre.trim();
-      const coverItem = s.couverture
-        ? `<img class="sel-cover" src="${s.couverture}" alt="${s.titre}" onerror="this.outerHTML='<div class=sel-cover-ph>${emoji}</div>'">`
-        : `<div class="sel-cover-ph">${emoji}</div>`;
-      return `<div class="sel-item">
-        ${coverItem}
-        ${isWinner ? '<div class="sel-laureat-badge">★ Lauréat·e</div>' : ''}
-        <div class="sel-titre">${s.titre||''}</div>
-        ${s.auteur ? `<div class="sel-auteur">${s.auteur}</div>` : ''}
-      </div>`;
-    }).join('');
-
-    const accordeon = hasSelection ? `
-      <button class="palmares-toggle" onclick="toggleAccordeon(this)">
-        <span>${labelSel} ${e.annee} — ${sel.length} ${isVague ? 'BD' : sel.length > 1 ? 'romans' : 'roman'}</span>
-        <span class="toggle-arrow">▶</span>
-      </button>
-      <div class="palmares-accordeon">
-        <div class="sel-grid">${selItems}</div>
-      </div>` : '';
-
-    return `<div class="palmares-card${isLatest ? ' laureat-latest' : ''}${vide ? ' palmares-vide' : ''}">
-      <div class="palmares-card-top">
-        <div class="palmares-annee">
-          <div class="annee-num">${e.annee}</div>
-          <div class="annee-label">${isLatest ? '★ Dernier' : 'Édition'}</div>
-        </div>
-        ${coverHtml}
-        <div class="palmares-info">
-          ${isLatest ? '<div class="palmares-trophy">★ Lauréat·e</div>' : ''}
-          <div class="palmares-titre-livre">${vide ? 'À venir' : e.titre}</div>
-          ${e.auteur && e.auteur !== 'À compléter' ? `<div class="palmares-auteur">${e.auteur}</div>` : ''}
-          ${e.editeur ? `<div class="palmares-editeur">${e.editeur}</div>` : ''}
-          ${e.note ? `<div class="palmares-note">${e.note}</div>` : ''}
-        </div>
-      </div>
-      ${accordeon}
-    </div>`;
-  }).join('');
-}
-
-
-async function chargerPrix() {
-  try {
-    const r = await fetch('prix.json?t=' + Date.now());
-    if (!r.ok) throw new Error();
-    const data = await r.json();
-
-    // Prix du Premier Roman
-    const pr = data.prix_premier_roman;
-    if (pr) {
-      document.getElementById('desc-roman').textContent = pr.description || '';
-      renderPalmares(pr.editions, 'palmares-roman');
-    }
-
-    // Prix Première Vague
-    const pv = data.prix_premiere_vague;
-    if (pv) {
-      document.getElementById('desc-vague').textContent = pv.description || '';
-      if (pv.partenaires) document.getElementById('partenaires-vague').textContent = pv.partenaires;
-
-      // Détecter l'édition en cours = la plus récente sans lauréat défini
-      const editions = pv.editions || [];
-      const anneeActuelle = new Date().getFullYear();
-      const enCours = editions
-        .slice()
-        .sort((a, b) => b.annee - a.annee)
-        .find(e => !e.titre || e.titre === 'À compléter' || e.annee >= anneeActuelle);
-
-      if (enCours && enCours.selection && enCours.selection.length > 0) {
-        document.getElementById('prix-en-cours-block').style.display = 'block';
-        document.getElementById('pec-annee').textContent = enCours.annee;
-
-        // Statut du vote selon la date
-        const now = new Date();
-        const anneeVote = enCours.annee;
-        const debut = new Date(anneeVote, 5, 15);  // 15 juin
-        const fin   = new Date(anneeVote, 8, 15);  // 15 septembre
-        let statut, couleur;
-        if (now < debut) {
-          statut = 'Vote ouvert le 15 juin';
-          couleur = 'rgba(242,240,239,.5)';
-        } else if (now <= fin) {
-          statut = '🗳️ Vote ouvert jusqu\'au 15 septembre';
-          couleur = 'var(--gold-light)';
-        } else {
-          statut = 'Vote clôturé';
-          couleur = 'rgba(242,240,239,.5)';
-        }
-        const statutEl = document.getElementById('pec-vote-statut');
-        if (statutEl) { statutEl.textContent = statut; statutEl.style.color = couleur; }
-
-        const grid = document.getElementById('pec-selection');
-        grid.innerHTML = enCours.selection.map(s => {
-          const cover = s.couverture
-            ? `<img class="pec-cover" src="${s.couverture}" alt="${s.titre}" onerror="this.outerHTML='<div class=pec-cover-ph>🎨</div>'">`
-            : `<div class="pec-cover-ph">🎨</div>`;
-          return `<div class="pec-item">
-            ${cover}
-            <div class="pec-titre-bd">${s.titre || ''}</div>
-            ${s.auteur ? `<div class="pec-auteur-bd">${s.auteur}</div>` : ''}
-          </div>`;
-        }).join('');
-      }
-
-      // Palmarès = éditions avec un lauréat
-      const avecLaureat = editions.filter(e => e.titre && e.titre !== 'À compléter' && (!enCours || e.annee !== enCours.annee));
-      renderPalmares(avecLaureat.length ? avecLaureat : editions, 'palmares-vague');
-    }
-
-  } catch(e) {
-    document.getElementById('palmares-roman').innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
-    document.getElementById('palmares-vague').innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
-  }
-}
-
-chargerPrix();
-</script>
 </body>
 </html>

@@ -247,17 +247,43 @@
       .carousel-btn.next { right: -10px; }
       .carousel-wrap { max-width: 100%; }
     }
+      nav { position:sticky; top:0; z-index:100; background:var(--wood-dark); display:flex; align-items:center; justify-content:space-between; padding:0.8rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.25); }
+    .nav-logo a { display:flex; align-items:center; gap:.5rem; text-decoration:none; }
+    .nav-links { display:flex; gap:1.3rem; list-style:none; flex-wrap:nowrap; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:0.73rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(242,240,239,.78); text-decoration:none; transition:color .2s; }
+    .nav-links a:hover { color:#fff; }
+    @media(max-width:750px) { .nav-links { display:none; } }
+      footer { background:var(--wood-dark); color:var(--cream); padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
+    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
+    .footer-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
+    .footer-desc a { color:var(--cream); }
+    .footer-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
+    .footer-links { list-style:none; }
+    .footer-links li { margin-bottom:.4rem; }
+    .footer-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:var(--cream); transition:opacity .2s; }
+    .footer-links a:hover { opacity:1; }
+    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="https://esprit-large.com/index.html" class="nav-logo">
-    <img src="images/logo.png" alt="Logo" />
-    <span>L'Esprit Large</span>
-  </a>
-  <a href="index.html#newsletter" class="nav-back">← Retour au site</a>
+  <div class="nav-logo">
+    <a href="https://esprit-large.com/" style="display:flex;align-items:center;gap:.5rem;text-decoration:none;">
+      <img src="images/logo.png" alt="Logo L'Esprit Large" style="width:42px;height:42px;object-fit:contain;" />
+      <span style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:800;color:var(--cream);">L'<span style="color:var(--wood-light);font-style:italic;">Esprit</span> Large</span>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+    <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+    <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+    <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+    <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+  </ul>
 </nav>
 
 <!-- HEADER -->
@@ -428,5 +454,43 @@ document.addEventListener('keydown', e => {
 
 chargerArchives();
 </script>
+<footer id="contact">
+  <div>
+    <div class="footer-logo">L'Esprit Large</div>
+    <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
+    <p class="footer-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44 · 📧 <a href="mailto:contact@esprit-large.com" style="color:var(--cream);opacity:.7;">contact@esprit-large.com</a></p>
+    <p class="footer-desc" style="margin-top:.8rem;">
+      🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
+      Lun : 14h30 – 18h00<br/>
+      Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
+      Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
+      Dim &amp; Fériés : fermé
+    </p>
+  </div>
+  <div>
+    <p class="footer-h">Navigation</p>
+    <ul class="footer-links">
+      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
+      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="footer-h">Infos pratiques</p>
+    <ul class="footer-links">
+      <li>Commande &amp; réservation</li>
+      <li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li>
+      <li>🚲 Livraison locale<br/><span style="font-size:.75rem;opacity:.7;font-style:italic;">Gratuite à Guérande sur commande</span></li>
+      <li>Mentions légales</li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
 </body>
 </html>
