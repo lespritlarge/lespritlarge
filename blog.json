@@ -1,4 +1,15 @@
 {
-  "mis_a_jour": "2026-03-10T00:00:00.000Z",
-  "articles": []
+  "mis_a_jour": "2026-03-13T12:47:26.053Z",
+  "articles": [
+    {
+      "id": "1773406046053",
+      "titre": "grgd",
+      "categorie": "Vie de la librairie",
+      "date": "2026-03-13",
+      "texte": "adzdcazda",
+      "image": "",
+      "lien": "",
+      "lien_label": ""
+    }
+  ]
 }
