@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nos Prix — L'Esprit Large</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,800;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #f2f0ef;
+      --warm-white: #f7f5f4;
+      --wood: #8b2e2e;
+      --wood-dark: #5c1a1a;
+      --wood-light: #b86060;
+      --amber: #9e3a3a;
+      --ink: #1e1e1e;
+      --ink-soft: #5a4a4a;
+      --parchment: #ebe8e8;
+      --shadow: rgba(30,10,10,0.13);
+      --gold: #c9a84c;
+      --gold-light: #e8d08a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Lora', serif; background: var(--warm-white); color: var(--ink); }
+
+    /* ── NAV ── */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--wood-dark); display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 800; color: var(--cream); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-logo span { color: var(--wood-light); font-style: italic; }
+    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
+    .nav-links a { font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,240,239,.75); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--cream); }
+    @media (max-width: 700px) { .nav-links { display: none; } }
+
+    /* ── HÉRO PRIX ── */
+    .prix-hero {
+      background: var(--wood-dark);
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .prix-hero::before {
+      content: '★';
+      position: absolute;
+      font-size: 28rem;
+      color: rgba(255,255,255,.025);
+      top: -6rem;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: serif;
+      pointer-events: none;
+    }
+    .prix-hero-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 1rem;
+    }
+    .prix-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      font-style: italic;
+      color: var(--cream);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    .prix-hero p {
+      font-family: 'Lora', serif;
+      font-size: 1rem;
+      color: rgba(242,240,239,.65);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .prix-hero-divider {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.8rem auto;
+      border-radius: 2px;
+    }
+
+    /* ── TABS ── */
+    .prix-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      background: var(--parchment);
+      border-bottom: 2px solid rgba(139,46,46,.15);
+      position: sticky;
+      top: 52px;
+      z-index: 90;
+    }
+    .prix-tab {
+      font-family: 'Raleway', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      padding: 1rem 2.5rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all .2s;
+    }
+    .prix-tab.active { color: var(--wood); border-bottom-color: var(--wood); }
+    .prix-tab:hover { color: var(--wood); }
+
+    /* ── SECTIONS PRIX ── */
+    .prix-section { display: none; }
+    .prix-section.active { display: block; }
+
+    /* ── DESCRIPTION PRIX ── */
+    .prix-desc-block {
+      max-width: 780px;
+      margin: 3.5rem auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+    .prix-desc-block h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--wood-dark);
+      margin-bottom: 1.2rem;
+    }
+    .prix-desc-block p {
+      font-family: 'Lora', serif;
+      font-size: .97rem;
+      color: var(--ink-soft);
+      line-height: 1.85;
+    }
+    .prix-desc-divider {
+      width: 40px;
+      height: 2px;
+      background: var(--gold);
+      margin: 1.5rem auto;
+      border-radius: 2px;
+    }
+
+    /* ── RÈGLES VAGUE ── */
+    .regles-grid {
+      max-width: 860px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .regle-card {
+      background: #fff;
+      border-radius: 6px;
+      padding: 1.3rem 1.5rem;
+      box-shadow: 0 2px 10px rgba(42,31,20,.07);
+      border-left: 3px solid var(--wood);
+    }
+    .regle-card .regle-icon { font-size: 1.4rem; margin-bottom: .5rem; }
+    .regle-card p {
+      font-family: 'Lora', serif;
+      font-size: .85rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+    }
+    .regle-card strong {
+      font-family: 'Raleway', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--wood);
+      display: block;
+      margin-bottom: .3rem;
+    }
+
+    /* ── PALMARÈS ── */
+    .palmares-titre {
+      font-family: 'Raleway', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: center;
+      margin: 3rem 0 1.5rem;
+    }
+    .palmares-grid {
+      max-width: 960px;
+      margin: 0 auto 4rem;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .palmares-card {
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(42,31,20,.08);
+      display: flex;
+      align-items: stretch;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .palmares-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(42,31,20,.14); }
+    .palmares-card.laureat-latest {
+      border: 2px solid var(--gold);
+      grid-column: 1 / -1;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .palmares-annee {
+      background: var(--wood-dark);
+      color: var(--cream);
+      min-width: 64px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem .5rem;
+      flex-shrink: 0;
+    }
+    .palmares-annee .annee-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .palmares-annee .annee-label {
+      font-family: 'Raleway', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(242,240,239,.5);
+      margin-top: .2rem;
+    }
+    .palmares-card.laureat-latest .palmares-annee { background: var(--gold); }
+    .palmares-card.laureat-latest .palmares-annee .annee-num { color: var(--wood-dark); }
+    .palmares-card.laureat-latest .palmares-annee .annee-label { color: rgba(92,26,26,.6); }
+    .palmares-cover {
+      width: 72px;
+      height: 100px;
+      object-fit: cover;
+      flex-shrink: 0;
+      align-self: center;
+      margin: .8rem .6rem;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.2);
+    }
+    .palmares-cover-ph {
+      width: 72px;
+      height: 100px;
+      background: var(--parchment);
+      flex-shrink: 0;
+      align-self: center;
+      margin: .8rem .6rem;
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+    .palmares-info {
+      padding: 1rem 1.1rem 1rem .5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .palmares-trophy {
+      font-size: .75rem;
+      color: var(--gold);
+      margin-bottom: .3rem;
+    }
+    .palmares-titre-livre {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: .3rem;
+    }
+    .palmares-auteur {
+      font-family: 'Lora', serif;
+      font-size: .82rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-bottom: .3rem;
+    }
+    .palmares-editeur {
+      font-family: 'Raleway', sans-serif;
+      font-size: .68rem;
+      font-weight: 600;
+      color: var(--wood-light);
+      letter-spacing: .05em;
+    }
+    .palmares-note {
+      font-family: 'Lora', serif;
+      font-size: .78rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      margin-top: .4rem;
+      line-height: 1.5;
+    }
+    .palmares-vide .palmares-titre-livre {
+      color: var(--parchment);
+      font-style: italic;
+    }
+    .palmares-vide { opacity: .5; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--wood-dark); color: var(--cream); padding: 3rem 4rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+    .footer-logo { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 800; font-style: italic; margin-bottom: 0.6rem; }
+    .footer-desc { font-size: 0.82rem; opacity: 0.65; line-height: 1.7; }
+    .footer-h { font-family: 'Raleway', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--wood-light); margin-bottom: 0.8rem; }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.4rem; }
+    .footer-links a { font-size: 0.82rem; opacity: 0.7; text-decoration: none; color: var(--cream); transition: opacity .2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-bottom { background: #3a0e0e; text-align: center; font-size: 0.72rem; padding: 0.8rem; opacity: 0.5; }
+
+    /* ── LOADING ── */
+    .loading { text-align: center; padding: 3rem; font-family: 'Lora', serif; font-style: italic; color: var(--ink-soft); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="https://esprit-large.com/">L'<span>Esprit</span> Large</a>
+  <ul class="nav-links">
+    <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+    <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+    <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+  </ul>
+</nav>
+
+<!-- HÉRO -->
+<div class="prix-hero">
+  <div class="prix-hero-label">★ Librairie L'Esprit Large</div>
+  <h1>Nos Prix Littéraires</h1>
+  <div class="prix-hero-divider"></div>
+  <p>Parce que certains livres méritent d'être célébrés. Deux prix nés de notre passion pour la littérature et la bande dessinée, portés par les lecteurs et les libraires.</p>
+</div>
+
+<!-- TABS -->
+<div class="prix-tabs">
+  <button class="prix-tab active" onclick="switchPrix('roman', this)">Prix du Premier Roman</button>
+  <button class="prix-tab" onclick="switchPrix('vague', this)">Prix Première Vague</button>
+</div>
+
+<!-- ── PRIX DU PREMIER ROMAN ── -->
+<div class="prix-section active" id="section-roman">
+  <div class="prix-desc-block">
+    <h2>Prix du Premier Roman</h2>
+    <div class="prix-desc-divider"></div>
+    <p id="desc-roman">Chaque année, la librairie L'Esprit Large récompense un premier roman remarquable. Un prix né de la conviction que les premières voix méritent d'être entendues.</p>
+  </div>
+  <div class="palmares-titre">✦ Palmarès — 12 éditions</div>
+  <div class="palmares-grid" id="palmares-roman">
+    <div class="loading">Chargement du palmarès…</div>
+  </div>
+</div>
+
+<!-- ── PRIX PREMIÈRE VAGUE ── -->
+<div class="prix-section" id="section-vague">
+  <div class="prix-desc-block">
+    <h2>Prix Première Vague</h2>
+    <div class="prix-desc-divider"></div>
+    <p id="desc-vague">En partenariat avec les médiathèques de la région, ce prix célèbre la bande dessinée indépendante et les voix émergentes.</p>
+  </div>
+
+  <div class="regles-grid">
+    <div class="regle-card">
+      <div class="regle-icon">📚</div>
+      <strong>La sélection</strong>
+      <p>6 bandes dessinées choisies chaque année : parues dans l'année précédente, « one shot » sans suite, d'auteur·rice peu ou méconnu·e.</p>
+    </div>
+    <div class="regle-card">
+      <div class="regle-icon">🗓️</div>
+      <strong>Le calendrier</strong>
+      <p>6 mois de lecture, de rencontres et de débats organisés par la librairie et les médiathèques partenaires.</p>
+    </div>
+    <div class="regle-card">
+      <div class="regle-icon">🗳️</div>
+      <strong>Le vote</strong>
+      <p>5 points à distribuer sur 3 BD maximum. Vote nominatif et non anonyme. Plusieurs votes par famille acceptés.</p>
+    </div>
+    <div class="regle-card">
+      <div class="regle-icon">🤝</div>
+      <strong>Les partenaires</strong>
+      <p id="partenaires-vague">En partenariat avec les médiathèques de la région.</p>
+    </div>
+  </div>
+
+  <div class="palmares-titre">✦ Palmarès</div>
+  <div class="palmares-grid" id="palmares-vague">
+    <div class="loading">Chargement du palmarès…</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <div class="footer-logo">L'Esprit Large</div>
+    <p class="footer-desc">Librairie indépendante au cœur de Guérande.</p>
+    <p class="footer-desc" style="margin-top:0.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44</p>
+    <p class="footer-desc" style="margin-top:0.8rem;">
+      🕐 <strong style="color:var(--wood-light);">Horaires</strong><br/>
+      Lun : 14h30 – 18h00<br/>
+      Mar, Mer, Ven, Sam : 9h30 – 19h00<br/>
+      Jeu : 9h30 – 12h30 &amp; 14h30 – 18h30<br/>
+      Dim &amp; Fériés : fermé
+    </p>
+  </div>
+  <div>
+    <p class="footer-h">Navigation</p>
+    <ul class="footer-links">
+      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/prix.html">Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+
+<script>
+function switchPrix(id, btn) {
+  document.querySelectorAll('.prix-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.prix-tab').forEach(b => b.classList.remove('active'));
+  document.getElementById('section-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+function renderPalmares(editions, containerId) {
+  const container = document.getElementById(containerId);
+  if (!editions || !editions.length) {
+    container.innerHTML = '<div class="loading">Aucun lauréat enregistré pour l\'instant.</div>';
+    return;
+  }
+
+  // Trier par année décroissante
+  const sorted = [...editions].sort((a, b) => b.annee - a.annee);
+
+  container.innerHTML = sorted.map((e, i) => {
+    const isLatest = i === 0;
+    const vide = !e.titre || e.titre === 'À compléter';
+    const coverHtml = e.couverture
+      ? `<img class="palmares-cover" src="${e.couverture}" alt="${e.titre}" onerror="this.outerHTML='<div class=palmares-cover-ph>📖</div>'">`
+      : `<div class="palmares-cover-ph">${containerId.includes('vague') ? '🎨' : '📖'}</div>`;
+
+    return `<div class="palmares-card${isLatest ? ' laureat-latest' : ''}${vide ? ' palmares-vide' : ''}">
+      <div class="palmares-annee">
+        <div class="annee-num">${e.annee}</div>
+        <div class="annee-label">${isLatest ? '★ Dernier' : 'Édition'}</div>
+      </div>
+      ${coverHtml}
+      <div class="palmares-info">
+        ${isLatest ? '<div class="palmares-trophy">★ Lauréat·e</div>' : ''}
+        <div class="palmares-titre-livre">${vide ? 'À venir' : e.titre}</div>
+        ${e.auteur && e.auteur !== 'À compléter' ? `<div class="palmares-auteur">${e.auteur}</div>` : ''}
+        ${e.editeur ? `<div class="palmares-editeur">${e.editeur}</div>` : ''}
+        ${e.note ? `<div class="palmares-note">${e.note}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function chargerPrix() {
+  try {
+    const r = await fetch('prix.json?t=' + Date.now());
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+
+    // Prix du Premier Roman
+    const pr = data.prix_premier_roman;
+    if (pr) {
+      document.getElementById('desc-roman').textContent = pr.description || '';
+      renderPalmares(pr.editions, 'palmares-roman');
+    }
+
+    // Prix Première Vague
+    const pv = data.prix_premiere_vague;
+    if (pv) {
+      document.getElementById('desc-vague').textContent = pv.description || '';
+      if (pv.partenaires) document.getElementById('partenaires-vague').textContent = pv.partenaires;
+      renderPalmares(pv.editions, 'palmares-vague');
+    }
+
+  } catch(e) {
+    document.getElementById('palmares-roman').innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
+    document.getElementById('palmares-vague').innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
+  }
+}
+
+chargerPrix();
+</script>
+</body>
+</html>

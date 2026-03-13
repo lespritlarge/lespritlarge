@@ -157,6 +157,7 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
     <button class="tab" onclick="switchTab('coups',this)">❤️ Coups de cœur</button>
     <button class="tab" onclick="switchTab('tempete',this)">🌊 Avis de Tempête</button>
     <button class="tab" onclick="switchTab('apropos',this)">👥 À propos</button>
+    <button class="tab" onclick="switchTab('prix',this)">🏆 Prix</button>
   </div>
 
   <div class="body">
@@ -366,6 +367,36 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
     </div>
   </div>
 
+  <!-- PANEL PRIX -->
+  <div class="panel" id="panel-prix">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
+
+      <!-- Prix du Premier Roman -->
+      <div style="background:#fff;border-radius:8px;padding:1.5rem;box-shadow:0 2px 12px rgba(42,31,20,.08);">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--wood-dark);margin-bottom:.3rem;">🏆 Prix du Premier Roman</h3>
+        <p style="font-family:'Lora',serif;font-size:.8rem;color:#888;font-style:italic;margin-bottom:1.2rem;">12 éditions — cliquez sur une ligne pour modifier</p>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:.3rem;">Description du prix</label>
+        <textarea id="prix-roman-desc" rows="3" style="width:100%;padding:.6rem;font-family:'Lora',serif;font-size:.85rem;border:1.5px solid #e0d8d8;border-radius:4px;resize:vertical;margin-bottom:1.2rem;"></textarea>
+        <div id="prix-roman-list" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+        <button style="margin-top:1rem;padding:.5rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.08);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;" onclick="Prix.ajouterEditionRoman()">+ Ajouter une édition</button>
+        <button class="btn-save" style="margin-top:1rem;" onclick="Prix.sauvegarder()">💾 Publier les Prix</button>
+      </div>
+
+      <!-- Prix Première Vague -->
+      <div style="background:#fff;border-radius:8px;padding:1.5rem;box-shadow:0 2px 12px rgba(42,31,20,.08);">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:var(--wood-dark);margin-bottom:.3rem;">🌊 Prix Première Vague</h3>
+        <p style="font-family:'Lora',serif;font-size:.8rem;color:#888;font-style:italic;margin-bottom:1.2rem;">BD indépendante — en partenariat avec les médiathèques</p>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:.3rem;">Description du prix</label>
+        <textarea id="prix-vague-desc" rows="3" style="width:100%;padding:.6rem;font-family:'Lora',serif;font-size:.85rem;border:1.5px solid #e0d8d8;border-radius:4px;resize:vertical;margin-bottom:.8rem;"></textarea>
+        <label style="display:block;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#888;margin-bottom:.3rem;">Partenaires</label>
+        <input type="text" id="prix-vague-partenaires" style="width:100%;padding:.6rem;font-family:'Lora',serif;font-size:.85rem;border:1.5px solid #e0d8d8;border-radius:4px;margin-bottom:1.2rem;" />
+        <div id="prix-vague-list" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+        <button style="margin-top:1rem;padding:.5rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.08);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;" onclick="Prix.ajouterEditionVague()">+ Ajouter une édition</button>
+      </div>
+
+    </div>
+  </div>
+
   </div>
 </div>
 
@@ -423,6 +454,7 @@ function switchTab(name, el) {
     _panelLoaded[name] = true;
     if (name === 'tempete')  Tempete.charger();
     if (name === 'apropos')  Apropos.charger();
+    if (name === 'prix')     Prix.charger();
     if (name === 'coups')    Coups.charger();
   }
 }
@@ -1239,6 +1271,94 @@ var Apropos = (() => {
   }
 
   return { charger, ajouterLibraire, supprimerLibraire, ajouterValeur, supprimerValeur, sauvegarder, previewPhoto };
+})();
+
+var Prix = (() => {
+  let _data = null;
+
+  function renderEditions(editions, containerId, type) {
+    const cont = document.getElementById(containerId);
+    if (!cont) return;
+    cont.innerHTML = (editions || []).map((e, i) => `
+      <div style="background:var(--warm-white);border-radius:4px;padding:.8rem 1rem;border:1px solid #e8e0e0;">
+        <div style="display:grid;grid-template-columns:80px 1fr 1fr auto;gap:.5rem;align-items:center;">
+          <input type="number" value="${e.annee||''}" placeholder="Année"
+            style="padding:.4rem;font-family:'Raleway',sans-serif;font-size:.85rem;border:1px solid #ddd;border-radius:3px;width:100%;"
+            oninput="Prix._updateField('${type}',${i},'annee',parseInt(this.value)||this.value)"/>
+          <input type="text" value="${e.titre||''}" placeholder="Titre du livre"
+            style="padding:.4rem;font-family:'Lora',serif;font-size:.85rem;border:1px solid #ddd;border-radius:3px;width:100%;"
+            oninput="Prix._updateField('${type}',${i},'titre',this.value)"/>
+          <input type="text" value="${e.auteur||''}" placeholder="Auteur·rice"
+            style="padding:.4rem;font-family:'Lora',serif;font-size:.85rem;border:1px solid #ddd;border-radius:3px;width:100%;font-style:italic;"
+            oninput="Prix._updateField('${type}',${i},'auteur',this.value)"/>
+          <button onclick="Prix._supprimer('${type}',${i})" style="background:none;border:none;cursor:pointer;color:#c0392b;font-size:1rem;padding:.2rem;" title="Supprimer">🗑</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-top:.4rem;">
+          <input type="text" value="${e.editeur||''}" placeholder="Éditeur"
+            style="padding:.4rem;font-family:'Lora',serif;font-size:.8rem;border:1px solid #ddd;border-radius:3px;width:100%;"
+            oninput="Prix._updateField('${type}',${i},'editeur',this.value)"/>
+          <input type="text" value="${e.couverture||''}" placeholder="URL couverture (optionnel)"
+            style="padding:.4rem;font-family:'Lora',serif;font-size:.8rem;border:1px solid #ddd;border-radius:3px;width:100%;"
+            oninput="Prix._updateField('${type}',${i},'couverture',this.value)"/>
+        </div>
+        <input type="text" value="${e.note||''}" placeholder="Note ou citation (optionnel)"
+          style="padding:.4rem;font-family:'Lora',serif;font-size:.8rem;border:1px solid #ddd;border-radius:3px;width:100%;margin-top:.4rem;font-style:italic;"
+          oninput="Prix._updateField('${type}',${i},'note',this.value)"/>
+      </div>
+    `).join('');
+  }
+
+  return {
+    charger: async function() {
+      const { data } = await ghRead('prix.json');
+      _data = data || {
+        prix_premier_roman: { nom: 'Prix du Premier Roman', description: '', editions: [] },
+        prix_premiere_vague: { nom: 'Prix Première Vague', description: '', partenaires: '', editions: [] }
+      };
+      // Remplir les champs
+      document.getElementById('prix-roman-desc').value = _data.prix_premier_roman?.description || '';
+      document.getElementById('prix-vague-desc').value = _data.prix_premiere_vague?.description || '';
+      document.getElementById('prix-vague-partenaires').value = _data.prix_premiere_vague?.partenaires || '';
+      renderEditions(_data.prix_premier_roman?.editions, 'prix-roman-list', 'roman');
+      renderEditions(_data.prix_premiere_vague?.editions, 'prix-vague-list', 'vague');
+    },
+
+    _updateField: function(type, idx, field, val) {
+      const key = type === 'roman' ? 'prix_premier_roman' : 'prix_premiere_vague';
+      if (_data && _data[key] && _data[key].editions[idx] !== undefined) {
+        _data[key].editions[idx][field] = val;
+      }
+    },
+
+    _supprimer: function(type, idx) {
+      if (!confirm('Supprimer cette édition ?')) return;
+      const key = type === 'roman' ? 'prix_premier_roman' : 'prix_premiere_vague';
+      _data[key].editions.splice(idx, 1);
+      renderEditions(_data[key].editions, 'prix-' + type + '-list', type);
+    },
+
+    ajouterEditionRoman: function() {
+      const annee = new Date().getFullYear();
+      _data.prix_premier_roman.editions.push({ annee, titre: '', auteur: '', editeur: '', couverture: '', note: '' });
+      renderEditions(_data.prix_premier_roman.editions, 'prix-roman-list', 'roman');
+    },
+
+    ajouterEditionVague: function() {
+      const annee = new Date().getFullYear();
+      _data.prix_premiere_vague.editions.push({ annee, titre: '', auteur: '', editeur: '', couverture: '', note: '' });
+      renderEditions(_data.prix_premiere_vague.editions, 'prix-vague-list', 'vague');
+    },
+
+    sauvegarder: async function() {
+      if (!_data) return;
+      _data.prix_premier_roman.description = document.getElementById('prix-roman-desc').value;
+      _data.prix_premiere_vague.description = document.getElementById('prix-vague-desc').value;
+      _data.prix_premiere_vague.partenaires = document.getElementById('prix-vague-partenaires').value;
+      _data.mis_a_jour = new Date().toISOString().slice(0, 10);
+      const ok = await ghWrite('prix.json', _data, 'Prix mis à jour');
+      if (ok) toast('✅ Prix publiés !');
+    }
+  };
 })();
 
 function init() { loadToken(); Blog.charger(); Evts.charger(); Coups.charger(); Tempete.charger(); Apropos.charger(); }
