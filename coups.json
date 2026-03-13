@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-13T16:33:13.132Z",
+  "mis_a_jour": "2026-03-13T16:33:38.247Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -34,6 +34,15 @@
       "citation": "Tu seras un homme, mon fils.",
       "libraire": "Aurélien",
       "categorie": "BD"
+    },
+    {
+      "ean": "9782925416760",
+      "titre": "Petit pas",
+      "auteur": "Marion Richez",
+      "couverture": "https://books.google.com/books/content?id=vu_U0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      "citation": "La lumière au bout du couloir...",
+      "libraire": "Aurélien",
+      "categorie": "Roman"
     }
   ]
 }
