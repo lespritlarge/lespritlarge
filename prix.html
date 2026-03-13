@@ -311,28 +311,95 @@
       margin-top: .4rem;
       line-height: 1.5;
     }
-    .palmares-selection {
-      margin-top: .6rem;
-      padding-top: .6rem;
+    /* ── ACCORDÉON SÉLECTION ── */
+    .palmares-card { flex-direction: column; }
+    .palmares-card-top { display: flex; align-items: stretch; width: 100%; }
+    .palmares-toggle {
+      width: 100%;
+      background: none;
+      border: none;
       border-top: 1px solid var(--parchment);
-    }
-    .palmares-selection-label {
+      padding: .55rem 1rem;
+      cursor: pointer;
       font-family: 'Raleway', sans-serif;
-      font-size: .62rem;
+      font-size: .65rem;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
-      color: var(--wood-light);
-      margin-bottom: .3rem;
+      color: var(--wood);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: .5rem;
+      transition: background .15s;
     }
-    .palmares-selection-item {
+    .palmares-toggle:hover { background: rgba(139,46,46,.04); }
+    .palmares-toggle .toggle-arrow { transition: transform .25s; font-style: normal; font-size: .7rem; }
+    .palmares-toggle.open .toggle-arrow { transform: rotate(90deg); }
+    .palmares-accordeon {
+      display: none;
+      padding: .8rem 1rem 1rem;
+      background: var(--warm-white);
+      border-top: 1px solid var(--parchment);
+    }
+    .palmares-accordeon.open { display: block; }
+    .sel-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: .8rem;
+      margin-top: .5rem;
+    }
+    .sel-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: .4rem;
+    }
+    .sel-cover {
+      width: 72px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.18);
+      display: block;
+    }
+    .sel-cover-ph {
+      width: 72px;
+      height: 100px;
+      background: var(--parchment);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .sel-titre {
       font-family: 'Lora', serif;
-      font-size: .76rem;
-      color: var(--ink-soft);
-      line-height: 1.5;
+      font-size: .75rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
     }
-    .sel-titre { font-weight: 500; color: var(--ink); }
-    .sel-auteur { font-style: italic; }
+    .sel-auteur {
+      font-family: 'Lora', serif;
+      font-size: .7rem;
+      font-style: italic;
+      color: var(--ink-soft);
+      line-height: 1.3;
+    }
+    .sel-laureat-badge {
+      font-family: 'Raleway', sans-serif;
+      font-size: .58rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201,168,76,.12);
+      border-radius: 2px;
+      padding: .15rem .4rem;
+    }
     .palmares-vide .palmares-titre-livre {
       color: var(--parchment);
       font-style: italic;
@@ -468,49 +535,75 @@ function switchPrix(id, btn) {
   btn.classList.add('active');
 }
 
+function toggleAccordeon(btn) {
+  btn.classList.toggle('open');
+  btn.nextElementSibling.classList.toggle('open');
+}
+
 function renderPalmares(editions, containerId) {
   const container = document.getElementById(containerId);
   if (!editions || !editions.length) {
-    container.innerHTML = '<div class="loading">Aucun lauréat enregistré pour l\'instant.</div>';
+    container.innerHTML = '<div class="loading">Aucun lauréat enregistré pour l'instant.</div>';
     return;
   }
 
-  // Trier par année décroissante
+  const isVague = containerId.includes('vague');
   const sorted = [...editions].sort((a, b) => b.annee - a.annee);
 
   container.innerHTML = sorted.map((e, i) => {
     const isLatest = i === 0;
     const vide = !e.titre || e.titre === 'À compléter';
+    const emoji = isVague ? '🎨' : '📖';
     const coverHtml = e.couverture
-      ? `<img class="palmares-cover" src="${e.couverture}" alt="${e.titre}" onerror="this.outerHTML='<div class=palmares-cover-ph>📖</div>'">`
-      : `<div class="palmares-cover-ph">${containerId.includes('vague') ? '🎨' : '📖'}</div>`;
+      ? `<img class="palmares-cover" src="${e.couverture}" alt="${e.titre}" onerror="this.outerHTML='<div class=palmares-cover-ph>${emoji}</div>'">`
+      : `<div class="palmares-cover-ph">${emoji}</div>`;
 
-    const selectionHtml = (e.selection && e.selection.length)
-      ? `<div class="palmares-selection">
-          <div class="palmares-selection-label">Sélection ${e.annee}</div>
-          ${e.selection.map(s => `<div class="palmares-selection-item">
-            <span class="sel-titre">${s.titre||''}</span>
-            ${s.auteur ? `<span class="sel-auteur"> — ${s.auteur}</span>` : ''}
-          </div>`).join('')}
-        </div>` : '';
+    const sel = e.selection || [];
+    const hasSelection = sel.length > 0;
+    const labelSel = isVague ? 'Voir la sélection' : 'Voir les nominés';
+
+    const selItems = sel.map(s => {
+      const isWinner = e.titre && s.titre && s.titre.trim() === e.titre.trim();
+      const coverItem = s.couverture
+        ? `<img class="sel-cover" src="${s.couverture}" alt="${s.titre}" onerror="this.outerHTML='<div class=sel-cover-ph>${emoji}</div>'">`
+        : `<div class="sel-cover-ph">${emoji}</div>`;
+      return `<div class="sel-item">
+        ${coverItem}
+        ${isWinner ? '<div class="sel-laureat-badge">★ Lauréat·e</div>' : ''}
+        <div class="sel-titre">${s.titre||''}</div>
+        ${s.auteur ? `<div class="sel-auteur">${s.auteur}</div>` : ''}
+      </div>`;
+    }).join('');
+
+    const accordeon = hasSelection ? `
+      <button class="palmares-toggle" onclick="toggleAccordeon(this)">
+        <span>${labelSel} ${e.annee} — ${sel.length} ${isVague ? 'BD' : sel.length > 1 ? 'romans' : 'roman'}</span>
+        <span class="toggle-arrow">▶</span>
+      </button>
+      <div class="palmares-accordeon">
+        <div class="sel-grid">${selItems}</div>
+      </div>` : '';
 
     return `<div class="palmares-card${isLatest ? ' laureat-latest' : ''}${vide ? ' palmares-vide' : ''}">
-      <div class="palmares-annee">
-        <div class="annee-num">${e.annee}</div>
-        <div class="annee-label">${isLatest ? '★ Dernier' : 'Édition'}</div>
+      <div class="palmares-card-top">
+        <div class="palmares-annee">
+          <div class="annee-num">${e.annee}</div>
+          <div class="annee-label">${isLatest ? '★ Dernier' : 'Édition'}</div>
+        </div>
+        ${coverHtml}
+        <div class="palmares-info">
+          ${isLatest ? '<div class="palmares-trophy">★ Lauréat·e</div>' : ''}
+          <div class="palmares-titre-livre">${vide ? 'À venir' : e.titre}</div>
+          ${e.auteur && e.auteur !== 'À compléter' ? `<div class="palmares-auteur">${e.auteur}</div>` : ''}
+          ${e.editeur ? `<div class="palmares-editeur">${e.editeur}</div>` : ''}
+          ${e.note ? `<div class="palmares-note">${e.note}</div>` : ''}
+        </div>
       </div>
-      ${coverHtml}
-      <div class="palmares-info">
-        ${isLatest ? '<div class="palmares-trophy">★ Lauréat·e</div>' : ''}
-        <div class="palmares-titre-livre">${vide ? 'À venir' : e.titre}</div>
-        ${e.auteur && e.auteur !== 'À compléter' ? `<div class="palmares-auteur">${e.auteur}</div>` : ''}
-        ${e.editeur ? `<div class="palmares-editeur">${e.editeur}</div>` : ''}
-        ${e.note ? `<div class="palmares-note">${e.note}</div>` : ''}
-        ${selectionHtml}
-      </div>
+      ${accordeon}
     </div>`;
   }).join('');
 }
+
 
 async function chargerPrix() {
   try {

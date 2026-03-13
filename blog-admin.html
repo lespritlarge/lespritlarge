@@ -1296,14 +1296,19 @@ var Prix = (() => {
   function selectionHtml(selection, type, i) {
     if (!selection || !selection.length) return '';
     return selection.map((s, j) => `
-      <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.3rem;align-items:center;margin-top:.3rem;">
-        <input type="text" value="${s.titre||''}" placeholder="Titre BD sélectionnée"
-          style="padding:.3rem .5rem;font-family:'Lora',serif;font-size:.78rem;border:1px solid #ddd;border-radius:3px;"
-          oninput="Prix._updateSelection('${type}',${i},${j},'titre',this.value)"/>
-        <input type="text" value="${s.auteur||''}" placeholder="Auteur·rice"
-          style="padding:.3rem .5rem;font-family:'Lora',serif;font-size:.78rem;border:1px solid #ddd;border-radius:3px;font-style:italic;"
-          oninput="Prix._updateSelection('${type}',${i},${j},'auteur',this.value)"/>
-        <button onclick="Prix._supprimerSelection('${type}',${i},${j})" style="background:none;border:none;cursor:pointer;color:#c0392b;font-size:.9rem;" title="Retirer">✕</button>
+      <div style="background:#f9f6f6;border-radius:3px;padding:.5rem .6rem;border:1px solid #ede5e5;margin-top:.4rem;display:grid;gap:.3rem;">
+        <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.3rem;align-items:center;">
+          <input type="text" value="${s.titre||''}" placeholder="Titre"
+            style="padding:.3rem .5rem;font-family:'Lora',serif;font-size:.78rem;border:1px solid #ddd;border-radius:3px;"
+            oninput="Prix._updateSelection('${type}',${i},${j},'titre',this.value)"/>
+          <input type="text" value="${s.auteur||''}" placeholder="Auteur·rice"
+            style="padding:.3rem .5rem;font-family:'Lora',serif;font-size:.78rem;border:1px solid #ddd;border-radius:3px;font-style:italic;"
+            oninput="Prix._updateSelection('${type}',${i},${j},'auteur',this.value)"/>
+          <button onclick="Prix._supprimerSelection('${type}',${i},${j})" style="background:none;border:none;cursor:pointer;color:#c0392b;font-size:.9rem;" title="Retirer">✕</button>
+        </div>
+        <input type="text" value="${s.couverture||''}" placeholder="URL couverture (optionnel)"
+          style="padding:.3rem .5rem;font-family:'Lora',serif;font-size:.75rem;border:1px solid #ddd;border-radius:3px;width:100%;color:#888;"
+          oninput="Prix._updateSelection('${type}',${i},${j},'couverture',this.value)"/>
       </div>
     `).join('');
   }
@@ -1337,19 +1342,18 @@ var Prix = (() => {
         <input type="text" value="${e.note||''}" placeholder="Note ou citation (optionnel)"
           style="padding:.35rem .5rem;font-family:'Lora',serif;font-size:.78rem;border:1px solid #ddd;border-radius:3px;width:100%;margin-top:.4rem;font-style:italic;"
           oninput="Prix._updateField('${type}',${i},'note',this.value)"/>
-        ${isVague ? `
-        <details style="margin-top:.6rem;">
+        `<details style="margin-top:.6rem;">
           <summary style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.4rem;">
-            <span>▶</span> Sélection ${e.annee||''} (${(e.selection||[]).length}/6 BD)
+            <span>▶</span> Sélection ${e.annee||''} — ${(e.selection||[]).length} livre(s)
           </summary>
           <div style="margin-top:.5rem;padding:.6rem;background:#fff;border-radius:3px;border:1px solid #ede5e5;">
             <div id="selection-${type}-${i}">${selectionHtml(e.selection||[], type, i)}</div>
             <button onclick="Prix._ajouterSelection('${type}',${i})"
               style="margin-top:.5rem;padding:.3rem .7rem;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(92,26,26,.07);color:var(--wood);border:1.5px solid rgba(92,26,26,.18);border-radius:3px;cursor:pointer;">
-              + Ajouter une BD à la sélection
+              + Ajouter un livre à la sélection
             </button>
           </div>
-        </details>` : ''}
+        </details>`
       </div>
     `).join('');
   }
@@ -1386,7 +1390,7 @@ var Prix = (() => {
     _ajouterSelection: function(type, edIdx) {
       const key = type === 'roman' ? 'prix_premier_roman' : 'prix_premiere_vague';
       if (!_data[key].editions[edIdx].selection) _data[key].editions[edIdx].selection = [];
-      if (_data[key].editions[edIdx].selection.length >= 6) { toast('⚠️ Maximum 6 BD par sélection'); return; }
+
       _data[key].editions[edIdx].selection.push({ titre: '', auteur: '' });
       renderEditions(_data[key].editions, 'prix-' + type + '-list', type);
     },
