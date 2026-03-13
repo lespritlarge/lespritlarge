@@ -4,18 +4,102 @@
     "nom": "Prix du Premier Roman",
     "description": "Chaque année, la librairie L'Esprit Large récompense un premier roman remarquable. Un prix né de la conviction que les premières voix méritent d'être entendues.",
     "editions": [
-      {"annee": 2014, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2015, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2016, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2017, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2018, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2019, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2020, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2021, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2022, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2023, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2024, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2025, "titre": "À compléter", "auteur": "À compléter", "editeur": "", "couverture": "", "note": ""}
+      {
+        "annee": 2025,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2024,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2023,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2022,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2021,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2020,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2019,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2018,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2017,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2016,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2015,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      },
+      {
+        "annee": 2014,
+        "titre": "À compléter",
+        "auteur": "À compléter",
+        "editeur": "",
+        "couverture": "",
+        "note": ""
+      }
     ]
   },
   "prix_premiere_vague": {
@@ -23,9 +107,30 @@
     "description": "Pendant 6 mois, les lecteurs et lectrices de la librairie et des médiathèques participantes lisent une sélection de 6 bandes dessinées choisies selon des critères stricts : parution dans l'année précédente, auteur·rice peu ou méconnu·e, œuvre « one shot » sans suite. Rencontres et débats sont organisés à l'initiative des établissements. Un vote par points clôture la session : 5 points à distribuer sur 3 BD maximum, vote nominatif et non anonyme, plusieurs votes par famille acceptés. En partenariat avec les médiathèques de la région.",
     "partenaires": "Médiathèques de la région",
     "editions": [
-      {"annee": 2023, "titre": "Perpendiculaire au soleil", "auteur": "Valentine Cuny-Le Callet", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2024, "titre": "Des Maux à dire", "auteur": "Bea Lema", "editeur": "", "couverture": "", "note": ""},
-      {"annee": 2025, "titre": "Quand j'ai froid", "auteur": "Valentine Choquet", "editeur": "", "couverture": "", "note": ""}
+      {
+        "annee": 2025,
+        "titre": "Quand j'ai froid",
+        "auteur": "Valentine Choquet",
+        "editeur": "Editions de la Gouttiere",
+        "couverture": "https://cdn.prod.website-files.com/63ece03295abd3bc7702ae5f/65cf28e7d89c7b791e324b34__QJF_couverture_RVBHD-p-2000.webp",
+        "note": ""
+      },
+      {
+        "annee": 2024,
+        "titre": "Des Maux à dire",
+        "auteur": "Bea Lema",
+        "editeur": "Sarbacane",
+        "couverture": "https://editions-sarbacane.com/media/pages/bd/des-maux-a-dire/f61b41b70b-1689580666/des-maux-a-dire_couv_web-400x-q80.webp",
+        "note": ""
+      },
+      {
+        "annee": 2023,
+        "titre": "Perpendiculaire au soleil",
+        "auteur": "Valentine Cuny-Le Callet",
+        "editeur": "Delcourt",
+        "couverture": "",
+        "note": ""
+      }
     ]
   }
 }
