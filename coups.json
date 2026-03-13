@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-13T16:33:00.811Z",
+  "mis_a_jour": "2026-03-13T16:33:04.660Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -23,7 +23,8 @@
       "auteur": "Sébastien Dulude",
       "couverture": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1766128452i/241531435.jpg",
       "citation": "Un roman éblouissant touchant à l'universel, où bien plus qu'un minéral toxique, l'amiante se fait le symbole de la dure réalité du monde.",
-      "libraire": "Aurélien"
+      "libraire": "Aurélien",
+      "categorie": "Roman"
     },
     {
       "ean": "9782344057360",
