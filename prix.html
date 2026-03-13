@@ -577,7 +577,7 @@
     <div class="prix-en-cours-bandeau">
       <div class="pec-header">
         <div class="pec-badge">🌊 Prix en cours</div>
-        <h3 class="pec-titre">Sélection <span id="pec-annee">2026</span> — Vote ouvert</h3>
+        <h3 class="pec-titre">Sélection <span id="pec-annee">2026</span> — <span id="pec-vote-statut">Vote à venir</span></h3>
         <p class="pec-desc">Lisez les 6 BD sélectionnées et votez avant la clôture. 5 points à distribuer sur 3 BD maximum.</p>
       </div>
       <div class="pec-grid" id="pec-selection"></div>
@@ -758,6 +758,25 @@ async function chargerPrix() {
       if (enCours && enCours.selection && enCours.selection.length > 0) {
         document.getElementById('prix-en-cours-block').style.display = 'block';
         document.getElementById('pec-annee').textContent = enCours.annee;
+
+        // Statut du vote selon la date
+        const now = new Date();
+        const anneeVote = enCours.annee;
+        const debut = new Date(anneeVote, 5, 15);  // 15 juin
+        const fin   = new Date(anneeVote, 8, 15);  // 15 septembre
+        let statut, couleur;
+        if (now < debut) {
+          statut = 'Vote ouvert le 15 juin';
+          couleur = 'rgba(242,240,239,.5)';
+        } else if (now <= fin) {
+          statut = '🗳️ Vote ouvert jusqu'au 15 septembre';
+          couleur = 'var(--gold-light)';
+        } else {
+          statut = 'Vote clôturé';
+          couleur = 'rgba(242,240,239,.5)';
+        }
+        const statutEl = document.getElementById('pec-vote-statut');
+        if (statutEl) { statutEl.textContent = statut; statutEl.style.color = couleur; }
 
         const grid = document.getElementById('pec-selection');
         grid.innerHTML = enCours.selection.map(s => {
