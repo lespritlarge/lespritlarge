@@ -830,7 +830,7 @@ async function chargerPrix() {
     }
 
   } catch(e) {
-    document.getElementById('palmares-roman.innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
+    document.getElementById('palmares-roman').innerHTML = '<div class="loading">Impossible de charger le palmares.</div>';
     document.getElementById('palmares-vague').innerHTML = '<div class="loading">Impossible de charger le palmarès.</div>';
   }
 }
