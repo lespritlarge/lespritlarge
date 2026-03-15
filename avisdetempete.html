@@ -360,7 +360,7 @@ function goTo(year, n) {
 
 async function chargerArchives() {
   try {
-    const r = await fetch('avisdetempete.json?t=' + Date.now());
+    const r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/avisdetempete.json?t=' + Date.now());
     if (!r.ok) throw new Error();
     const data = await r.json();
     const numeros = data.numeros || [];
@@ -406,7 +406,17 @@ async function chargerArchives() {
     }).join('');
 
     // Init carrousels
-    annees.forEach(a => initCarousel(String(a)));
+    annees.forEach(function(a) {
+      var yr = String(a);
+      var slides = document.querySelectorAll('#carousel-' + yr + ' .carousel-slide');
+      if (!carouselState[yr]) {
+        carouselState[yr] = { current: 0, total: slides.length };
+      } else {
+        carouselState[yr].total = slides.length;
+        carouselState[yr].current = 0;
+      }
+    });
+    initDots();
     activeYear = String(annees[0]);
 
   } catch(e) {
