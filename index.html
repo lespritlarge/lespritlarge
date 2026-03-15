@@ -36,41 +36,6 @@
     }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(242,240,239,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(92,26,26,0.1);
-      padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 48px;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 800; font-style: italic;
-      color: var(--wood-dark);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-    }
-    .nav-logo span { color: var(--amber); }
-    .nav-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: nowrap; }
-    .nav-links a {
-      font-family: 'Raleway', sans-serif;
-      font-size: 0.75rem; font-weight: 500; letter-spacing: 0.07em;
-      text-transform: uppercase; text-decoration: none;
-      color: var(--ink-soft); white-space: nowrap;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--wood); }
-    .nav-cart {
-      font-family: 'Raleway', sans-serif; font-size: 0.75rem;
-      font-weight: 600; letter-spacing: 0.05em;
-      background: var(--wood); color: var(--cream);
-      border: none; cursor: pointer; white-space: nowrap;
-      padding: 0.35rem 1rem; border-radius: 2px;
-      transition: background 0.2s;
-    }
-    .nav-cart:hover { background: var(--wood-dark); }
 
     /* ── HERO ── */
     #hero {
@@ -440,13 +405,6 @@
     .toast.show { transform: translateY(0); opacity: 1; }
     .toast .toast-icon { color: var(--amber-light); margin-right: 0.5rem; }
 
-    .nav-tempete {
-      color: var(--wood) !important;
-      font-weight: 700 !important;
-      border-bottom: 2px solid var(--wood-light);
-      padding-bottom: 2px;
-    }
-    .nav-tempete:hover { color: var(--wood-dark) !important; }
 
     /* ── HERO SLIDESHOW ── */
     #hero {
@@ -636,8 +594,6 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1rem; }
-      .nav-links { display: none; }
       #hero { padding: 100px 1.5rem 3rem; }
       section { padding: 3rem 1.5rem; }
       footer { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
@@ -648,18 +604,7 @@
       .btn-event { width: 100%; text-align: center; }
     }
   
-
-    /* NAV */
-    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
-    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
-    .nav-logo img { width:40px; height:40px; object-fit:contain; }
-    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:#f2f0ef; }
-    .nav-logo-text em { color:#b86060; font-style:italic; }
-    .nav-links { display:flex; gap:0; list-style:none; }
-    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
-    .nav-links a:hover { color:#f2f0ef; background:rgba(255,255,255,.08); }
-    .nav-links a.nav-active { color:#f2f0ef; background:rgba(255,255,255,.15); font-weight:700; }
-    @media(max-width:800px){ .nav-links{display:none;} }
+@media(max-width:800px){ }
 
     /* FOOTER */
     .site-footer { background:#5c1a1a; color:#f2f0ef; padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
@@ -720,18 +665,7 @@
     .bas-btn-label { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; }
     .bas-btn-text { font-family:'Lora',serif; font-style:italic; font-size:.88rem; color:#f2f0ef; text-align:center; }
   
-
-    /* NAV */
-    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
-    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
-    .nav-logo img { width:40px; height:40px; object-fit:contain; }
-    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:#f2f0ef; }
-    .nav-logo-text em { color:#b86060; font-style:italic; }
-    .nav-links { display:flex; gap:0; list-style:none; }
-    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
-    .nav-links a:hover { color:#f2f0ef; background:rgba(255,255,255,.08); }
-    .nav-links a.nav-active { color:#f2f0ef; background:rgba(255,255,255,.15); font-weight:700; }
-    @media(max-width:800px){ .nav-links{display:none;} }
+@media(max-width:800px){ }
 
     /* FOOTER */
     .site-footer { background:#5c1a1a; color:#f2f0ef; padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
@@ -791,7 +725,18 @@
     .bas-btn-icon { font-size:1.8rem; }
     .bas-btn-label { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; }
     .bas-btn-text { font-family:'Lora',serif; font-style:italic; font-size:.88rem; color:#f2f0ef; text-align:center; }
-  </style>
+  
+    /* NAV */
+    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
+    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo img { width:40px; height:40px; object-fit:contain; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:#f2f0ef; }
+    .nav-logo-text em { color:#b86060; font-style:italic; }
+    .nav-links { display:flex; gap:0; list-style:none; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
+    .nav-links a:hover { color:#f2f0ef; background:rgba(255,255,255,.08); }
+    .nav-links a.nav-active { color:#f2f0ef; background:rgba(255,255,255,.15); font-weight:700; }
+    @media(max-width:800px){ .nav-links{display:none;} }</style>
 </head>
 <body>
 
