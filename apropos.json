@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-11T16:54:24.278Z",
+  "mis_a_jour": "2026-03-15T17:32:27.794Z",
   "libraires": [
     {
       "prenom": "Nadine",
@@ -16,7 +16,7 @@
       "prenom": "Aurélien",
       "role": "Libraire",
       "bio": "Néo-libraire qui est tombé dedans quand il était petit. Comédien improvisateur. Ex-Architecte. Professeur de logiciel d'architecture. Enseignant de théâtre. Jardinier. Peut aussi monter une étagère...",
-      "photo": "",
+      "photo": "images/aur_lien.jpeg",
       "citation": "\"Il y a des gens qui ont besoin de faire, moi, j'ai juste besoin d'être\"",
       "genres": [
         "Bande-dessinée",
