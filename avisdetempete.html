@@ -337,7 +337,7 @@ const carouselState = {
 function initDots() {
   Object.keys(carouselState).forEach(year => {
     const state = carouselState[year];
-    const container = document.getElementById(`dots-${year}`);
+    const container = document.getElementById('dots-' + year); if (!container || !state.labels) return;
     container.innerHTML = state.labels.map((_, i) =>
       `<button class="cdot ${i===0?'active':''}" onclick="goTo('${year}',${i})"></button>`
     ).join('');
@@ -429,7 +429,7 @@ function moveCarousel(year, dir) {
 function showYear(year, el) {
   document.querySelectorAll('.year-section').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.year-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(`year-${year}`).classList.add('active');
+  var sec = document.getElementById('year-' + year); if (sec) sec.classList.add('active');
   el.classList.add('active');
 }
 
@@ -466,37 +466,5 @@ document.addEventListener('keydown', e => {
 
 chargerArchives();
 </script>
-<footer class="site-footer" id="contact">
-  <div>
-    <div class="f-logo">L'Esprit Large</div>
-    <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
-    <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
-  </div>
-  <div>
-    <p class="f-h">Navigation</p>
-    <ul class="f-links">
-      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
-      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
-      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
-      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
-      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
-      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
-      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
-      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
-    </ul>
-  </div>
-  <div>
-    <p class="f-h">Infos pratiques</p>
-    <ul class="f-links">
-      <li>Commande &amp; réservation</li>
-      <li>Carte cadeau</li>
-      <li>🥪 Casse-croûte Littéraire</li>
-      <li>🚲 Livraison locale</li>
-      <li>Mentions légales</li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
 </body>
 </html>
