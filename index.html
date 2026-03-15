@@ -652,29 +652,29 @@
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
     .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
     .nav-logo img { width:40px; height:40px; object-fit:contain; }
-    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:var(--cream); }
+    .nav-logo-text { font-family:Playfair Display,serif; font-size:1.1rem; font-weight:800; color:var(--cream); }
     .nav-logo-text em { color:var(--wood-light); font-style:italic; }
     .nav-links { display:flex; gap:0; list-style:none; }
-    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
+    .nav-links a { font-family:Raleway,sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
     .nav-links a:hover { color:var(--cream); background:rgba(255,255,255,.08); }
     .nav-links a.nav-active { color:var(--cream); background:rgba(255,255,255,.15); font-weight:700; }
     @media(max-width:800px){ .nav-links{display:none;} }
 
     /* ── FOOTER ── */
     footer { background:var(--wood-dark); color:var(--cream); padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
-    .footer-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
+    .footer-logo { font-family:Playfair Display,serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
     .footer-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
     .footer-desc a { color:var(--cream); }
-    .footer-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
+    .footer-h { font-family:Raleway,sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.8rem; }
     .footer-links { list-style:none; }
     .footer-links li { margin-bottom:.4rem; }
     .footer-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:var(--cream); transition:opacity .2s; }
     .footer-links a:hover { opacity:1; }
-    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
+    .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:Raleway,sans-serif; }
     /* ── COUPS DÉROULANTS ── */
     #coups-wrapper { overflow:hidden; transition:max-height .5s cubic-bezier(.4,0,.2,1); max-height:240px; position:relative; }
     #coups-fade { position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent, var(--parchment)); pointer-events:none; }
-    .voir-tout { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood); text-decoration:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.4rem 1.2rem; transition:all .2s; white-space:nowrap; cursor:pointer; background:none; }
+    .voir-tout { font-family:Raleway,sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood); text-decoration:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.4rem 1.2rem; transition:all .2s; white-space:nowrap; cursor:pointer; background:none; }
     .voir-tout:hover { background:var(--wood); color:var(--cream); border-color:var(--wood); }
   </style>
 </head>
@@ -758,7 +758,7 @@
     <a href="https://esprit-large.com/evenements.html" class="voir-tout">Tout l'agenda →</a>
   </div>
   <div id="evtHomeList" style="display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem;">
-    <p style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);text-align:center;padding:2rem;">Chargement…</p>
+    <p style="font-family:Lora,serif;font-style:italic;color:var(--ink-soft);text-align:center;padding:2rem;">Chargement…</p>
   </div>
 </section>
 
@@ -773,15 +773,15 @@
   </div>
   <div style="max-width:560px;margin:1.5rem auto 0;display:flex;gap:0;box-shadow:0 2px 16px var(--shadow);border-radius:3px;overflow:hidden;">
     <input type="text" id="searchInput" placeholder="Titre, auteur, genre…"
-      style="flex:1;padding:1rem 1.4rem;font-family:'Lora',serif;font-size:.95rem;border:none;outline:none;background:#fff;color:var(--ink);"
+      style="flex:1;padding:1rem 1.4rem;font-family:Lora,serif;font-size:.95rem;border:none;outline:none;background:#fff;color:var(--ink);"
       onkeydown="if(event.key==='Enter') goSearch()" />
     <button onclick="goSearch()"
-      style="padding:1rem 1.8rem;background:var(--wood);color:var(--cream);border:none;cursor:pointer;font-family:'Raleway',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;white-space:nowrap;"
+      style="padding:1rem 1.8rem;background:var(--wood);color:var(--cream);border:none;cursor:pointer;font-family:Raleway,sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:background .2s;white-space:nowrap;"
       onmouseover="this.style.background='var(--wood-dark)'" onmouseout="this.style.background='var(--wood)'">
       Rechercher →
     </button>
   </div>
-  <p style="text-align:center;margin-top:1rem;font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);">
+  <p style="text-align:center;margin-top:1rem;font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);">
     Ou <a href="https://esprit-large.com/catalogue.html" style="color:var(--wood);text-decoration:underline;">parcourez tout le catalogue</a>
   </p>
 </section>
@@ -796,7 +796,7 @@
     <a href="https://esprit-large.com/blog.html" class="voir-tout">Tous les articles →</a>
   </div>
   <div class="blog-grid" id="blogHomeGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.8rem;margin-top:2rem;">
-    <p style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);padding:2rem;">Chargement…</p>
+    <p style="font-family:Lora,serif;font-style:italic;color:var(--ink-soft);padding:2rem;">Chargement…</p>
   </div>
 </section>
 
@@ -804,18 +804,18 @@
 <section style="background:var(--wood-dark);padding:2.5rem 4rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2rem;">
   <div style="text-align:center;">
     <div style="font-size:1.8rem;margin-bottom:.5rem;">📅</div>
-    <div style="font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Agenda</div>
-    <a href="https://esprit-large.com/evenements.html" style="font-family:'Lora',serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">Voir tous les événements →</a>
+    <div style="font-family:Raleway,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Agenda</div>
+    <a href="https://esprit-large.com/evenements.html" style="font-family:Lora,serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">Voir tous les événements →</a>
   </div>
   <div style="text-align:center;">
     <div style="font-size:1.8rem;margin-bottom:.5rem;">📬</div>
-    <div style="font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Newsletter</div>
-    <a href="https://esprit-large.com/avisdetempete.html" style="font-family:'Lora',serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">S'inscrire à l'Avis de Tempête →</a>
+    <div style="font-family:Raleway,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Newsletter</div>
+    <a href="https://esprit-large.com/avisdetempete.html" style="font-family:Lora,serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">S'inscrire à l'Avis de Tempête →</a>
   </div>
   <div style="text-align:center;">
     <div style="font-size:1.8rem;margin-bottom:.5rem;">🧳</div>
-    <div style="font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Escapades</div>
-    <a href="https://esprit-large.com/escapades.html" style="font-family:'Lora',serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">Découvrir les sélections →</a>
+    <div style="font-family:Raleway,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.4rem;">Escapades</div>
+    <a href="https://esprit-large.com/escapades.html" style="font-family:Lora,serif;font-style:italic;color:var(--cream);font-size:.9rem;text-decoration:none;">Découvrir les sélections →</a>
   </div>
 </section>
 
@@ -907,17 +907,7 @@
   <span class="toast-icon">✓</span><span id="toastMsg"></span>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ── DATA ── */
-const BOOKS = [
-  { id:1, title:"Le sigisbée ", author:"Mathilde Desaché", genre:"Littérature française", price:"18 €", stock:2, emoji:"📖", color:"#d4956a", fav:true, },
-  { id:2, title:"Les fantômes de Shearwater", author:"Charlotte McConaghy", genre:"Littérature étrangère", price:"23.90 €", stock:2, emoji:"🪞", color:"#8b9e7a", fav:true },
-  { id:3, title:"Petit pas", author:"Marion Richez", genre:"Littérature française", price:"20 €", stock:0, emoji:"🌙", color:"#5c7a9e", fav:true },
-  { id:4, title:"Karl", author:"Cyril Bonin", genre:"Bande-dessinée", price:"22 €", stock:8, emoji:"⭐", color:"#e8c96a", fav:true },
-  { id:5, title:"Mariage fantôme", author:"David Park", genre:"Littérature étrangère", price:"23 €", stock:3, emoji:"🍇", color:"#9e6a8b", fav:true },
- 
-];
-
+<script>
 const EVENTS = [
   {
     day:"12", month:"Mars", year:"2026", type:"🌍 Littérature traduite",
@@ -1044,70 +1034,19 @@ function subscribeNewsletter() {
 }
 
 /* ── RENDER BOOKS ── */
-function renderBooks(books) {
-  const grid = document.getElementById('bookGrid');
-  if (books.length === 0) {
-    grid.innerHTML = `<p style="font-style:italic;color:var(--ink-soft);grid-column:1/-1;padding:2rem 0;">Aucun livre trouvé pour cette recherche.</p>`;
-    return;
-  }
-  grid.innerHTML = books.map((b, i) => {
-    const stockClass = b.stock === 0 ? 'stock-out' : b.stock <= 2 ? 'stock-low' : 'stock-ok';
-    const stockLabel = b.stock === 0 ? 'Épuisé' : b.stock <= 2 ? `Plus que ${b.stock}` : `${b.stock} en stock`;
-    const badge = b.fav ? '<span class="book-badge badge-fav">❤ Coup de cœur</span>' :
-                  b.stock === 0 ? '<span class="book-badge badge-out">Épuisé</span>' :
-                  b.stock <= 2 ? '<span class="book-badge badge-low">Derniers exemplaires</span>' : '';
-    const btnClass = b.stock > 0 ? 'available' : 'unavailable';
-    const btnLabel = b.stock > 0 ? 'Réserver' : 'Indisponible';
-    return `<div class="book-card" style="animation-delay:${i*0.06}s">
-      <div class="book-cover" style="background:${b.color}22;">
-        ${badge}
-        <span style="font-size:3rem">${b.emoji}</span>
-      </div>
-      <div class="book-info">
-        <div class="book-title">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <span style="font-family:'Raleway',sans-serif;font-size:0.68rem;letter-spacing:.06em;text-transform:uppercase;background:var(--parchment);color:var(--ink-soft);padding:.15rem .5rem;border-radius:2px;">${b.genre}</span>
-        <div class="book-footer">
-          <span class="book-price">${b.price}</span>
-          <span class="stock-indicator ${stockClass}">● ${stockLabel}</span>
-        </div>
-        <button class="btn-reserve ${btnClass}" onclick="openReserve(${b.id})">${btnLabel}</button>
-      </div>
-    </div>`;
-  }).join('');
-}
+
 
 /* ── FILTER ── */
-function filterBooks() {
-  const q = document.getElementById('searchInput').value.toLowerCase();
-  let books = BOOKS;
-  if (currentFilter !== 'Tous') books = books.filter(b => b.genre === currentFilter);
-  if (q) books = books.filter(b => b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || b.genre.toLowerCase().includes(q));
-  renderBooks(books);
-}
+function filterBooks() {}
+
 
 function setFilter(genre, el) {
   currentFilter = genre;
   document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  filterBooks();
+  // filterBooks();
 }
 
-/* ── COUPS DE CŒUR ── */
-function renderCoups() {
-  const grid = document.getElementById('coupGrid');
-  const favs = BOOKS.filter(b => b.fav);
-  grid.innerHTML = favs.map(b => `
-    <div class="coup-card">
-      <div class="coup-cover" style="background:${b.color}33;">${b.emoji}</div>
-      <div>
-        <div class="book-title" style="font-size:1.05rem;">${b.title}</div>
-        <div class="book-author">${b.author}</div>
-        <button class="btn-reserve available" style="width:auto;padding:.5rem 1.2rem;" onclick="openReserve(${b.id})">Réserver ce livre</button>
-      </div>
-    </div>
-  `).join('');
-}
 
 /* ── ÉVÉNEMENTS ── */
 function renderEvents() {
@@ -1123,7 +1062,7 @@ function renderEvents() {
         <div class="event-type">${e.type}${e.recurrent ? ' · <span style="font-style:italic;font-weight:400;">'+e.recurrent+'</span>' : ''}</div>
         <div class="event-title">${e.title}</div>
         <div class="event-desc">${e.desc}
-          <br/><span style="font-family:'Raleway',sans-serif;font-size:0.72rem;color:var(--wood);font-weight:600;margin-top:0.3rem;display:inline-block;">🕐 ${e.time}${e.lieu ? ' · 📍 '+e.lieu : ''}</span>
+          <br/><span style="font-family:Raleway,sans-serif;font-size:0.72rem;color:var(--wood);font-weight:600;margin-top:0.3rem;display:inline-block;">🕐 ${e.time}${e.lieu ? ' · 📍 '+e.lieu : ''}</span>
         </div>
       </div>
       <button class="btn-event" onclick="openEventModal('${e.title.replace(/'/g,"\\'")}')">Je m'inscris</button>
@@ -1133,7 +1072,7 @@ function renderEvents() {
 
 /* ── MODALS ── */
 function openReserve(id) {
-  const book = BOOKS.find(b => b.id === id);
+  const book = null;
   if (!book || book.stock === 0) return;
   selectedBook = book;
   document.getElementById('modalBookTitle').textContent = `« ${book.title} » par ${book.author}`;
@@ -1156,8 +1095,8 @@ function confirmReservation() {
   closeModal();
   showToast(`✓ Réservation confirmée ! Nous vous contacterons sous 24h, ${nom.split(' ')[0]}.`);
   // Update stock visually
-  const book = BOOKS.find(b => b.id === selectedBook.id);
-  if (book) { book.stock = Math.max(0, book.stock - 1); filterBooks(); }
+  const book = null;
+  if (book) { book.stock = Math.max(0, book.stock - 1); // filterBooks(); }
 }
 
 function confirmEvent() {
@@ -1181,7 +1120,6 @@ document.getElementById('reserveModal').addEventListener('click', function(e) { 
 document.getElementById('eventModal').addEventListener('click', function(e) { if(e.target === this) closeEventModal(); });
 
 /* ── INIT ── */
-renderBooks(BOOKS);
 renderCoups();
 renderEvents();
 </script>
@@ -1233,7 +1171,7 @@ async function chargerCoups() {
           <div class="book-title" style="font-size:1.05rem;">${c.titre || ''}</div>
           <div class="book-author">${c.auteur || ''}</div>
           ${c.categorie ? `<span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--wood);color:#fff;padding:.1rem .4rem;border-radius:3px;">${c.categorie}</span>` : ''}
-          ${c.citation ? `<div style="font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);margin-top:.5rem;line-height:1.6;">&laquo; ${c.citation} &raquo;${c.libraire ? ' — ' + c.libraire : ''}</div>` : ''}
+          ${c.citation ? `<div style="font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);margin-top:.5rem;line-height:1.6;">&laquo; ${c.citation} &raquo;${c.libraire ? ' — ' + c.libraire : ''}</div>` : ''}
         </div>
       </div>`;
     }).join('');
@@ -1266,7 +1204,7 @@ async function chargerEvenements() {
     }).slice(0, 4);
     const list = document.getElementById('evtHomeList');
     if (!prochains.length) {
-      list.innerHTML = '<p style="font-family:'Lora',serif;font-style:italic;color:var(--ink-soft);text-align:center;padding:1rem;">Aucun événement dans les 2 prochaines semaines. <a href="https://esprit-large.com/evenements.html" style="color:var(--wood);">Voir tout l'agenda →</a></p>';
+      list.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--ink-soft);text-align:center;padding:1rem;">Aucun événement dans les 2 prochaines semaines. <a href="https://esprit-large.com/evenements.html" style="color:var(--wood);">Voir tout l'agenda →</a></p>';
       return;
     }
     const MOIS = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
@@ -1275,10 +1213,10 @@ async function chargerEvenements() {
       const d = parts.length === 3 ? new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2])) : null;
       const dateStr = d ? `${d.getDate()} ${MOIS[d.getMonth()]}` : '';
       return `<div style="display:flex;gap:1.2rem;align-items:flex-start;padding:1rem 1.2rem;background:#fff;border-radius:6px;box-shadow:0 2px 8px rgba(30,10,10,.07);">
-        ${dateStr ? `<div style="flex-shrink:0;text-align:center;min-width:42px;"><div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:800;color:var(--wood);line-height:1;">${d.getDate()}</div><div style="font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);">${MOIS[d.getMonth()]}</div></div>` : ''}
+        ${dateStr ? `<div style="flex-shrink:0;text-align:center;min-width:42px;"><div style="font-family:Playfair Display,serif;font-size:1.4rem;font-weight:800;color:var(--wood);line-height:1;">${d.getDate()}</div><div style="font-family:Raleway,sans-serif;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);">${MOIS[d.getMonth()]}</div></div>` : ''}
         <div style="flex:1;">
-          <div style="font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.2rem;">${e.type || ''}</div>
-          <div style="font-family:'Playfair Display',serif;font-size:.98rem;font-weight:700;color:var(--ink);">${e.titre || ''}</div>
+          <div style="font-family:Raleway,sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood-light);margin-bottom:.2rem;">${e.type || ''}</div>
+          <div style="font-family:Playfair Display,serif;font-size:.98rem;font-weight:700;color:var(--ink);">${e.titre || ''}</div>
           ${e.lieu ? `<div style="font-size:.75rem;color:var(--ink-soft);margin-top:.2rem;">📍 ${e.lieu}</div>` : ''}
           ${e.time ? `<div style="font-size:.75rem;color:var(--ink-soft);">🕐 ${e.time}</div>` : ''}
         </div>
@@ -1302,11 +1240,11 @@ async function chargerBlog() {
       return `<div style="background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 2px 12px rgba(30,10,10,.08);display:flex;flex-direction:column;">
         ${a.image ? `<div style="height:160px;overflow:hidden;"><img src="${a.image}" style="width:100%;height:100%;object-fit:cover;" /></div>` : `<div style="height:100px;background:var(--parchment);display:flex;align-items:center;justify-content:center;font-size:3rem;">📖</div>`}
         <div style="padding:1.2rem 1.4rem;flex:1;display:flex;flex-direction:column;gap:.4rem;">
-          ${a.categorie ? `<div style="font-family:'Raleway',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wood);">${a.categorie}</div>` : ''}
-          <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;">${a.titre}</div>
-          ${dateStr ? `<div style="font-family:'Raleway',sans-serif;font-size:.68rem;color:rgba(60,40,40,.45);">${dateStr}</div>` : ''}
-          <div style="font-family:'Lora',serif;font-size:.85rem;color:var(--ink-soft);line-height:1.6;flex:1;">${extrait}</div>
-          <a href="https://esprit-large.com/blog.html" style="font-family:'Raleway',sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-top:.5rem;">Lire la suite →</a>
+          ${a.categorie ? `<div style="font-family:Raleway,sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--wood);">${a.categorie}</div>` : ''}
+          <div style="font-family:Playfair Display,serif;font-size:1rem;font-weight:700;color:var(--ink);line-height:1.3;">${a.titre}</div>
+          ${dateStr ? `<div style="font-family:Raleway,sans-serif;font-size:.68rem;color:rgba(60,40,40,.45);">${dateStr}</div>` : ''}
+          <div style="font-family:Lora,serif;font-size:.85rem;color:var(--ink-soft);line-height:1.6;flex:1;">${extrait}</div>
+          <a href="https://esprit-large.com/blog.html" style="font-family:Raleway,sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-top:.5rem;">Lire la suite →</a>
         </div>
       </div>`;
     }).join('');
