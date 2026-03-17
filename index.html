@@ -8,6 +8,7 @@
   <style>
 
 
+
     :root {
       --cream: #f2f0ef;
       --warm-white: #f7f5f4;
@@ -36,23 +37,6 @@
     }
 
     /* ── NAV ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(242,240,239,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid rgba(92,26,26,0.1);
-      padding: 0 1.5rem;
-      display: flex; align-items: center; justify-content: space-between;
-      height: 48px;
-    }
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem; font-weight: 800; font-style: italic;
-      color: var(--wood-dark);
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-    }
-    .nav-logo span { color: var(--amber); }
     .nav-links { display: flex; gap: 1.4rem; list-style: none; flex-wrap: nowrap; }
     .nav-links a {
       font-family: 'Raleway', sans-serif;
@@ -62,15 +46,6 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--wood); }
-    .nav-cart {
-      font-family: 'Raleway', sans-serif; font-size: 0.75rem;
-      font-weight: 600; letter-spacing: 0.05em;
-      background: var(--wood); color: var(--cream);
-      border: none; cursor: pointer; white-space: nowrap;
-      padding: 0.35rem 1rem; border-radius: 2px;
-      transition: background 0.2s;
-    }
-    .nav-cart:hover { background: var(--wood-dark); }
 
     /* ── HERO ── */
     #hero {
@@ -636,7 +611,6 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 0 1rem; }
       .nav-links { display: none; }
       #hero { padding: 100px 1.5rem 3rem; }
       section { padding: 3rem 1.5rem; }
@@ -792,6 +766,7 @@
     .bas-btn-label { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; }
     .bas-btn-text { font-family:'Lora',serif; font-style:italic; font-size:.88rem; color:#f2f0ef; text-align:center; }
   
+
     /* NAV */
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
     .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
@@ -815,6 +790,53 @@
     .site-footer .f-links li { margin-bottom:.4rem; }
     .site-footer .f-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:#f2f0ef; transition:opacity .2s; }
     .site-footer .f-links a:hover { opacity:1; }
+    /* ── SECTIONS ── */
+    .section-wrap { padding: 3rem 4rem; }
+    @media(max-width:700px){ .section-wrap{ padding:2rem 1.2rem; } }
+    .section-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:1.8rem; }
+    .section-title { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:800; color:var(--wood-dark); }
+    .section-sub { font-family:'Lora',serif; font-size:.88rem; font-style:italic; color:var(--ink-soft); margin-top:.2rem; }
+    .voir-tout { font-family:'Raleway',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood); text-decoration:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.35rem 1rem; transition:all .2s; white-space:nowrap; }
+    .voir-tout:hover { background:var(--wood); color:#fff; }
+    /* ── COUPS ── */
+    #coups-de-coeur { background:var(--parchment,#ebe8e8); }
+    #coups-wrapper { overflow:hidden; transition:max-height .5s ease; max-height:260px; position:relative; }
+    #coups-fade { position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent,var(--parchment,#ebe8e8)); pointer-events:none; }
+    #toggle-coups-btn { display:block; margin:1rem auto 0; font-family:'Raleway',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood); background:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.4rem 1.2rem; cursor:pointer; transition:all .2s; }
+    #toggle-coups-btn:hover { background:var(--wood); color:#fff; }
+    /* ── ÉVÉNEMENTS ── */
+    #evenements-home { background:var(--warm-white,#f7f5f4); }
+    .evt-liste { display:flex; flex-direction:row; gap:1rem; overflow-x:auto; padding-bottom:.5rem; }
+    .evt-carte { flex:0 0 220px; background:#fff; border-radius:6px; box-shadow:0 2px 8px rgba(30,10,10,.08); padding:1rem 1.1rem; display:flex; flex-direction:column; gap:.3rem; }
+    .evt-jour { font-family:'Playfair Display',serif; font-size:2rem; font-weight:800; color:var(--wood); line-height:1; }
+    .evt-mois { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-soft); }
+    .evt-type { font-family:'Raleway',sans-serif; font-size:.62rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood-light,#b86060); }
+    .evt-titre { font-family:'Playfair Display',serif; font-size:.95rem; font-weight:700; color:var(--ink); line-height:1.3; }
+    .evt-lieu { font-size:.75rem; color:var(--ink-soft); }
+    /* ── BLOG ── */
+    #blog-home { background:var(--cream,#f2f0ef); }
+    .blog-cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1.5rem; }
+    .blog-card { background:#fff; border-radius:6px; overflow:hidden; box-shadow:0 2px 10px rgba(30,10,10,.08); display:flex; flex-direction:column; }
+    .blog-card-img { height:150px; background:var(--parchment,#ebe8e8); display:flex; align-items:center; justify-content:center; font-size:2.5rem; overflow:hidden; }
+    .blog-card-img img { width:100%; height:100%; object-fit:cover; }
+    .blog-card-body { padding:1rem 1.2rem; flex:1; display:flex; flex-direction:column; gap:.3rem; }
+    .blog-card-cat { font-family:'Raleway',sans-serif; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--wood); }
+    .blog-card-titre { font-family:'Playfair Display',serif; font-size:.98rem; font-weight:700; color:var(--ink); line-height:1.3; }
+    .blog-card-extrait { font-family:'Lora',serif; font-size:.83rem; color:var(--ink-soft); line-height:1.6; flex:1; }
+    .blog-card-lire { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--wood); text-decoration:none; margin-top:.5rem; }
+    /* ── CATALOGUE ── */
+    #catalogue-search { background:var(--parchment,#ebe8e8); }
+    .search-bar-wrap { max-width:560px; margin:1.5rem auto 0; display:flex; box-shadow:0 2px 16px rgba(30,10,10,.1); border-radius:3px; overflow:hidden; }
+    .search-bar-wrap input { flex:1; padding:1rem 1.4rem; font-family:'Lora',serif; font-size:.95rem; border:none; outline:none; background:#fff; }
+    .search-bar-wrap button { padding:1rem 1.8rem; background:var(--wood); color:#fff; border:none; cursor:pointer; font-family:'Raleway',sans-serif; font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; transition:background .2s; }
+    .search-bar-wrap button:hover { background:var(--wood-dark); }
+    /* ── BOUTONS BAS ── */
+    #bas-boutons { background:var(--wood-dark,#5c1a1a); padding:2.5rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; }
+    .bas-btn { display:flex; flex-direction:column; align-items:center; gap:.5rem; text-decoration:none; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15); border-radius:8px; padding:1.5rem 1rem; transition:background .2s; }
+    .bas-btn:hover { background:rgba(255,255,255,.15); }
+    .bas-btn-icon { font-size:1.8rem; }
+    .bas-btn-label { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; }
+    .bas-btn-text { font-family:'Lora',serif; font-style:italic; font-size:.88rem; color:#f2f0ef; text-align:center; }
   </style>
 </head>
 <body>
@@ -837,6 +859,7 @@
 </nav>
 
 <!-- HERO -->
+
 
 
 <section id="hero">
@@ -917,6 +940,52 @@
 
 
 
+
+
+<!-- COUPS DE CŒUR -->
+<section id="coups-de-coeur" class="section-wrap">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Nos coups de cœur</h2>
+      <p class="section-sub">La sélection de l'équipe, avec amour</p>
+    </div>
+    <a href="https://esprit-large.com/coups.html" class="voir-tout">Tous nos coups de cœur →</a>
+  </div>
+  <div id="coups-wrapper">
+    <div class="coup-grid" id="coupGrid"></div>
+    <div id="coups-fade"></div>
+  </div>
+  <button id="toggle-coups-btn" onclick="toggleCoups()">Voir tous les coups de cœur ▾</button>
+</section>
+
+<!-- ÉVÉNEMENTS -->
+<section id="evenements-home" class="section-wrap">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Prochains événements</h2>
+      <p class="section-sub">Rencontres, lectures &amp; ateliers</p>
+    </div>
+    <a href="https://esprit-large.com/evenements.html" class="voir-tout">Tout l&#39;agenda →</a>
+  </div>
+  <div class="evt-liste" id="evtHomeList">
+    <p style="font-style:italic;color:var(--ink-soft);padding:1rem;">Chargement…</p>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog-home" class="section-wrap">
+  <div class="section-header">
+    <div>
+      <h2 class="section-title">Le blog de la librairie</h2>
+      <p class="section-sub">Nos coups de plume et lectures du moment</p>
+    </div>
+    <a href="https://esprit-large.com/blog.html" class="voir-tout">Tous les articles →</a>
+  </div>
+  <div class="blog-cards" id="blogGrid">
+    <p style="font-style:italic;color:var(--ink-soft);padding:1rem;">Chargement…</p>
+  </div>
+</section>
+
 <!-- CATALOGUE -->
 <section id="catalogue-search" class="section-wrap">
   <div class="section-header">
@@ -950,40 +1019,6 @@
     <span class="bas-btn-text">Prix du Premier Roman &amp; Prix Première Vague</span>
   </a>
 </div>
-
-<footer class="site-footer" id="contact">
-  <div>
-    <div class="f-logo">L'Esprit Large</div>
-    <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
-    <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
-  </div>
-  <div>
-    <p class="f-h">Navigation</p>
-    <ul class="f-links">
-      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
-      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
-      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
-      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
-      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
-      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
-      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
-      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
-    </ul>
-  </div>
-  <div>
-    <p class="f-h">Infos pratiques</p>
-    <ul class="f-links">
-      <li>Commande &amp; réservation</li>
-      <li>Carte cadeau</li>
-      <li>🥪 Casse-croûte Littéraire</li>
-      <li>🚲 Livraison locale</li>
-      <li>Mentions légales</li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
 
 <!-- MODAL RÉSERVATION -->
 <div class="modal-overlay" id="reserveModal">
@@ -1045,22 +1080,36 @@
 
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ── COUPS DE CŒUR (depuis JSON GitHub) ── */
+
+<div id="toast" style="position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--wood-dark,#5c1a1a);color:#f2f0ef;padding:.8rem 1.8rem;border-radius:4px;font-family:'Raleway',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.05em;box-shadow:0 4px 20px rgba(0,0,0,.25);transition:transform .35s cubic-bezier(.34,1.56,.64,1);z-index:9999;">
+  <span id="toastMsg"></span>
+</div>
+
+<script>
+/* ── COUPS DE CŒUR ── */
 async function chargerCoups() {
   try {
     var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
     if (!r.ok) return;
     var data = await r.json();
-    var coups = (data.coups || []).filter(function(c){ return c.titre; });
+    var tous = (data.coups || []).filter(function(c){ return c.titre; });
+    // Épinglés en premier
+    var coups = tous.filter(function(c){ return c.epingle; }).concat(tous.filter(function(c){ return !c.epingle; }));
     if (!coups.length) return;
     var grid = document.getElementById('coupGrid');
     var html = '';
     coups.forEach(function(c) {
-      var cover = c.couverture
-        ? '<img src="' + c.couverture + '" alt="" style="width:80px;height:116px;object-fit:cover;border-radius:3px;box-shadow:0 4px 12px rgba(0,0,0,.2);" class="coup-img-load">'
-        : '<div style="width:80px;height:116px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:2rem;">&#x1F4D6;</div>';
-      var badge = c.categorie ? '<span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--wood);color:#fff;padding:.1rem .4rem;border-radius:3px;">' + c.categorie + '</span> ' : '';
+      var cover;
+      if (c.couverture) {
+        var img = document.createElement('img');
+        img.src = c.couverture; img.alt = c.titre;
+        img.className = 'coup-img-load';
+        img.style.cssText = 'width:72px;height:100px;object-fit:cover;border-radius:2px;flex-shrink:0;';
+        cover = '<img class="coup-img-load" src="' + c.couverture + '" alt="' + c.titre + '" style="width:72px;height:100px;object-fit:cover;border-radius:2px;flex-shrink:0;"/>';
+      } else {
+        cover = '<div style="width:72px;height:100px;background:var(--parchment);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0;">📖</div>';
+      }
+      var badge = c.categorie ? '<span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;background:var(--wood);color:#fff;padding:.15rem .4rem;border-radius:2px;display:inline-block;margin-bottom:.3rem;">' + c.categorie + '</span>' : '';
       var citation = c.citation ? '<div style="font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.6;">&laquo;&nbsp;' + c.citation + '&nbsp;&raquo;' + (c.libraire ? ' &mdash; ' + c.libraire : '') + '</div>' : '';
       html += '<div class="coup-card"><div class="coup-cover">' + cover + '</div><div><div class="book-title" style="font-size:1.05rem;">' + c.titre + '</div><div class="book-author">' + (c.auteur || '') + '</div>' + badge + citation + '</div></div>';
     });
@@ -1068,7 +1117,6 @@ async function chargerCoups() {
     grid.querySelectorAll('.coup-img-load').forEach(function(img) {
       img.onerror = function() { this.style.display = 'none'; };
     });
-    // Masquer le bouton si tout tient sur une ligne
     setTimeout(function() {
       var w = document.getElementById('coups-wrapper');
       if (w.scrollHeight <= 260) {
@@ -1085,19 +1133,17 @@ function toggleCoups() {
   var btn = document.getElementById('toggle-coups-btn');
   var fade = document.getElementById('coups-fade');
   if (w.dataset.open === '1') {
-    w.style.maxHeight = '260px';
-    w.dataset.open = '0';
+    w.style.maxHeight = '260px'; w.dataset.open = '0';
     btn.textContent = 'Voir tous les coups de coeur ▾';
     fade.style.display = 'block';
   } else {
-    w.style.maxHeight = w.scrollHeight + 'px';
-    w.dataset.open = '1';
+    w.style.maxHeight = w.scrollHeight + 'px'; w.dataset.open = '1';
     btn.textContent = 'Réduire ▴';
     fade.style.display = 'none';
   }
 }
 
-/* ── ÉVÉNEMENTS (4 prochains depuis JSON) ── */
+/* ── ÉVÉNEMENTS ── */
 async function chargerEvenements() {
   try {
     var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/evenements.json?t=' + Date.now());
@@ -1113,7 +1159,7 @@ async function chargerEvenements() {
     }).slice(0, 4);
     var list = document.getElementById('evtHomeList');
     if (!prochains.length) {
-      list.innerHTML = '<p style="font-style:italic;color:var(--ink-soft);padding:1rem;">Aucun événement à venir. <a href="https://esprit-large.com/evenements.html" style="color:var(--wood);">Voir l&#39;agenda</a></p>';
+      list.innerHTML = '<p style="font-style:italic;color:var(--ink-soft);padding:1rem;">Aucun événement à venir.</p>';
       return;
     }
     var MOIS = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
@@ -1130,7 +1176,7 @@ async function chargerEvenements() {
   } catch(e) {}
 }
 
-/* ── BLOG (3 derniers articles) ── */
+/* ── BLOG ── */
 async function chargerBlog() {
   try {
     var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/blog.json?t=' + Date.now());
@@ -1157,7 +1203,7 @@ async function chargerBlog() {
   } catch(e) {}
 }
 
-/* ── CATALOGUE SEARCH ── */
+/* ── CATALOGUE ── */
 function goSearch() {
   var q = document.getElementById('searchInput').value.trim();
   window.location = 'https://esprit-large.com/catalogue.html' + (q ? '?q=' + encodeURIComponent(q) : '');
@@ -1174,4 +1220,32 @@ function showToast(msg) {
 /* ── MODALS ── */
 function closeModal() { document.getElementById('reserveModal').classList.remove('open'); document.body.style.overflow=''; }
 function closeEventModal() { document.getElementById('eventModal').classList.remove('open'); document.body.style.overflow=''; }
-function closeAdtModal() { var m=document.getElementById('adtModal'); if(m){ m.classList.remove('open'); document.body.s
+function closeAdtModal() { var m=document.getElementById('adtModal'); if(m){ m.classList.remove('open'); document.body.style.overflow=''; } }
+document.addEventListener('keydown', function(e){ if(e.key==='Escape'){ closeModal(); closeEventModal(); closeAdtModal(); } });
+
+/* ── SLIDESHOW ── */
+var _slideIdx = 0;
+var _slideTimer = null;
+function goSlide(n) {
+  var slides = document.querySelectorAll('.hero-slide');
+  var dots   = document.querySelectorAll('.hero-dots .dot');
+  if (!slides.length) return;
+  slides[_slideIdx].classList.remove('active');
+  if (dots[_slideIdx]) dots[_slideIdx].classList.remove('active');
+  _slideIdx = (n + slides.length) % slides.length;
+  slides[_slideIdx].classList.add('active');
+  if (dots[_slideIdx]) dots[_slideIdx].classList.add('active');
+  clearInterval(_slideTimer);
+  _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
+}
+document.addEventListener('DOMContentLoaded', function() {
+  _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
+});
+
+/* ── INIT ── */
+chargerCoups();
+chargerEvenements();
+chargerBlog();
+</script>
+</body>
+</html>
