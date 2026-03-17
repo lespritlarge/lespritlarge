@@ -370,6 +370,14 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
         <div id="valeursForms"></div>
         <button style="margin-top:.5rem;padding:.5rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.08);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;" onclick="Apropos.ajouterValeur()">+ Ajouter une valeur</button>
       </div>
+      <!-- GALERIE -->
+      <div style="background:var(--cream);border:1.5px solid rgba(92,26,26,.15);border-radius:6px;padding:1.5rem;margin-bottom:1.5rem;">
+        <div class="fhead" style="font-size:.9rem;margin-bottom:.4rem;">📸 Galerie photos</div>
+        <p style="font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:var(--soft);margin-bottom:1rem;line-height:1.5;">Uploadez vos photos — elles remplacent les placeholders de la section galerie.</p>
+        <div id="galerieForms"></div>
+        <button style="margin-top:.5rem;padding:.5rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.08);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;" onclick="Apropos.ajouterPhoto()">+ Ajouter une photo</button>
+      </div>
+
       <!-- PARTENAIRES -->
       <div style="background:var(--cream);border:1.5px solid rgba(92,26,26,.15);border-radius:6px;padding:1.5rem;margin-bottom:1.5rem;">
         <div class="fhead" style="font-size:.9rem;margin-bottom:1.2rem;">🤝 Partenaires & associations</div>
@@ -1164,7 +1172,7 @@ var Tempete = (() => {
 //  À PROPOS
 // ══════════════════════════════════════════
 var Apropos = (() => {
-  let libraires = [], valeurs = [], partenaires = [];
+  let libraires = [], valeurs = [], partenaires = [], galerie = [];
 
   const VALEURS_DEFAUT = [
     { icone:'📖', titre:'Le conseil humain', texte:"Pas d'algorithme ici. Chaque recommandation vient d'un libraire qui a lu, aimé (ou pas), et qui prend le temps de comprendre ce que vous cherchez." },
@@ -1179,6 +1187,7 @@ var Apropos = (() => {
       libraires   = data ? (data.libraires   || []) : [];
       valeurs     = data ? (data.valeurs     || VALEURS_DEFAUT) : VALEURS_DEFAUT;
       partenaires = data ? (data.partenaires || []) : [];
+      galerie     = data ? (data.galerie     || []) : [];
     } catch(e) {
       console.warn('apropos.json non chargé :', e);
       libraires = [];
@@ -1234,6 +1243,31 @@ var Apropos = (() => {
     });
     vEl.innerHTML = vHtml;
 
+    // Galerie
+    const gEl = document.getElementById('galerieForms');
+    if (gEl) {
+      if (!galerie.length) {
+        gEl.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucune photo — cliquez sur « + Ajouter ».</p>';
+      } else {
+        let gHtml = '<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.8rem;">';
+        galerie.forEach(function(g, i) {
+          gHtml += '<div style="border:1px solid rgba(92,26,26,.12);border-radius:5px;padding:.8rem;background:var(--warm);position:relative;">';
+          gHtml += '<button onclick="Apropos.supprimerPhoto(' + i + ')" style="position:absolute;top:.4rem;right:.4rem;background:rgba(255,255,255,.8);border:none;cursor:pointer;font-size:.9rem;color:#c0392b;border-radius:50%;width:22px;height:22px;line-height:1;" title="Supprimer">✕</button>';
+          if (g.url) {
+            gHtml += '<img src="' + g.url + '" style="width:100%;height:100px;object-fit:cover;border-radius:3px;display:block;margin-bottom:.5rem;" onerror="this.style.display='none'"/>';
+          } else {
+            gHtml += '<div style="width:100%;height:100px;background:var(--parchment);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:.5rem;">🖼️</div>';
+          }
+          gHtml += '<input type="text" id="gLegende' + i + '" value="' + (g.legende||'').replace(/"/g,'&quot;') + '" placeholder="Légende" style="width:100%;font-size:.72rem;padding:.3rem .4rem;border:1px solid #ddd;border-radius:3px;font-family:Raleway,sans-serif;"/>';
+          gHtml += '<input type="file" id="gFile' + i + '" accept="image/*" style="display:none;" onchange="Apropos.uploadPhoto(' + i + ')">';
+          gHtml += '<button onclick="document.getElementById('gFile' + i + '').click()" style="margin-top:.4rem;width:100%;padding:.3rem;font-size:.65rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:rgba(92,26,26,.07);color:var(--wood);border:1.5px solid rgba(92,26,26,.18);border-radius:3px;cursor:pointer;">📁 Changer</button>';
+          gHtml += '</div>';
+        });
+        gHtml += '</div>';
+        gEl.innerHTML = gHtml;
+      }
+    }
+
     // Partenaires
     const pEl = document.getElementById('partenairesForms');
     if (pEl) {
@@ -1285,6 +1319,13 @@ var Apropos = (() => {
         texte: document.getElementById('vTexte'+i).value.trim(),
       });
     }
+    const nbG = document.querySelectorAll('[id^="gLegende"]').length;
+    // Ne pas écraser galerie ici — les URLs sont gérées par uploadPhoto
+    for (let i = 0; i < nbG; i++) {
+      const leg = document.getElementById('gLegende'+i);
+      if (leg && galerie[i] !== undefined) galerie[i].legende = leg.value.trim();
+    }
+
     const nbP = document.querySelectorAll('[id^="pNom"]').length;
     partenaires = [];
     for (let i = 0; i < nbP; i++) {
@@ -1339,6 +1380,7 @@ var Apropos = (() => {
       libraires,
       valeurs,
       partenaires,
+      galerie,
     }, '👥 Mise à jour page À propos');
     if (ok) toast('✅ Page À propos publiée !');
   }
@@ -1430,7 +1472,65 @@ var Apropos = (() => {
     reader.readAsDataURL(file);
   }
 
-  return { charger, ajouterLibraire, supprimerLibraire, ajouterValeur, supprimerValeur, sauvegarder, previewPhoto, ajouterPartenaire, supprimerPartenaire, choisirImagePartenaire, previewPartenaire };
+  function ajouterPhoto() {
+    lireFormulaires();
+    galerie.push({ url: '', legende: '' });
+    renderForms();
+    setTimeout(function() {
+      const items = document.querySelectorAll('#galerieForms [id^="gFile"]');
+      if (items.length) items[items.length-1].parentElement.scrollIntoView({ behavior:'smooth' });
+    }, 100);
+  }
+
+  function supprimerPhoto(i) {
+    lireFormulaires();
+    if (!confirm('Supprimer cette photo de la galerie ?')) return;
+    galerie.splice(i, 1);
+    renderForms();
+  }
+
+  async function uploadPhoto(i) {
+    const file = document.getElementById('gFile'+i).files[0];
+    if (!file) return;
+    const token = getToken();
+    if (!token) { toast('⚠️ Token GitHub requis.'); return; }
+
+    toast('⏳ Upload en cours…');
+    const ext = file.name.split('.').pop().toLowerCase();
+    const nom = 'images/galerie/photo' + Date.now() + '.' + ext;
+
+    const b64 = await new Promise(function(res, rej) {
+      const r = new FileReader();
+      r.onload = function() { res(r.result.split(',')[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+
+    let sha = null;
+    try { sha = await ghGetSha(nom, token); } catch(_) {}
+    const body = { message: '📸 Galerie : ' + nom, content: b64 };
+    if (sha) body.sha = sha;
+
+    const r = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + nom, {
+      method: 'PUT',
+      mode: 'cors', credentials: 'omit',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (r.ok || r.status === 201) {
+      const url = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/' + nom;
+      lireFormulaires();
+      if (galerie[i] !== undefined) galerie[i].url = url;
+      renderForms();
+      toast('✅ Photo uploadée !');
+    } else {
+      const err = await r.json().catch(function(){return {};});
+      toast('❌ Erreur upload : ' + (err.message || r.status));
+    }
+  }
+
+  return { charger, ajouterLibraire, supprimerLibraire, ajouterValeur, supprimerValeur, sauvegarder, previewPhoto, ajouterPartenaire, supprimerPartenaire, choisirImagePartenaire, previewPartenaire, ajouterPhoto, supprimerPhoto, uploadPhoto };
 })();
 
 var Prix = (() => {

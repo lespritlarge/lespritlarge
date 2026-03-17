@@ -265,53 +265,21 @@
     <div class="galerie-header fade-in">
       <div class="section-label">La librairie en images</div>
       <h2 class="section-title">Notre espace</h2>
-      <p>Uploadez vos photos dans <code>images/galerie/</code> sur GitHub et remplacez les placeholders ci-dessous.</p>
+      <p>Les photos sont gérées depuis l'interface d'administration.</p>
     </div>
-    <div class="galerie-grid">
-      <div class="gal-item fade-in" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo1.jpg" alt="La librairie" data-legende="La librairie" /> -->
-        <div class="gal-ph"><div class="ph-icon">🏠</div><div class="ph-txt">Vue d'ensemble</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.06s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo2.jpg" alt="Les rayons" data-legende="Les rayons" /> -->
-        <div class="gal-ph"><div class="ph-icon">📚</div><div class="ph-txt">Les rayons</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.09s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo3.jpg" alt="La vitrine" data-legende="La vitrine" /> -->
-        <div class="gal-ph"><div class="ph-icon">🪟</div><div class="ph-txt">La vitrine</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.12s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo4.jpg" alt="Un événement" data-legende="Un événement" /> -->
-        <div class="gal-ph"><div class="ph-icon">🎪</div><div class="ph-txt">Un événement</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.15s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo5.jpg" alt="L'ambiance" data-legende="L'ambiance" /> -->
-        <div class="gal-ph"><div class="ph-icon">☕</div><div class="ph-txt">L'ambiance</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.18s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo6.jpg" alt="Coin lecture" data-legende="Coin lecture" /> -->
-        <div class="gal-ph"><div class="ph-icon">📖</div><div class="ph-txt">Coin lecture</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.21s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo7.jpg" alt="Les détails" data-legende="Les détails" /> -->
-        <div class="gal-ph"><div class="ph-icon">🌿</div><div class="ph-txt">Les détails</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.24s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo8.jpg" alt="Guérande" data-legende="Guérande" /> -->
-        <div class="gal-ph"><div class="ph-icon">🗺️</div><div class="ph-txt">Guérande</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
+    <div class="galerie-grid" id="galerieGrid">
+      <!-- Chargé dynamiquement depuis apropos.json -->
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🏠</div><div class="ph-txt">Vue d'ensemble</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">📚</div><div class="ph-txt">Les rayons</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🪟</div><div class="ph-txt">La vitrine</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🎪</div><div class="ph-txt">Un événement</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">☕</div><div class="ph-txt">L'ambiance</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">📖</div><div class="ph-txt">Coin lecture</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🌿</div><div class="ph-txt">Les détails</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🗺️</div><div class="ph-txt">Guérande</div></div><div class="gal-overlay"><span class="gal-legende"></span></div></div>
     </div>
-    <p class="gal-add-hint fade-in">
-      💡 Pour ajouter une photo : uploadez-la dans <code>images/galerie/</code> sur GitHub,
-      puis décommentez la ligne <code>&lt;img src=...&gt;</code> correspondante dans <code>a-propos.html</code>.
+    <p class="gal-add-hint fade-in" id="galerieHint">
+      💡 Gérez vos photos depuis l'interface d'administration.
     </p>
   </div>
 </section>
@@ -417,6 +385,28 @@
       } else {
         pgrid.style.display = 'none';
         pgrid.closest('section').style.display = 'none';
+      }
+
+      // Galerie dynamique
+      const galerie = data.galerie || [];
+      const galerieGrid = document.getElementById('galerieGrid');
+      if (galerie.length && galerieGrid) {
+        galerieGrid.innerHTML = galerie.map(function(g, i) {
+          var delay = (i * 0.06).toFixed(2);
+          if (g.url) {
+            return '<div class="gal-item fade-in" style="transition-delay:' + delay + 's" onclick="openLightbox(this)">'
+              + '<img src="' + g.url + '" alt="' + (g.legende||'Photo librairie') + '" data-legende="' + (g.legende||'') + '" loading="lazy"/>'
+              + '<div class="gal-overlay"><span class="gal-legende">' + (g.legende||'') + '</span></div>'
+              + '</div>';
+          } else {
+            return '<div class="gal-item fade-in" style="transition-delay:' + delay + 's">'
+              + '<div class="gal-ph"><div class="ph-icon">🖼️</div><div class="ph-txt">Photo à venir</div></div>'
+              + '<div class="gal-overlay"><span class="gal-legende"></span></div>'
+              + '</div>';
+          }
+        }).join('');
+        var hint = document.getElementById('galerieHint');
+        if (hint) hint.style.display = 'none';
       }
 
     } catch(e) {
