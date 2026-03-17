@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-17T14:36:22.380Z",
+  "mis_a_jour": "2026-03-17T15:06:54.466Z",
   "libraires": [
     {
       "prenom": "Nadine",
@@ -45,6 +45,24 @@
       "icone": "",
       "titre": "Une librairie animée",
       "texte": "Rencontres, lectures, casse-croûtes… nous aimons que la librairie soit un endroit où on revient, où on reste, où l'on se retrouve autour de ce qui nous lie : les histoires. C'est pour cela que nous mettons en place, tout au long de l'année, de multiples animations allant du théâtre à la musique, en passant par des lectures, des conférences et des signatures..."
+    }
+  ],
+  "galerie": [
+    {
+      "url": "https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759981505.jpeg",
+      "legende": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759990167.jpeg",
+      "legende": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773760003917.jpeg",
+      "legende": ""
+    },
+    {
+      "url": "https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773760010886.jpeg",
+      "legende": ""
     }
   ],
   "partenaires": [
