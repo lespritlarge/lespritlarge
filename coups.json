@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-13T16:34:22.480Z",
+  "mis_a_jour": "2026-03-17T11:12:02.646Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -51,6 +51,15 @@
       "couverture": "https://couverture.geobib.fr/api/v1/9782848056012/large",
       "citation": "Un roman coup de poing, à lire en apnée...",
       "libraire": "Aurélien",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9791037116048",
+      "titre": "Mariage fantôme",
+      "auteur": "David Park",
+      "couverture": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1764143539i/241324132.jpg",
+      "citation": "Sur deux époques...",
+      "libraire": "Nadine",
       "categorie": "Roman"
     }
   ]
