@@ -75,6 +75,19 @@
     .site-footer .f-links li { margin-bottom:.4rem; }
     .site-footer .f-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:#f2f0ef; transition:opacity .2s; }
     .site-footer .f-links a:hover { opacity:1; }
+  
+    /* ── VOIR TOUT ── */
+    .coups-masques { display:none; }
+    .coups-masques.visible { display:contents; }
+    .voir-tout-wrap { grid-column:1/-1; text-align:center; padding:1.5rem 0 .5rem; }
+    .btn-voir-tout { font-family:'Raleway',sans-serif; font-size:.75rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+      background:transparent; color:var(--wood); border:1.5px solid var(--wood);
+      border-radius:20px; padding:.5rem 1.6rem; transition:all .2s; }
+    .btn-voir-tout:hover { background:var(--wood); color:var(--cream); }
+    .epingle-badge { display:inline-block; font-size:.6rem; font-weight:700;
+      letter-spacing:.06em; text-transform:uppercase; background:var(--wood);
+      color:var(--cream); border-radius:3px; padding:.15rem .45rem; margin-bottom:.3rem; }
   </style>
 </head>
 <body>
@@ -132,18 +145,27 @@ function filtrer(cat, btn) {
 function renderCoups() {
   var grid = document.getElementById('coups-grid');
   var countEl = document.getElementById('coups-count');
-  var visibles = filtreActif === 'tous'
+  var tous = filtreActif === 'tous'
     ? tousLesCoups
     : tousLesCoups.filter(function(c) { return c.categorie === filtreActif; });
-  var nb = visibles.length;
-  countEl.textContent = nb + ' coup' + (nb > 1 ? 's' : '') + ' de coeur';
+  var epingles = tous.filter(function(c){ return c.epingle; });
+  var autres   = tous.filter(function(c){ return !c.epingle; });
+  // Afficher le bon compte
+  var nb = tous.length;
+  var nbEp = epingles.length;
+  countEl.textContent = nb + ' coup' + (nb > 1 ? 's' : '') + ' de coeur'
+    + (nbEp > 0 ? ' · ' + nbEp + ' mis en avant' : '');
   if (!nb) {
     grid.innerHTML = '<div class="coups-vide">Aucun coup de coeur dans cette cat&#233;gorie.</div>';
     return;
   }
   // Construire le HTML sans apostrophes imbriquees
   var frag = document.createDocumentFragment();
-  visibles.forEach(function(c) {
+  // ── Épinglés (toujours visibles) ──
+  var visibles = epingles.length > 0 ? epingles : autres; // si aucun épinglé, tout afficher
+  var aAfficher = epingles.length > 0 ? autres : []; // le reste à masquer
+  // Fonction de construction d'une carte (réutilisée pour épinglés + masqués)
+  function buildCard(c) {
     var card = document.createElement('div');
     card.className = 'coup-card';
 
@@ -207,10 +229,58 @@ function renderCoups() {
       body.appendChild(lib);
     }
     card.appendChild(body);
-    frag.appendChild(card);
-  });
+    return card;
+  }
+
+  visibles.forEach(function(c) { frag.appendChild(buildCard(c)); });
   grid.innerHTML = '';
   grid.appendChild(frag);
+
+  // ── Cartes masquées (non-épinglées) ──
+  if (aAfficher.length > 0) {
+    // Bouton "Voir tout"
+    var btnWrap = document.createElement('div');
+    btnWrap.className = 'voir-tout-wrap';
+    var btn = document.createElement('button');
+    btn.className = 'btn-voir-tout';
+    btn.id = 'btnVoirTout';
+    btn.textContent = 'Voir tous les coups de c\u0153ur (' + aAfficher.length + ') \u25be';
+    btn.onclick = function() { toggleTout(aAfficher); };
+    btnWrap.appendChild(btn);
+    grid.appendChild(btnWrap);
+
+    // Conteneur masqué
+    var masqWrap = document.createElement('div');
+    masqWrap.id = 'coupsMasques';
+    masqWrap.className = 'coups-masques';
+    masqWrap.style.cssText = 'display:none;grid-column:1/-1;';
+
+    // Grille des cartes masquées (même style que la grille principale)
+    var masqGrid = document.createElement('div');
+    masqGrid.className = 'coups-grid';
+    masqGrid.style.marginTop = '1rem';
+    var fragMasq = document.createDocumentFragment();
+    aAfficher.forEach(function(cc) {
+      var card = buildCard(cc);
+      fragMasq.appendChild(card);
+    });
+    masqGrid.appendChild(fragMasq);
+    masqWrap.appendChild(masqGrid);
+    grid.appendChild(masqWrap);
+  }
+}
+
+var _toutVisible = false;
+function toggleTout(aAfficher) {
+  _toutVisible = !_toutVisible;
+  var masq = document.getElementById('coupsMasques');
+  var btn  = document.getElementById('btnVoirTout');
+  if (masq) masq.style.display = _toutVisible ? 'block' : 'none';
+  if (btn) {
+    btn.textContent = _toutVisible
+      ? 'R\u00e9duire \u25b4'
+      : 'Voir tous les coups de c\u0153ur (' + aAfficher.length + ') \u25be';
+  }
 }
 
 async function charger() {
