@@ -172,7 +172,6 @@
     .footer-links a:hover { opacity:1; }
     .footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; }
   @media(max-width:800px){ }
-    
     /* NAV */
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
     .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
@@ -247,7 +246,36 @@
   </div>
 </section>
 
+
+<!-- PARTENAIRES -->
+<section class="partenaires">
+  <div class="container">
+    <div class="fade-in">
+      <div class="section-label">Ils font partie de l'aventure</div>
+      <h2 class="section-title">Nos partenaires</h2>
+    </div>
+    <div class="partenaires-grid" id="partenairesGrid"></div>
+  </div>
+</section>
+
 <!-- GALERIE -->
+<section class="galerie-section" style="padding:4rem 0;background:var(--warm-white);">
+  <div class="container">
+    <div class="fade-in" style="margin-bottom:2rem;">
+      <div class="section-label">En images</div>
+      <h2 class="section-title" style="color:var(--wood-dark);">La librairie en photos</h2>
+    </div>
+    <div class="galerie-grid" id="galerieGrid">
+      <!-- Chargé dynamiquement depuis apropos.json -->
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🏠</div><div class="ph-txt">Vue d'ensemble</div></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">📚</div><div class="ph-txt">Les rayons</div></div></div>
+      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">☕</div><div class="ph-txt">L'ambiance</div></div></div>
+    </div>
+    <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;" onclick="closeLightbox()">
+      <img id="lightboxImg" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;" />
+    </div>
+  </div>
+</section>
 <section class="galerie">
   <div class="container">
     <div class="galerie-header fade-in">
@@ -353,6 +381,53 @@
           <p class="valeur-texte">${v.texte}</p>
         </div>`).join('');
 
+      // Partenaires
+      const partenaires = data.partenaires || [];
+      const partenairesGrid = document.getElementById('partenairesGrid');
+      if (partenairesGrid) {
+        if (partenaires.length) {
+          partenairesGrid.innerHTML = partenaires.map(p => `
+            <div class="partner-card">
+              ${p.photo ? `<img class="partner-photo" src="${p.photo}" alt="${p.nom||''}" />` : ''}
+              ${p.emoji ? `<div class="partner-emoji">${p.emoji}</div>` : ''}
+              <div class="partner-nom">${p.nom || ''}</div>
+              ${p.accroche ? `<div class="partner-accroche">${p.accroche}</div>` : ''}
+              ${p.description ? `<p class="partner-desc">${p.description}</p>` : ''}
+              ${p.lien ? `<div class="partner-lien"><a href="${p.lien}" target="_blank" rel="noopener">${p.lien_label || p.lien}</a></div>` : ''}
+            </div>`).join('');
+          document.querySelector('.partenaires').style.display = '';
+        } else {
+          document.querySelector('.partenaires') && (document.querySelector('.partenaires').style.display = 'none');
+        }
+      }
+
+      // Galerie — fallback images hero si vide
+      const galerie = data.galerie || [];
+      const heroImages = [
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/IMG_20220829_145131.jpg', legende: 'La librairie' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/IMG_20220829_145141.jpg', legende: 'Notre espace' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350884255_193606970299119_684689304584996683_n.jpg', legende: "L'ambiance" },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350706999_763684615455681_9098931883408780254_n.jpg', legende: 'Les rayons' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350110694_835607277985386_7956384476186730092_n.jpg', legende: 'Chez nous' },
+      ];
+      const galerieFinale = galerie.length ? galerie : heroImages;
+      const galerieGrid = document.getElementById('galerieGrid');
+      if (galerieGrid && galerieFinale.length) {
+        galerieGrid.innerHTML = galerieFinale.map(function(g, i) {
+          var delay = (i * 0.06).toFixed(2);
+          if (g.url) {
+            return '<div class="gal-item fade-in" style="transition-delay:' + delay + 's" onclick="openLightbox(this)">'
+              + '<img class="gal-img" src="' + g.url + '" alt="' + (g.legende||'') + '" loading="lazy" />'
+              + '<div class="gal-overlay"><span class="gal-legende">' + (g.legende||'') + '</span></div>'
+              + '</div>';
+          } else {
+            return '<div class="gal-item fade-in" style="transition-delay:' + delay + 's">'
+              + '<div class="gal-ph"><div class="ph-icon">📷</div><div class="ph-txt">' + (g.legende||'Photo') + '</div></div>'
+              + '</div>';
+          }
+        }).join('');
+      }
+
     } catch(e) {
       document.getElementById('libraireGrid').innerHTML =
         '<p style="font-style:italic;color:var(--ink-soft);">Contenu bientôt disponible.</p>';
@@ -361,13 +436,26 @@
   }
 
   chargerApropos();
+
+function openLightbox(el) {
+  var img = el.querySelector('.gal-img');
+  if (!img) return;
+  var lb = document.getElementById('lightbox');
+  document.getElementById('lightboxImg').src = img.src;
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
 </script>
 
 <footer class="site-footer" id="contact">
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#01626e6f75606275416472717368752c6d607366642f626e6c"><span class="__cf_email__" data-cfemail="e88b87869c898b9ca88d9b989a819cc584899a8f8dc68b8785">[email&#160;protected]</span></a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -393,3 +481,10 @@
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
       <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+
+</body>
+</html>
