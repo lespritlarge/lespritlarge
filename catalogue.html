@@ -276,7 +276,7 @@
       <select id="selectDispo" onchange="setDispoFilter(this.value)">
         <option value="">Toutes dispos</option>
         <option value="stock">En stock</option>
-        <option value="commande">Sur commande</option>
+        <option value="commande">📋 À commander</option>
       </select>
     </div>
     <!-- Tri -->
@@ -385,6 +385,7 @@ async function chargerStock() {
       date_parution:b.date_parution || '',
       pages:        b.pages || '',
       resume:       b.resume || '',
+      statut:       b.statut || (b.stock > 0 ? 'en_stock' : 'a_commander'),
       genre:        b.genre || devinerGenre(b.titre, b.auteur, b.editeur),
       langue:       b.langue || 'Français',
       price:        (b.prix || '').replace(' EUR','€').replace(' €','€').replace('  ',' ').trim(),
@@ -458,7 +459,11 @@ function normaliser(str) {
 
 function filterBooks() {
   const q = normaliser(document.getElementById('searchInput').value.trim());
-  filtered = BOOKS;
+  // Par défaut exclure 'a_commander' — visible uniquement via filtre explicite
+  const basePool = currentDispoFilter === 'commande'
+    ? BOOKS.filter(b => b.statut === 'a_commander')
+    : BOOKS.filter(b => b.statut !== 'a_commander');
+  filtered = basePool;
   if (currentFilter !== 'Tous') filtered = filtered.filter(b => b.genre === currentFilter);
   if (currentLangFilter === 'Autre') {
     filtered = filtered.filter(b => b.langue && b.langue !== 'Français' && b.langue !== 'Anglais');
@@ -466,7 +471,6 @@ function filterBooks() {
     filtered = filtered.filter(b => b.langue === currentLangFilter);
   }
   if (currentDispoFilter === 'stock') filtered = filtered.filter(b => b.stock > 0);
-  if (currentDispoFilter === 'commande') filtered = filtered.filter(b => b.stock === 0);
   if (q) filtered = filtered.filter(b =>
     normaliser(b.title).includes(q) ||
     normaliser(b.author).includes(q) ||
@@ -516,8 +520,8 @@ function renderPage() {
   }
 
   grid.innerHTML = slice.map((b, i) => {
-    const sClass = b.stock > 0 ? 'stock-ok' : 'stock-out';
-    const sLabel = b.stock > 0 ? '● En stock' : '● À la commande';
+    const sClass = b.statut === 'en_stock' ? 'stock-ok' : 'stock-out';
+    const sLabel = b.statut === 'en_stock' ? '● En stock' : '● À commander';
     const today = new Date();
     const dp = b.date_parution ? new Date(b.date_parution + (b.date_parution.length === 7 ? '-01' : '')) : null;
     const joursEcoules = dp ? Math.floor((today - dp) / 86400000) : 999;
@@ -613,9 +617,9 @@ function openFiche(id) {
       ? '<img class="fiche-cover" src="' + b.cover + '" alt="' + b.title.replace(/"/g,'&quot;') + '" onerror="coverFallback(this)">'
       : '<div class="fiche-cover-ph">📖</div>';
 
-  const dispo = b.stock > 0
+  const dispo = b.statut === 'en_stock'
     ? '<span class="fiche-dispo ok">✓ En stock</span>'
-    : '<span class="fiche-dispo nok">Sur commande</span>';
+    : '<span class="fiche-dispo nok">📋 À commander</span>';
 
   document.getElementById('ficheHeader').innerHTML =
     coverHtml +
@@ -685,7 +689,7 @@ chargerStock().then(() => {
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#8cefe3e2f8edeff8cce9fffcfee5f8a1e0edfeebe9a2efe3e1"><span class="__cf_email__" data-cfemail="fa9995948e9b998eba9f898a88938ed7969b889d9fd4999597">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -711,10 +715,5 @@ chargerStock().then(() => {
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
       <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
 </body>
 </html>
