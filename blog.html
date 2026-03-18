@@ -17,6 +17,30 @@
     html { scroll-behavior:smooth; }
     body { font-family:'Lora',serif; background:var(--warm-white); color:var(--ink); }
 
+    /* NAV */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      background:rgba(242,240,239,0.97); backdrop-filter:blur(8px);
+      border-bottom:1px solid rgba(92,26,26,0.12);
+      padding:0 2rem; height:80px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:0.75rem; text-decoration:none;
+      font-family:'Playfair Display',serif; font-size:1.25rem;
+      font-weight:800; font-style:italic; color:var(--wood-dark);
+    }
+    .nav-logo img { width:64px; height:64px; object-fit:contain; }
+    .nav-logo span { color:var(--amber); }
+    .nav-back {
+      font-family:'Raleway',sans-serif; font-size:0.75rem; font-weight:600;
+      letter-spacing:0.08em; text-transform:uppercase;
+      color:var(--ink-soft); text-decoration:none;
+      border:1px solid rgba(92,26,26,0.2); padding:0.4rem 1rem;
+      border-radius:2px; transition:all 0.2s;
+    }
+    .nav-back:hover { color:var(--wood); border-color:var(--wood); }
+
     /* HEADER */
     .page-header {
       padding: 6rem 4rem 3rem;
@@ -171,7 +195,30 @@
       .article-modal { padding:90px 0.5rem 2rem; }
     }
   
+    /* NAV */
+    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
+    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo img { width:40px; height:40px; object-fit:contain; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:#f2f0ef; }
+    .nav-logo-text em { color:#b86060; font-style:italic; }
+    .nav-links { display:flex; gap:0; list-style:none; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
+    .nav-links a:hover { color:#f2f0ef; background:rgba(255,255,255,.08); }
+    .nav-links a.nav-active { color:#f2f0ef; background:rgba(255,255,255,.15); font-weight:700; }
+    @media(max-width:800px){ .nav-links{display:none;} }
 
+    /* FOOTER */
+    .site-footer { background:#5c1a1a; color:#f2f0ef; padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
+    .site-footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; color:#f2f0ef; }
+    .site-footer .f-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
+    .site-footer .f-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
+    .site-footer .f-desc a { color:#f2f0ef; }
+    .site-footer .f-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; margin-bottom:.8rem; }
+    .site-footer .f-links { list-style:none; }
+    .site-footer .f-links li { margin-bottom:.4rem; }
+    .site-footer .f-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:#f2f0ef; transition:opacity .2s; }
+    .site-footer .f-links a:hover { opacity:1; }
+  
     /* NAV */
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
     .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
@@ -342,7 +389,6 @@ function formaterDate(iso) {
 
 charger();
 </script>
-
 <footer class="site-footer" id="contact">
   <div>
     <div class="f-logo">L'Esprit Large</div>
@@ -358,7 +404,7 @@ charger();
       <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
       <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
       <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
-      <li><a href="https://esprit-large.com/escapades.html">🧳 Escapades</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">Les Escapades</a></li>
       <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
       <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
     </ul>
@@ -372,9 +418,19 @@ charger();
       <li>🚲 Livraison locale</li>
       <li>Mentions légales</li>
     </ul>
+    <p class="f-h" style="margin-top:1.2rem;">Commander en ligne</p>
+    <ul class="f-links">
+      <li><a href="https://www.placedeslibraires.fr/" target="_blank" rel="noopener">📦 Place des Libraires</a></li>
+      <li><a href="https://www.librairies-alip.fr/" target="_blank" rel="noopener">📦 Librairies Alip</a></li>
+    </ul>
+    <p class="f-h" style="margin-top:1.2rem;">Nous suivre</p>
+    <ul class="f-links">
+      <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
+      <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
+    </ul>
   </div>
 </footer>
 <div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
+<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
 </body>
 </html>

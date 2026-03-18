@@ -381,8 +381,18 @@
 
       // Galerie dynamique
       const galerie = data.galerie || [];
+      // Si aucune photo dans la galerie admin → utiliser les images du héro
+      const heroImages = [
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/IMG_20220829_145131.jpg', legende: 'La librairie' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/IMG_20220829_145141.jpg', legende: 'Notre espace' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350884255_193606970299119_684689304584996683_n.jpg', legende: 'L'ambiance' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350706999_763684615455681_9098931883408780254_n.jpg', legende: 'Les rayons' },
+        { url: 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/350110694_835607277985386_7956384476186730092_n.jpg', legende: 'Chez nous' },
+      ];
+      const galerieFinale = galerie.length ? galerie : heroImages;
       const galerieGrid = document.getElementById('galerieGrid');
-      if (galerie.length && galerieGrid) {
+      if (galerieFinale.length && galerieGrid) {
+        const galerie = galerieFinale; // alias pour le code ci-dessous
         galerieGrid.innerHTML = galerie.map(function(g, i) {
           var delay = (i * 0.06).toFixed(2);
           if (g.url) {
@@ -415,7 +425,7 @@
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#3d5e5253495c5e497d584e4d4f544910515c4f5a58135e5250"><span class="__cf_email__" data-cfemail="c4a7abaab0a5a7b084a1b7b4b6adb0e9a8a5b6a3a1eaa7aba9">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -441,9 +451,19 @@
       <li>Mentions légales</li>
     </ul>
   </div>
+  <div>
+    <p class="f-h">Commander en ligne</p>
+    <ul class="f-links">
+      <li><a href="https://www.placedeslibraires.fr/" target="_blank" rel="noopener">📦 Place des Libraires</a></li>
+      <li><a href="https://www.librairies-alip.fr/" target="_blank" rel="noopener">📦 Librairies Alip</a></li>
+    </ul>
+    <p class="f-h" style="margin-top:1.2rem;">Nous suivre</p>
+    <ul class="f-links">
+      <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
+      <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
+    </ul>
+  </div>
 </footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
+<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie ind
 </body>
 </html>
