@@ -15,17 +15,7 @@
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Lora',serif; background:var(--warm-white); color:var(--ink); }
 
-    /* FOOTER */
-    .site-footer { background:#5c1a1a; color:#f2f0ef; padding:3rem 4rem; display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:2rem; margin-top:3rem; }
-    .site-footer-bottom { background:#3a0e0e; text-align:center; font-size:.72rem; padding:.8rem; opacity:.5; font-family:'Raleway',sans-serif; color:#f2f0ef; }
-    .site-footer .f-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:800; font-style:italic; margin-bottom:.6rem; }
-    .site-footer .f-desc { font-size:.82rem; opacity:.65; line-height:1.7; }
-    .site-footer .f-desc a { color:#f2f0ef; }
-    .site-footer .f-h { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#b86060; margin-bottom:.8rem; }
-    .site-footer .f-links { list-style:none; }
-    .site-footer .f-links li { margin-bottom:.4rem; }
-    .site-footer .f-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:#f2f0ef; transition:opacity .2s; }
-    .site-footer .f-links a:hover { opacity:1; }
+    
     .page-hero { background:var(--wood-dark); padding:3rem 2.5rem 2.5rem; border-bottom:3px solid var(--wood-light); }
     .page-hero-label { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--wood-light); margin-bottom:.6rem; }
     .page-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,3rem); font-weight:900; font-style:italic; color:var(--cream); line-height:1.1; margin-bottom:.5rem; }
@@ -51,6 +41,16 @@
     .coups-vide { grid-column:1/-1; text-align:center; padding:4rem 2rem; font-style:italic; color:var(--ink-soft); }
     @media(max-width:600px) { .coups-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; } }
 
+    /* ── PAGINATION ── */
+    .coups-pagination { display:flex; justify-content:center; align-items:center;
+      gap:.4rem; padding:2rem 0 1rem; flex-wrap:wrap; }
+    .page-btn { font-family:'Raleway',sans-serif; font-size:.78rem; font-weight:600;
+      padding:.45rem .85rem; border:1.5px solid var(--parchment); background:#fff;
+      color:var(--ink-soft); cursor:pointer; border-radius:3px; transition:all .2s;
+      min-width:2.2rem; text-align:center; }
+    .page-btn:hover, .page-btn.active { background:var(--wood); color:#fff; border-color:var(--wood); }
+    .page-btn:disabled { opacity:.3; cursor:not-allowed; }
+
 
     /* NAV */
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
@@ -75,19 +75,6 @@
     .site-footer .f-links li { margin-bottom:.4rem; }
     .site-footer .f-links a { font-size:.82rem; opacity:.7; text-decoration:none; color:#f2f0ef; transition:opacity .2s; }
     .site-footer .f-links a:hover { opacity:1; }
-  
-    /* ── VOIR TOUT ── */
-    .coups-masques { display:none; }
-    .coups-masques.visible { display:contents; }
-    .voir-tout-wrap { grid-column:1/-1; text-align:center; padding:1.5rem 0 .5rem; }
-    .btn-voir-tout { font-family:'Raleway',sans-serif; font-size:.75rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
-      background:transparent; color:var(--wood); border:1.5px solid var(--wood);
-      border-radius:20px; padding:.5rem 1.6rem; transition:all .2s; }
-    .btn-voir-tout:hover { background:var(--wood); color:var(--cream); }
-    .epingle-badge { display:inline-block; font-size:.6rem; font-weight:700;
-      letter-spacing:.06em; text-transform:uppercase; background:var(--wood);
-      color:var(--cream); border-radius:3px; padding:.15rem .45rem; margin-bottom:.3rem; }
   </style>
 </head>
 <body>
@@ -134,169 +121,187 @@
 var tousLesCoups = [];
 var filtreActif = 'tous';
 var EMOJI = { Roman: '&#x1F4D6;', BD: '&#x1F3A8;', Jeunesse: '&#x1F31F;', Essai: '&#x1F4A1;' };
+var pageCourante = 1;
+var PER_PAGE = 20;
 
 function filtrer(cat, btn) {
   filtreActif = cat;
+  pageCourante = 1;
   document.querySelectorAll('.filtre-btn').forEach(function(b) { b.classList.remove('active'); });
   btn.classList.add('active');
   renderCoups();
 }
 
 function renderCoups() {
-  var grid = document.getElementById('coups-grid');
+  var grid    = document.getElementById('coups-grid');
   var countEl = document.getElementById('coups-count');
+
   var tous = filtreActif === 'tous'
     ? tousLesCoups
-    : tousLesCoups.filter(function(c) { return c.categorie === filtreActif; });
-  var epingles = tous.filter(function(c){ return c.epingle; });
-  var autres   = tous.filter(function(c){ return !c.epingle; });
-  // Afficher le bon compte
-  var nb = tous.length;
-  var nbEp = epingles.length;
-  countEl.textContent = nb + ' coup' + (nb > 1 ? 's' : '') + ' de coeur'
-    + (nbEp > 0 ? ' · ' + nbEp + ' mis en avant' : '');
-  if (!nb) {
-    grid.innerHTML = '<div class="coups-vide">Aucun coup de coeur dans cette cat&#233;gorie.</div>';
+    : tousLesCoups.filter(function(x) { return x.categorie === filtreActif; });
+
+  var epingles = tous.filter(function(x){ return x.epingle; });
+  var autres   = tous.filter(function(x){ return !x.epingle; });
+  var ordonnes = epingles.concat(autres);
+  var total    = ordonnes.length;
+  var totalPages = Math.ceil(total / PER_PAGE);
+
+  countEl.textContent = total + ' coup' + (total > 1 ? 's' : '') + ' de coeur'
+    + (epingles.length > 0 ? ' · ' + epingles.length + ' mis en avant' : '');
+
+  if (!total) {
+    grid.innerHTML = '<div class="coups-vide">Aucun coup de coeur dans cette catégorie.</div>';
+    renderPagination(0);
     return;
   }
-  // Construire le HTML sans apostrophes imbriquees
+
+  if (pageCourante > totalPages) pageCourante = 1;
+  var debut   = (pageCourante - 1) * PER_PAGE;
+  var tranche = ordonnes.slice(debut, debut + PER_PAGE);
+
   var frag = document.createDocumentFragment();
-  // ── Épinglés (toujours visibles) ──
-  var visibles = epingles.length > 0 ? epingles : autres; // si aucun épinglé, tout afficher
-  var aAfficher = epingles.length > 0 ? autres : []; // le reste à masquer
-  // Fonction de construction d'une carte (réutilisée pour épinglés + masqués)
-  function buildCard(c) {
-    var card = document.createElement('div');
-    card.className = 'coup-card';
-
-    // Wrap couverture
-    var wrap = document.createElement('div');
-    wrap.className = 'coup-cover-wrap';
-
-    if (c.couverture) {
-      var img = document.createElement('img');
-      img.className = 'coup-cover';
-      img.src = c.couverture;
-      img.alt = c.titre || '';
-      img.loading = 'lazy';
-      img.onerror = function() {
-        var ph = document.createElement('div');
-        ph.className = 'coup-cover-ph';
-        ph.textContent = EMOJI[c.categorie] || '&#x1F4D6;';
-        this.parentNode.replaceChild(ph, this);
-      };
-      wrap.appendChild(img);
-    } else {
-      var ph = document.createElement('div');
-      ph.className = 'coup-cover-ph';
-      ph.textContent = EMOJI[c.categorie] || '&#x1F4D6;';
-      wrap.appendChild(ph);
-    }
-
-    if (c.categorie) {
-      var badge = document.createElement('div');
-      badge.className = 'coup-cat-badge';
-      badge.textContent = c.categorie;
-      wrap.appendChild(badge);
-    }
-    card.appendChild(wrap);
-
-    // Body
-    var body = document.createElement('div');
-    body.className = 'coup-body';
-
-    var titre = document.createElement('div');
-    titre.className = 'coup-titre';
-    titre.textContent = c.titre || '(Sans titre)';
-    body.appendChild(titre);
-
-    if (c.auteur) {
-      var auteur = document.createElement('div');
-      auteur.className = 'coup-auteur';
-      auteur.textContent = c.auteur;
-      body.appendChild(auteur);
-    }
-    if (c.citation) {
-      var cit = document.createElement('div');
-      cit.className = 'coup-citation';
-      cit.textContent = c.citation;
-      body.appendChild(cit);
-    }
-    if (c.libraire) {
-      var lib = document.createElement('div');
-      lib.className = 'coup-libraire';
-      lib.textContent = '\u2014 ' + c.libraire;
-      body.appendChild(lib);
-    }
-    card.appendChild(body);
-    return card;
-  }
-
-  visibles.forEach(function(c) { frag.appendChild(buildCard(c)); });
+  tranche.forEach(function(item) { frag.appendChild(buildCard(item)); });
   grid.innerHTML = '';
   grid.appendChild(frag);
 
-  // ── Cartes masquées (non-épinglées) ──
-  if (aAfficher.length > 0) {
-    // Bouton "Voir tout"
-    var btnWrap = document.createElement('div');
-    btnWrap.className = 'voir-tout-wrap';
-    var btn = document.createElement('button');
-    btn.className = 'btn-voir-tout';
-    btn.id = 'btnVoirTout';
-    btn.textContent = 'Voir tous les coups de c\u0153ur (' + aAfficher.length + ') \u25be';
-    btn.onclick = function() { toggleTout(aAfficher); };
-    btnWrap.appendChild(btn);
-    grid.appendChild(btnWrap);
-
-    // Conteneur masqué
-    var masqWrap = document.createElement('div');
-    masqWrap.id = 'coupsMasques';
-    masqWrap.className = 'coups-masques';
-    masqWrap.style.cssText = 'display:none;grid-column:1/-1;';
-
-    // Grille des cartes masquées (même style que la grille principale)
-    var masqGrid = document.createElement('div');
-    masqGrid.className = 'coups-grid';
-    masqGrid.style.marginTop = '1rem';
-    var fragMasq = document.createDocumentFragment();
-    aAfficher.forEach(function(cc) {
-      var card = buildCard(cc);
-      fragMasq.appendChild(card);
-    });
-    masqGrid.appendChild(fragMasq);
-    masqWrap.appendChild(masqGrid);
-    grid.appendChild(masqWrap);
-  }
+  renderPagination(totalPages);
 }
 
-var _toutVisible = false;
-function toggleTout(aAfficher) {
-  _toutVisible = !_toutVisible;
-  var masq = document.getElementById('coupsMasques');
-  var btn  = document.getElementById('btnVoirTout');
-  if (masq) masq.style.display = _toutVisible ? 'block' : 'none';
-  if (btn) {
-    btn.textContent = _toutVisible
-      ? 'R\u00e9duire \u25b4'
-      : 'Voir tous les coups de c\u0153ur (' + aAfficher.length + ') \u25be';
+function buildCard(item) {
+  var card = document.createElement('div');
+  card.className = 'coup-card';
+
+  var wrap = document.createElement('div');
+  wrap.className = 'coup-cover-wrap';
+
+  if (item.couverture) {
+    var img = document.createElement('img');
+    img.className = 'coup-cover';
+    img.src = item.couverture;
+    img.alt = item.titre || '';
+    img.loading = 'lazy';
+    img.onerror = function() {
+      var ph = document.createElement('div');
+      ph.className = 'coup-cover-ph';
+      ph.innerHTML = EMOJI[item.categorie] || '&#x1F4D6;';
+      this.parentNode.replaceChild(ph, this);
+    };
+    wrap.appendChild(img);
+  } else {
+    var ph = document.createElement('div');
+    ph.className = 'coup-cover-ph';
+    ph.innerHTML = EMOJI[item.categorie] || '&#x1F4D6;';
+    wrap.appendChild(ph);
   }
+
+  if (item.categorie) {
+    var badge = document.createElement('div');
+    badge.className = 'coup-cat-badge';
+    badge.textContent = item.categorie;
+    wrap.appendChild(badge);
+  }
+
+  if (item.epingle) {
+    var pin = document.createElement('div');
+    pin.style.cssText = 'position:absolute;top:.6rem;right:.6rem;font-size:.75rem;background:var(--wood);color:#fff;border-radius:3px;padding:.1rem .35rem;line-height:1;';
+    pin.textContent = '??';
+    wrap.appendChild(pin);
+  }
+
+  card.appendChild(wrap);
+
+  var body = document.createElement('div');
+  body.className = 'coup-body';
+
+  var titre = document.createElement('div');
+  titre.className = 'coup-titre';
+  titre.textContent = item.titre || '(Sans titre)';
+  body.appendChild(titre);
+
+  if (item.auteur) {
+    var auteur = document.createElement('div');
+    auteur.className = 'coup-auteur';
+    auteur.textContent = item.auteur;
+    body.appendChild(auteur);
+  }
+  if (item.citation) {
+    var cit = document.createElement('div');
+    cit.className = 'coup-citation';
+    cit.textContent = item.citation;
+    body.appendChild(cit);
+  }
+  if (item.libraire) {
+    var lib = document.createElement('div');
+    lib.className = 'coup-libraire';
+    lib.textContent = '— ' + item.libraire;
+    body.appendChild(lib);
+  }
+
+  card.appendChild(body);
+  return card;
 }
 
-async function charger() {
-  try {
-    var r = await fetch('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/coups.json?t=' + Date.now());
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    var data = await r.json();
-    var tous = data.coups || [];
-    var ep = tous.filter(function(x){ return x.epingle; });
-    tousLesCoups = ep.concat(tous.filter(function(x){ return !x.epingle; }));
-    renderCoups();
-  } catch(e) {
-    document.getElementById('coups-grid').innerHTML = '<div class="coups-vide">Impossible de charger les coups de coeur.</div>';
+function renderPagination(totalPages) {
+  var wrap = document.getElementById('coups-pagination');
+  if (!wrap) return;
+  if (totalPages <= 1) { wrap.innerHTML = ''; return; }
+  var p = pageCourante;
+  var html = '<button class="page-btn" onclick="goPage(' + (p-1) + ')"' + (p===1?' disabled':'') + '>&#8249;</button>';
+  for (var i = 1; i <= totalPages; i++) {
+    if (i===1 || i===totalPages || Math.abs(i-p)<=1) {
+      html += '<button class="page-btn' + (i===p?' active':'') + '" onclick="goPage('+i+')">' + i + '</button>';
+    } else if (Math.abs(i-p)===2) {
+      html += '<span style="padding:0 .3rem;color:var(--ink-soft);">&#8230;</span>';
+    }
   }
+  html += '<button class="page-btn" onclick="goPage(' + (p+1) + ')"' + (p===totalPages?' disabled':'') + '>&#8250;</button>';
+  wrap.innerHTML = html;
 }
+
+function goPage(p) {
+  pageCourante = p;
+  renderCoups();
+  window.scrollTo({ top: document.getElementById('coups-grid').offsetTop - 80, behavior: 'smooth' });
+}
+
 charger();
 </script>
+
+  <div class="coups-pagination" id="coups-pagination"></div>
+</div>
+
+<footer class="site-footer" id="contact">
+  <div>
+    <div class="f-logo">L'Esprit Large</div>
+    <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
+  </div>
+  <div>
+    <p class="f-h">Navigation</p>
+    <ul class="f-links">
+      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">🧳 Escapades</a></li>
+      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="f-h">Infos pratiques</p>
+    <ul class="f-links">
+      <li>Commande &amp; réservation</li>
+      <li>Carte cadeau</li>
+      <li>🥪 Casse-croûte Littéraire</li>
+      <li>🚲 Livraison locale</li>
+      <li>Mentions légales</li>
+    </ul>
+  </div>
+</footer>
+<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+
 </body>
 </html>
