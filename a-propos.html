@@ -265,12 +265,7 @@
       <div class="section-label">En images</div>
       <h2 class="section-title" style="color:var(--wood-dark);">La librairie en photos</h2>
     </div>
-    <div class="galerie-grid" id="galerieGrid">
-      <!-- Chargé dynamiquement depuis apropos.json -->
-      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">🏠</div><div class="ph-txt">Vue d'ensemble</div></div></div>
-      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">📚</div><div class="ph-txt">Les rayons</div></div></div>
-      <div class="gal-item fade-in"><div class="gal-ph"><div class="ph-icon">☕</div><div class="ph-txt">L'ambiance</div></div></div>
-    </div>
+    <div class="galerie-grid" id="galerieGrid"></div>
     <div id="lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;cursor:zoom-out;" onclick="closeLightbox()">
       <img id="lightboxImg" src="" style="max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px;" />
     </div>
@@ -283,45 +278,7 @@
       <h2 class="section-title">Notre espace</h2>
       <p>Uploadez vos photos dans <code>images/galerie/</code> sur GitHub et remplacez les placeholders ci-dessous.</p>
     </div>
-    <div class="galerie-grid">
-      <div class="gal-item fade-in" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo1.jpg" alt="La librairie" data-legende="La librairie" /> -->
-        <div class="gal-ph"><div class="ph-icon">🏠</div><div class="ph-txt">Vue d'ensemble</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.06s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo2.jpg" alt="Les rayons" data-legende="Les rayons" /> -->
-        <div class="gal-ph"><div class="ph-icon">📚</div><div class="ph-txt">Les rayons</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.09s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo3.jpg" alt="La vitrine" data-legende="La vitrine" /> -->
-        <div class="gal-ph"><div class="ph-icon">🪟</div><div class="ph-txt">La vitrine</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.12s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo4.jpg" alt="Un événement" data-legende="Un événement" /> -->
-        <div class="gal-ph"><div class="ph-icon">🎪</div><div class="ph-txt">Un événement</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.15s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo5.jpg" alt="L'ambiance" data-legende="L'ambiance" /> -->
-        <div class="gal-ph"><div class="ph-icon">☕</div><div class="ph-txt">L'ambiance</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.18s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo6.jpg" alt="Coin lecture" data-legende="Coin lecture" /> -->
-        <div class="gal-ph"><div class="ph-icon">📖</div><div class="ph-txt">Coin lecture</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.21s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo7.jpg" alt="Les détails" data-legende="Les détails" /> -->
-        <div class="gal-ph"><div class="ph-icon">🌿</div><div class="ph-txt">Les détails</div></div>
-        <div class="gal-overlay"><span class="gal-legende"></span></div>
-      </div>
-      <div class="gal-item fade-in" style="transition-delay:0.24s" onclick="openLightbox(this)">
-        <!-- <img src="images/galerie/photo8.jpg" alt="Guérande" data-legende="Guérande" /> -->
-        <div class="gal-ph"><div class="ph-icon">🗺️</div><div class="ph-txt">Guérande</div></div>
+    
         <div class="gal-overlay"><span class="gal-legende"></span></div>
       </div>
     </div>
@@ -455,7 +412,7 @@ function closeLightbox() {
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#adcec2c3d9ccced9edc8dedddfc4d980c1ccdfcac883cec2c0"><span class="__cf_email__" data-cfemail="5c3f3332283d3f281c392f2c2e352871303d2e3b39723f3331">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -481,10 +438,5 @@ function closeLightbox() {
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
       <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
 </body>
 </html>
