@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-18T09:01:29.034Z",
+  "mis_a_jour": "2026-03-18T15:17:33.717Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -74,6 +74,15 @@
       "libraire": "Nadine",
       "categorie": "Roman",
       "epingle": true
+    },
+    {
+      "ean": "9782375024515",
+      "titre": "Lâcher les chiens",
+      "auteur": "",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782375024515/large",
+      "citation": "Course poursuite en montagne et vie de chien...",
+      "libraire": "Aurélien",
+      "categorie": "Roman"
     }
   ]
 }
