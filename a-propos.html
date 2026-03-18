@@ -329,15 +329,17 @@
       const partenairesGrid = document.getElementById('partenairesGrid');
       if (partenairesGrid) {
         if (partenaires.length) {
-          partenairesGrid.innerHTML = partenaires.map(p => `
-            <div class="partner-card">
-              ${p.photo ? `<div style="text-align:center;padding:.5rem 0;"><img class="partner-photo" src="${p.photo}" alt="${p.nom||\'\'}" /></div>` : ''}
-              ${p.emoji ? `<div class="partner-emoji">${p.emoji}</div>` : ''}
-              <div class="partner-nom">${p.nom || ''}</div>
-              ${p.accroche ? `<div class="partner-accroche">${p.accroche}</div>` : ''}
-              ${p.description ? `<p class="partner-desc">${p.description}</p>` : ''}
-              ${p.lien ? `<div class="partner-lien"><a href="${p.lien}" target="_blank" rel="noopener">${p.lien_label || p.lien}</a></div>` : ''}
-            </div>`).join('');
+          partenairesGrid.innerHTML = partenaires.map(function(p) {
+            var html = '<div class="partner-card">';
+            if (p.photo) html += '<div style="text-align:center;padding:.5rem 0;"><img class="partner-photo" src="' + p.photo + '" alt="' + (p.nom||'') + '" /></div>';
+            if (p.emoji) html += '<div class="partner-emoji">' + p.emoji + '</div>';
+            html += '<div class="partner-nom">' + (p.nom||'') + '</div>';
+            if (p.accroche) html += '<div class="partner-accroche">' + p.accroche + '</div>';
+            if (p.description) html += '<p class="partner-desc">' + p.description + '</p>';
+            if (p.lien) html += '<div class="partner-lien"><a href="' + p.lien + '" target="_blank" rel="noopener">' + (p.lien_label||p.lien) + '</a></div>';
+            html += '</div>';
+            return html;
+          }).join('');
           document.querySelector('.partenaires').style.display = '';
         } else {
           document.querySelector('.partenaires') && (document.querySelector('.partenaires').style.display = 'none');
