@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-17T15:09:07.083Z",
+  "mis_a_jour": "2026-03-18T09:01:29.034Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -72,7 +72,8 @@
       "couverture": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1763717648i/242053744.jpg",
       "citation": "Un trio amoureux à Venise au XVIIIème siècle...",
       "libraire": "Nadine",
-      "categorie": "Roman"
+      "categorie": "Roman",
+      "epingle": true
     }
   ]
 }
