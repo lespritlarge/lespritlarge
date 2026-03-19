@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-18T11:23:40.476Z",
+  "mis_a_jour": "2026-03-19T16:48:55.299Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -128,6 +128,19 @@
       "special": false,
       "fermeture": false,
       "id": "1773340493024",
+      "date": "2026-04-07",
+      "recurrent": false
+    },
+    {
+      "titre": "Les Oeufs, on en parle",
+      "time": "",
+      "type": "Autre",
+      "lieu": "",
+      "desc": "Sous la forme d'un quiz ludique, Servanne Bigot vous initiera à l'anthropologie culinaire de l'Oeuf, de son histoire à son étonnante chimie. Suivi d'une dégustation atypique. Participation 12 E au nom de l'association Cuisinez moi. Sur inscription, le nombre de places étant limité.",
+      "affiche": "les-oeufs-1773938844591.png",
+      "special": true,
+      "fermeture": false,
+      "id": "1773938935299",
       "date": "2026-04-07",
       "recurrent": false
     },
