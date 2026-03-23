@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-19T16:48:55.299Z",
+  "mis_a_jour": "2026-03-23T13:54:39.917Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -117,19 +117,6 @@
       "id": "mmm6hm5w_r2",
       "date": "2026-04-01",
       "recurrent": true
-    },
-    {
-      "titre": "Rencontre autour de l'œuf avec Servanne",
-      "time": "",
-      "type": "🥪 Casse-croûte Littéraire",
-      "lieu": "Librairie L'Esprit Large",
-      "desc": "Rencontre autour de l'œuf avec Servanne",
-      "affiche": "les-oeufs-1773833013939.png",
-      "special": false,
-      "fermeture": false,
-      "id": "1773340493024",
-      "date": "2026-04-07",
-      "recurrent": false
     },
     {
       "titre": "Les Oeufs, on en parle",
