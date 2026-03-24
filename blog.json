@@ -1,15 +1,15 @@
 {
-  "mis_a_jour": "2026-03-13T15:12:14.635Z",
+  "mis_a_jour": "2026-03-24T15:42:49.242Z",
   "articles": [
     {
-      "id": "1773414290951",
-      "titre": "Le site de la librairie fait peau neuve...",
+      "id": "1774366969242",
+      "titre": "AVIS DE TEMPÊTE - MARS 2026",
       "categorie": "Vie de la librairie",
-      "date": "2026-03-13",
-      "texte": "Nouveau site, catalogue mis à jour, pas encore de possibilité de commander via le site mais on y travaille... N'hésitez pas à l'explorer... Et a nous dire ce qu'il manque ou ce qu'il ne va pas !",
-      "image": "https://asso.librairies-alip.fr/wp-content/uploads/2021/10/Esprit-large-interieur-1-1.jpg",
-      "lien": "",
-      "lien_label": ""
+      "date": "2026-03-24",
+      "texte": "Les avis de tempête sont à retrouver en cliquant sur le bouton juste ci-dessous ! De même si vous voulez les recevoir tout les mois, sur votre boîte mail.",
+      "image": "images/blog/blog-adt032026mars-1774366893612.png",
+      "lien": "https://esprit-large.com/avisdetempete.html",
+      "lien_label": "Les avis de tempêtes !"
     },
     {
       "id": "1773414213015",
@@ -18,6 +18,16 @@
       "date": "2026-03-30",
       "texte": "La librairie sera fermée le lundi 30 mars et le mardi 31 mars pour inventaire. Elle réouvrira normalement le 01 avril, et ce n'est pas une blague!",
       "image": "https://upload.epagine.fr/6128/uploads/devanture/350884255_193606970299119_684689304584996683_n.jpg",
+      "lien": "",
+      "lien_label": ""
+    },
+    {
+      "id": "1773414290951",
+      "titre": "Le site de la librairie fait peau neuve...",
+      "categorie": "Vie de la librairie",
+      "date": "2026-03-13",
+      "texte": "Nouveau site, catalogue mis à jour, pas encore de possibilité de commander via le site mais on y travaille... N'hésitez pas à l'explorer... Et a nous dire ce qu'il manque ou ce qu'il ne va pas !",
+      "image": "https://asso.librairies-alip.fr/wp-content/uploads/2021/10/Esprit-large-interieur-1-1.jpg",
       "lien": "",
       "lien_label": ""
     }
