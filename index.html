@@ -970,7 +970,9 @@ async function chargerEvenements() {
     list.innerHTML = prochains.map(function(e) {
       var p = (e.date||'').split('-');
       var d = p.length === 3 ? new Date(parseInt(p[0]), parseInt(p[1])-1, parseInt(p[2])) : null;
-      return '<div class="evt-carte">'
+      var GH_RAW = 'https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/';
+      return '<div class="evt-carte" style="cursor:pointer;" onclick="ouvrirEvenement(this)"' + ' data-titre="' + (e.titre||'').replace(/"/g,'&quot;') + '"' + ' data-type="' + (e.type||'') + '"' + ' data-lieu="' + (e.lieu||'') + '"' + ' data-time="' + (e.time||'') + '"' + ' data-desc="' + (e.desc||'').replace(/"/g,'&quot;') + '"' + ' data-affiche="' + (e.affiche||'') + '">'
+        + (e.affiche ? '<div class="evt-affiche"><img src="' + GH_RAW + 'evenements/' + e.affiche + '" alt="' + (e.titre||'') + '" loading="lazy" style="width:100%;height:120px;object-fit:cover;border-radius:3px;margin-bottom:.8rem;display:block;" /></div>' : '')
         + (d ? '<div class="evt-jour">' + d.getDate() + '</div><div class="evt-mois">' + MOIS[d.getMonth()] + ' ' + d.getFullYear() + '</div>' : '')
         + '<div class="evt-type">' + (e.type||'') + '</div>'
         + '<div class="evt-titre">' + (e.titre||'') + '</div>'
@@ -1056,7 +1058,7 @@ chargerBlog();
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#a0c3cfced4c1c3d4e0c5d3d0d2c9d48dccc1d2c7c58ec3cfcd"><span class="__cf_email__" data-cfemail="72111d1c0613110632170102001b065f1e130015175c111d1f">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -1081,9 +1083,6 @@ chargerBlog();
     <p class="f-h" style="margin-top:1.2rem;">Nous suivre</p>
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
-      <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+      <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram<
+</body>
 </html>

@@ -41,6 +41,16 @@
     .coup-libraire { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--wood); }
     .coups-vide { grid-column:1/-1; text-align:center; padding:4rem 2rem; font-style:italic; color:var(--ink-soft); }
     @media(max-width:600px) { .coups-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; } }
+    /* ── TOGGLE COUP ── */
+    .coup-body { overflow: hidden; transition: max-height .3s ease, opacity .3s; }
+    .coup-body.collapsed { max-height: 0; opacity: 0; padding: 0; }
+    .coup-body.expanded  { max-height: 600px; opacity: 1; }
+    .coup-toggle { display:flex; align-items:center; justify-content:space-between;
+      padding:.5rem .75rem; cursor:pointer; background:none; border:none; width:100%;
+      text-align:left; font-family:'Raleway',sans-serif; font-size:.78rem; font-weight:700;
+      letter-spacing:.06em; color:var(--wood); }
+    .coup-toggle .toggle-arrow { font-size:.7rem; transition:transform .2s; }
+    .coup-toggle.open .toggle-arrow { transform: rotate(180deg); }
     /* ── PAGINATION ── */
     .coups-pagination { display:flex; justify-content:center; align-items:center;
       gap:.4rem; padding:2rem 0 1rem; flex-wrap:wrap; }
@@ -206,12 +216,30 @@ function buildCard(item) {
     wrap.appendChild(pin);
   }
   card.appendChild(wrap);
+
+  // Bouton toggle
+  var toggle = document.createElement('button');
+  toggle.className = 'coup-toggle';
+  var titleSpan = document.createElement('span');
+  titleSpan.className = 'coup-titre';
+  titleSpan.textContent = item.titre || '(Sans titre)';
+  var arrow = document.createElement('span');
+  arrow.className = 'toggle-arrow';
+  arrow.textContent = '▼';
+  toggle.appendChild(titleSpan);
+  toggle.appendChild(arrow);
+  toggle.onclick = function() {
+    var b = card.querySelector('.coup-body');
+    var isOpen = b.classList.contains('expanded');
+    b.classList.toggle('expanded', !isOpen);
+    b.classList.toggle('collapsed', isOpen);
+    toggle.classList.toggle('open', !isOpen);
+  };
+  card.appendChild(toggle);
+
   var body = document.createElement('div');
-  body.className = 'coup-body';
-  var titre = document.createElement('div');
-  titre.className = 'coup-titre';
-  titre.textContent = item.titre || '(Sans titre)';
-  body.appendChild(titre);
+  body.className = 'coup-body collapsed';
+
   if (item.auteur) {
     var auteur = document.createElement('div');
     auteur.className = 'coup-auteur';
@@ -286,7 +314,7 @@ charger();
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#13707c7d6772706753766063617a673e7f726174763d707c7e"><span class="__cf_email__" data-cfemail="f2919d9c86939186b2978182809b86df9e93809597dc919d9f">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -312,10 +340,5 @@ charger();
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
       <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
 </body>
 </html>

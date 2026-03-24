@@ -273,6 +273,7 @@
   </ul>
 </nav>
 
+
 <!-- HEADER -->
 <div class="page-header">
   <p class="header-tag">📨 Newsletter mensuelle</p>
@@ -283,7 +284,9 @@
       <path d="M0,25 Q37,5 75,25 Q112,45 150,25 Q187,5 225,25 Q262,45 300,25" fill="none" stroke="var(--cream)" stroke-width="2"/>
       <path d="M0,35 Q37,15 75,35 Q112,55 150,35 Q187,15 225,35 Q262,55 300,35" fill="none" stroke="var(--cream)" stroke-width="1.5"/>
     </svg>
-  </div>
+  
+  <a href="mailto:contact@esprit-large.com?subject=Inscription%20Avis%20de%20Temp%C3%AAte&body=Bonjour%2C%20je%20souhaite%20m'inscrire%20%C3%A0%20l'Avis%20de%20Temp%C3%AAte%20de%20la%20Librairie%20L'Esprit%20Large." style="display:inline-flex;align-items:center;gap:.5rem;background:#8b2e2e;color:#f2f0ef;font-family:'Raleway',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:.7rem 1.6rem;border-radius:3px;margin-top:1.2rem;">🌊 S'inscrire à l'Avis de Tempête</a>
+</div>
 </div>
 
 <!-- YEAR TABS -->
@@ -352,6 +355,8 @@ async function chargerArchives() {
       if (!parAnnee[n.annee]) parAnnee[n.annee] = [];
       parAnnee[n.annee].push(n);
     });
+    const MOIS_ORD = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    Object.keys(parAnnee).forEach(yr => { parAnnee[yr].sort((a,b) => MOIS_ORD.indexOf(b.mois) - MOIS_ORD.indexOf(a.mois)); });
     const annees = Object.keys(parAnnee).map(Number).sort((a,b) => b-a);
 
     // Générer les onglets années
@@ -452,7 +457,7 @@ chargerArchives();
   <div>
     <div class="f-logo">L'Esprit Large</div>
     <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
-    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="/cdn-cgi/l/email-protection#93f0fcfde7f2f0e7d3f6e0e3e1fae7befff2e1f4f6bdf0fcfe"><span class="__cf_email__" data-cfemail="b8dbd7d6ccd9dbccf8ddcbc8cad1cc95d4d9cadfdd96dbd7d5">[email&#160;protected]</span></a></p>
     <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
   </div>
   <div>
@@ -478,10 +483,5 @@ chargerArchives();
     <ul class="f-links">
       <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
       <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
-    </ul>
-  </div>
-</footer>
-<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
-
 </body>
 </html>
