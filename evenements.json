@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-23T13:54:39.917Z",
+  "mis_a_jour": "2026-03-24T14:51:55.164Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -223,17 +223,17 @@
       "recurrent": true
     },
     {
-      "id": "1747008000000",
       "titre": "Les Madeleines des libraires",
-      "date": "2026-05-12",
-      "time": "18h30 Ã¢ÂÂ 20h30",
-      "type": "Ã°ÂÂÂ Les Madeleines des libraires",
+      "time": "18h30 à 20h30",
+      "type": "",
       "lieu": "Librairie L'Esprit Large",
-      "desc": "SoirÃÂ©e conviviale de partage autour d'un verre. Venez parler de vos derniÃÂ¨res lectures !",
-      "affiche": "",
+      "desc": "Soirée conviviale de partage autour d'un verre, venez parler des livres qui ont CHANGÉS votre vie. Ceux, qui à l'instar d'une madeleine de Proust, vont font ressentir quelque-chose, d'ancien, de nostalgique, de mélancolique...",
+      "affiche": "madeleines-1774363911104.png",
       "special": false,
-      "recurrent": false,
-      "fermeture": false
+      "fermeture": false,
+      "id": "1747008000000",
+      "date": "2026-05-12",
+      "recurrent": false
     },
     {
       "titre": "Les lectures d'Adel",
