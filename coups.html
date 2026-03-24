@@ -41,16 +41,6 @@
     .coup-libraire { font-family:'Raleway',sans-serif; font-size:.65rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--wood); }
     .coups-vide { grid-column:1/-1; text-align:center; padding:4rem 2rem; font-style:italic; color:var(--ink-soft); }
     @media(max-width:600px) { .coups-grid { grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; } }
-    /* ── TOGGLE COUP ── */
-    .coup-body { overflow: hidden; transition: max-height .3s ease, opacity .3s; }
-    .coup-body.collapsed { max-height: 0; opacity: 0; padding: 0; }
-    .coup-body.expanded  { max-height: 600px; opacity: 1; }
-    .coup-toggle { display:flex; align-items:center; justify-content:space-between;
-      padding:.5rem .75rem; cursor:pointer; background:none; border:none; width:100%;
-      text-align:left; font-family:'Raleway',sans-serif; font-size:.78rem; font-weight:700;
-      letter-spacing:.06em; color:var(--wood); }
-    .coup-toggle .toggle-arrow { font-size:.7rem; transition:transform .2s; }
-    .coup-toggle.open .toggle-arrow { transform: rotate(180deg); }
     /* ── PAGINATION ── */
     .coups-pagination { display:flex; justify-content:center; align-items:center;
       gap:.4rem; padding:2rem 0 1rem; flex-wrap:wrap; }
@@ -217,28 +207,13 @@ function buildCard(item) {
   }
   card.appendChild(wrap);
 
-  // Bouton toggle
-  var toggle = document.createElement('button');
-  toggle.className = 'coup-toggle';
-  var titleSpan = document.createElement('span');
-  titleSpan.className = 'coup-titre';
-  titleSpan.textContent = item.titre || '(Sans titre)';
-  var arrow = document.createElement('span');
-  arrow.className = 'toggle-arrow';
-  arrow.textContent = '▼';
-  toggle.appendChild(titleSpan);
-  toggle.appendChild(arrow);
-  toggle.onclick = function() {
-    var b = card.querySelector('.coup-body');
-    var isOpen = b.classList.contains('expanded');
-    b.classList.toggle('expanded', !isOpen);
-    b.classList.toggle('collapsed', isOpen);
-    toggle.classList.toggle('open', !isOpen);
-  };
-  card.appendChild(toggle);
-
   var body = document.createElement('div');
-  body.className = 'coup-body collapsed';
+  body.className = 'coup-body';
+
+  var titre = document.createElement('div');
+  titre.className = 'coup-titre';
+  titre.textContent = item.titre || '(Sans titre)';
+  body.appendChild(titre);
 
   if (item.auteur) {
     var auteur = document.createElement('div');

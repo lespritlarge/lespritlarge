@@ -183,7 +183,19 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
             <div class="f"><label>Date</label><input type="date" id="bDate"/></div>
           </div>
           <div class="f"><label>Texte *</label><textarea id="bTexte" style="min-height:200px" placeholder="Écrivez votre article ici…"></textarea></div>
-          <div class="f"><label>Image (URL ou chemin)</label><input type="text" id="bImage" placeholder="images/ma-photo.jpg"/><small>Uploadez d'abord dans images/ sur GitHub.</small></div>
+                    <div class="f"><label>Image de l'article</label>
+            <div style="display:flex;flex-direction:column;gap:.5rem;">
+              <div id="bImagePreview" style="display:none;width:100%;max-height:160px;overflow:hidden;border-radius:4px;background:var(--parchment);text-align:center;">
+                <img id="bImageImg" src="" alt="Aperçu" style="max-height:160px;max-width:100%;object-fit:contain;border-radius:4px;"/>
+              </div>
+              <input type="file" id="bImageFile" accept="image/*" style="display:none;" onchange="Blog.uploadImage()"/>
+              <button type="button" onclick="document.getElementById('bImageFile').click()" style="padding:.55rem 1rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(92,26,26,.08);color:var(--wood);border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;text-align:left;">
+                📷 Choisir une photo…
+              </button>
+              <input type="text" id="bImage" placeholder="Chemin rempli automatiquement" style="font-size:.75rem;"/>
+              <small id="bImageStatus" style="font-style:italic;color:var(--soft);"></small>
+            </div>
+          </div>
           <div class="frow">
             <div class="f"><label>Lien externe</label><input type="url" id="bLien" placeholder="https://…"/></div>
             <div class="f"><label>Texte du bouton</label><input type="text" id="bLienLabel" placeholder="En savoir plus…"/></div>
@@ -280,13 +292,18 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
   <!-- COUPS DE CŒUR -->
   <div class="panel" id="panel-coups">
     <div style="flex:1;overflow-y:auto;padding:2rem;background:var(--warm);max-width:700px;margin:0 auto;width:100%;">
-      <div class="fhead">❤️ Coups de cœur de l'équipe</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0;">
+        <div class="fhead" style="margin-bottom:0;">❤️ Coups de cœur de l'équipe</div>
+        <button onclick="toggleListeCoups()" id="btnToggleCoups" style="background:none;border:1.5px solid rgba(92,26,26,.2);border-radius:3px;cursor:pointer;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood);padding:.35rem .8rem;">
+          Masquer la liste ▲
+        </button>
+      </div>
       <p style="font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--soft);margin-bottom:1.5rem;line-height:1.6;">
         Ajoutez les livres que vous recommandez. Ils apparaîtront dans la section "Coups de cœur" de la page d'accueil avec votre citation et votre prénom.
       </p>
 
       <!-- Liste des coups de coeur existants -->
-      <div id="coupsList" style="margin-bottom:2rem;"></div>
+      <div id="coupsListWrap" style="margin-bottom:2rem;transition:max-height .3s ease,opacity .3s;overflow:hidden;"><div id="coupsList"></div></div>
 
       <!-- Formulaire ajout -->
       <div style="background:var(--cream);border:1.5px solid rgba(92,26,26,.15);border-radius:6px;padding:1.5rem;">
@@ -669,7 +686,61 @@ var Blog = (() => {
     if (ok) { toast('🗑️ Article supprimé.'); nouveau(); }
   }
 
-  return { charger, select, nouveau, sauvegarder, supprimer };
+  async function uploadImage() {
+    var file = document.getElementById('bImageFile').files[0];
+    if (!file) return;
+    var token = getToken();
+    if (!token) { toast('⚠️ Token GitHub requis.'); return; }
+
+    var statusEl = document.getElementById('bImageStatus');
+    statusEl.textContent = '⏳ Upload en cours…';
+
+    var ext  = file.name.split('.').pop().toLowerCase();
+    var base = file.name.replace(/\.[^.]+$/, '').replace(/[^a-z0-9]/gi, '-').toLowerCase();
+    var timestamp = Date.now();
+    var nomFichier = 'blog-' + base + '-' + timestamp + '.' + ext;
+    var chemin = 'images/blog/' + nomFichier;
+
+    // Aperçu local
+    var preview = document.getElementById('bImagePreview');
+    var img     = document.getElementById('bImageImg');
+    img.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+
+    // Lire en base64
+    var b64 = await new Promise(function(res, rej) {
+      var rd = new FileReader();
+      rd.onload = function() { res(rd.result.split(',')[1]); };
+      rd.onerror = rej;
+      rd.readAsDataURL(file);
+    });
+
+    // Upload GitHub
+    var sha = null;
+    try { sha = await ghGetSha(chemin, token); } catch(_) {}
+    var body = { message: '📷 Photo blog : ' + nomFichier, content: b64 };
+    if (sha) body.sha = sha;
+
+    var resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + chemin, {
+      method: 'PUT', mode: 'cors', credentials: 'omit',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+
+    if (resp.ok || resp.status === 201) {
+      document.getElementById('bImage').value = chemin;
+      statusEl.textContent = '✅ Photo uploadée !';
+      statusEl.style.color = 'green';
+      toast('✅ Photo uploadée !');
+    } else {
+      var err = await resp.json().catch(function(){ return {}; });
+      statusEl.textContent = '❌ Erreur : ' + (err.message || resp.status);
+      statusEl.style.color = '#c0392b';
+      toast('❌ Erreur upload');
+    }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer, uploadImage };
 })();
 
 // ══════════════════════════════════════════
@@ -1745,6 +1816,14 @@ function init() { loadToken(); Blog.charger(); Evts.charger(); Coups.charger(); 
 window.addEventListener('DOMContentLoaded', function() {
   if (sessionStorage.getItem('el_auth') === '1') { showAdmin(); init(); }
 });
+
+function toggleListeCoups() {
+  var wrap = document.getElementById('coupsListWrap');
+  var btn  = document.getElementById('btnToggleCoups');
+  var open = wrap.style.display !== 'none';
+  wrap.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? 'Voir la liste ▼' : 'Masquer la liste ▲';
+}
 </script>
 </body>
 </html>
