@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-24T15:46:22.792Z",
+  "mis_a_jour": "2026-03-25T09:18:53.791Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -314,6 +314,19 @@
       "recurrent": true
     },
     {
+      "titre": "Échanges autour de la littérature allemande",
+      "time": "18h30",
+      "type": "",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
+      "affiche": "",
+      "special": false,
+      "fermeture": false,
+      "id": "1750896000000",
+      "date": "2026-06-04",
+      "recurrent": false
+    },
+    {
       "titre": "Les lectures d'Adel",
       "time": "10h30-12h",
       "type": "Lecture hebdo 📖",
@@ -364,19 +377,6 @@
       "id": "mmm6hm5w_r14",
       "date": "2026-06-24",
       "recurrent": true
-    },
-    {
-      "id": "1750896000000",
-      "titre": "Échanges autour de la littéature allemande",
-      "date": "2026-06-25",
-      "time": "18h30",
-      "type": "",
-      "lieu": "Librairie L'Esprit Large",
-      "desc": "Échanges autour de la littérature traduite. C'est convivial et ouvert à tous.",
-      "affiche": "",
-      "special": false,
-      "recurrent": false,
-      "fermeture": false
     },
     {
       "titre": "Les lectures d'Adel",
