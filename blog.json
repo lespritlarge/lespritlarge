@@ -1,15 +1,15 @@
 {
-  "mis_a_jour": "2026-03-24T15:42:49.242Z",
+  "mis_a_jour": "2026-03-25T09:18:34.504Z",
   "articles": [
     {
-      "id": "1774366969242",
-      "titre": "AVIS DE TEMPÊTE - MARS 2026",
-      "categorie": "Vie de la librairie",
+      "id": "1774430314504",
+      "titre": "Venue de Séverine Cressan",
+      "categorie": "Événement",
       "date": "2026-03-24",
-      "texte": "Les avis de tempête sont à retrouver en cliquant sur le bouton juste ci-dessous ! De même si vous voulez les recevoir tout les mois, sur votre boîte mail.",
-      "image": "images/blog/blog-adt032026mars-1774366893612.png",
-      "lien": "https://esprit-large.com/avisdetempete.html",
-      "lien_label": "Les avis de tempêtes !"
+      "texte": "Merci à Séverine Cressan d'être venu nous rencontrer, ce mardi soir, pour parler de son écriture et de ses lectures. C'était un moment très agréable et chaleureux... Encore bravo à elle pour le prix du Premier roman de la librairie.",
+      "image": "images/blog/blog-img-3592-1774430039698.jpg",
+      "lien": "",
+      "lien_label": ""
     },
     {
       "id": "1773414213015",
@@ -20,6 +20,16 @@
       "image": "https://upload.epagine.fr/6128/uploads/devanture/350884255_193606970299119_684689304584996683_n.jpg",
       "lien": "",
       "lien_label": ""
+    },
+    {
+      "id": "1774366969242",
+      "titre": "AVIS DE TEMPÊTE - MARS 2026",
+      "categorie": "Vie de la librairie",
+      "date": "2026-03-24",
+      "texte": "Les avis de tempête sont à retrouver en cliquant sur le bouton juste ci-dessous ! De même si vous voulez les recevoir tout les mois, sur votre boîte mail.",
+      "image": "images/blog/blog-adt032026mars-1774366893612.png",
+      "lien": "https://esprit-large.com/avisdetempete.html",
+      "lien_label": "Les avis de tempêtes !"
     },
     {
       "id": "1773414290951",
