@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-27T11:40:25.674Z",
+  "mis_a_jour": "2026-04-07T09:59:13.037Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -127,6 +127,15 @@
       "auteur": "",
       "couverture": "",
       "citation": "Magnifique texte, coup de coeur, coup de douleur, coup de haine, coup d'amour. \nCe texte est l'objet d'une lecture musicale par là : https://globtheatre.net/date/ma-cherie/",
+      "libraire": "Nadine",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782812628016",
+      "titre": "[A enrichir — 9782812628016]",
+      "auteur": "",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782812628016/large",
+      "citation": "Une famille déchirée en Ecosse",
       "libraire": "Nadine",
       "categorie": "Roman"
     }
