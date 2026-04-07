@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-07T10:00:51.332Z",
+  "mis_a_jour": "2026-04-07T10:08:16.871Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -155,6 +155,16 @@
       "couverture": "",
       "citation": "J'ai avalé un pépin de pomme...",
       "libraire": "Les libraires",
+      "categorie": "Jeunesse",
+      "epingle": true
+    },
+    {
+      "ean": "9782378882419",
+      "titre": "[A enrichir — 9782378882419]",
+      "auteur": "",
+      "couverture": "",
+      "citation": "Deux homards dans un restaurant...",
+      "libraire": "Nadine",
       "categorie": "Jeunesse"
     }
   ]
