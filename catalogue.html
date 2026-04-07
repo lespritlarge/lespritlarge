@@ -214,7 +214,7 @@
 <div class="toolbar">
   <div class="search-wrap">
     <span>🔍&nbsp;</span>
-    <input type="text" id="searchInput" placeholder="Titre, auteur, éditeur…" oninput="filterBooks()" />
+    <input type="text" id="searchInput" placeholder="Titre, auteur, éditeur, ISBN…" oninput="filterBooks()" />
   </div>
   <div class="toolbar-filters">
     <!-- Catégorie hiérarchique -->
@@ -474,7 +474,8 @@ function filterBooks() {
   if (q) filtered = filtered.filter(b =>
     normaliser(b.title).includes(q) ||
     normaliser(b.author).includes(q) ||
-    normaliser(b.editeur).includes(q)
+    normaliser(b.editeur).includes(q) ||
+    b.ean.includes(q)  // recherche par ISBN/EAN
   );
   // ── Tri ─────────────────────────────────────────────
   const today = new Date();
