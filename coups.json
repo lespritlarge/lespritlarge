@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-07T09:59:13.037Z",
+  "mis_a_jour": "2026-04-07T10:00:51.332Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -138,6 +138,24 @@
       "citation": "Une famille déchirée en Ecosse",
       "libraire": "Nadine",
       "categorie": "Roman"
+    },
+    {
+      "ean": "9782226502544",
+      "titre": "[A enrichir — 9782226502544]",
+      "auteur": "",
+      "couverture": "",
+      "citation": "Un premier roman époustouflant d'une jeune autrice Irlandaise",
+      "libraire": "Nadine",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782211350983",
+      "titre": "Il paraît que",
+      "auteur": "Olivier Tallec",
+      "couverture": "",
+      "citation": "J'ai avalé un pépin de pomme...",
+      "libraire": "Les libraires",
+      "categorie": "Jeunesse"
     }
   ]
 }
