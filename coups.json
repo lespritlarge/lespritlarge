@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-07T10:08:16.871Z",
+  "mis_a_jour": "2026-04-07T13:24:30.446Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -137,7 +137,8 @@
       "couverture": "https://couverture.geobib.fr/api/v1/9782812628016/large",
       "citation": "Une famille déchirée en Ecosse",
       "libraire": "Nadine",
-      "categorie": "Roman"
+      "categorie": "Roman",
+      "epingle": true
     },
     {
       "ean": "9782226502544",
@@ -146,7 +147,8 @@
       "couverture": "",
       "citation": "Un premier roman époustouflant d'une jeune autrice Irlandaise",
       "libraire": "Nadine",
-      "categorie": "Roman"
+      "categorie": "Roman",
+      "epingle": true
     },
     {
       "ean": "9782211350983",
