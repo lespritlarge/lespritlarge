@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-16T14:21:27.940Z",
+  "mis_a_jour": "2026-04-16T14:28:56.584Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -177,6 +177,15 @@
       "citation": "Deux femmes, deux époques et l'histoire des lapons que l'on découvre grâce à ses deux destins",
       "libraire": "Nadine",
       "categorie": "Roman"
+    },
+    {
+      "ean": "9782369022107",
+      "titre": "[A enrichir — 9782369022107]",
+      "auteur": "",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782369022107/large",
+      "citation": "Des trucs drôles, des trucs émouvants, c'est un album qui fait du bien... A partir de 5 ans.",
+      "libraire": "Nadine",
+      "categorie": "Jeunesse"
     }
   ]
 }
