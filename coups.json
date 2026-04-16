@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-07T13:24:30.446Z",
+  "mis_a_jour": "2026-04-16T14:21:27.940Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -168,6 +168,15 @@
       "citation": "Deux homards dans un restaurant...",
       "libraire": "Nadine",
       "categorie": "Jeunesse"
+    },
+    {
+      "ean": "9782283040706",
+      "titre": "La saison des mûres",
+      "auteur": "LAGERLOF Ulrika",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782283040706/large",
+      "citation": "Deux femmes, deux époques et l'histoire des lapons que l'on découvre grâce à ses deux destins",
+      "libraire": "Nadine",
+      "categorie": "Roman"
     }
   ]
 }
