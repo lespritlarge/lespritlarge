@@ -1,13 +1,13 @@
 {
-  "mis_a_jour": "2026-03-25T09:18:34.504Z",
+  "mis_a_jour": "2026-05-07T13:58:50.076Z",
   "articles": [
     {
-      "id": "1774430314504",
-      "titre": "Venue de Séverine Cressan",
+      "id": "1778162330076",
+      "titre": "CE VENDREDI 8 MAI",
       "categorie": "Événement",
-      "date": "2026-03-24",
-      "texte": "Merci à Séverine Cressan d'être venu nous rencontrer, ce mardi soir, pour parler de son écriture et de ses lectures. C'était un moment très agréable et chaleureux... Encore bravo à elle pour le prix du Premier roman de la librairie.",
-      "image": "images/blog/blog-img-3592-1774430039698.jpg",
+      "date": "2026-05-07",
+      "texte": "Nous sommes ouvert ce vendredi 8 mai de 10h00 à 13h00 et de 14h30 à 18h30",
+      "image": "images/blog/blog-350110694-835607277985386-7956384476186730092-n-1778162320104.jpg",
       "lien": "",
       "lien_label": ""
     },
@@ -18,6 +18,16 @@
       "date": "2026-03-30",
       "texte": "La librairie sera fermée le lundi 30 mars et le mardi 31 mars pour inventaire. Elle réouvrira normalement le 01 avril, et ce n'est pas une blague!",
       "image": "https://upload.epagine.fr/6128/uploads/devanture/350884255_193606970299119_684689304584996683_n.jpg",
+      "lien": "",
+      "lien_label": ""
+    },
+    {
+      "id": "1774430314504",
+      "titre": "Venue de Séverine Cressan",
+      "categorie": "Événement",
+      "date": "2026-03-24",
+      "texte": "Merci à Séverine Cressan d'être venu nous rencontrer, ce mardi soir, pour parler de son écriture et de ses lectures. C'était un moment très agréable et chaleureux... Encore bravo à elle pour le prix du Premier roman de la librairie.",
+      "image": "images/blog/blog-img-3592-1774430039698.jpg",
       "lien": "",
       "lien_label": ""
     },
