@@ -1,6 +1,16 @@
 {
-  "mis_a_jour": "2026-05-11T13:35:19.452Z",
+  "mis_a_jour": "2026-05-11T14:13:09.215Z",
   "articles": [
+    {
+      "id": "1778508789215",
+      "titre": "Fête de la librairie l'esprit large !",
+      "categorie": "Événement",
+      "date": "2026-09-05",
+      "texte": "La librairie l'esprit large, ça fait 20 ans ! C'est long et court à la fois, comme un bon livre au final... En attendant de vous en dire un peu plus, réservez votre samedi soir pour souffler nos bougies !",
+      "image": "images/blog/blog-black-and-white-minimalist-doodle-save-the-date-invitation-1778508786244.png",
+      "lien": "",
+      "lien_label": ""
+    },
     {
       "id": "1778506519452",
       "titre": "Les Madeleines des lecteur·ice·s",
