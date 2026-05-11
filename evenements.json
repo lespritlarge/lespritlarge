@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-03-25T09:22:32.071Z",
+  "mis_a_jour": "2026-05-11T14:14:24.607Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -273,6 +273,19 @@
       "special": false,
       "recurrent": false,
       "fermeture": false
+    },
+    {
+      "titre": "DÉDICACE:  JEAN-PIERRE SANTINI",
+      "time": "10h-12h",
+      "type": "Rencontre auteur",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Jean Pierre Santini vient signer son nouvel ouvrage : \"Meurtre en pleine mer\"",
+      "affiche": "rencontre-avec-santini-1778508860798.png",
+      "special": false,
+      "fermeture": false,
+      "id": "1778508864607",
+      "date": "2026-05-23",
+      "recurrent": false
     },
     {
       "titre": "Les lectures d'Adel",
