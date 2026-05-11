@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-04-16T14:28:56.584Z",
+  "mis_a_jour": "2026-05-11T13:35:46.613Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -185,7 +185,8 @@
       "couverture": "https://couverture.geobib.fr/api/v1/9782369022107/large",
       "citation": "Des trucs drôles, des trucs émouvants, c'est un album qui fait du bien... A partir de 5 ans.",
       "libraire": "Nadine",
-      "categorie": "Jeunesse"
+      "categorie": "Jeunesse",
+      "epingle": true
     }
   ]
 }
