@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-05-11T14:14:24.607Z",
+  "mis_a_jour": "2026-05-11T14:15:39.431Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -260,6 +260,19 @@
       "id": "mmm6hm5w_r9",
       "date": "2026-05-20",
       "recurrent": true
+    },
+    {
+      "titre": "RENCONTRE LILI DIF& DANI.L",
+      "time": "10h-12h30",
+      "type": "Rencontre auteur",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Lili Dif et Dani.L viennent dédicacer et nous rencontrer autour de leur nouvel ouvrage de leur série : Sanderling le Bécasseau, sur la plage Benoit.",
+      "affiche": "",
+      "special": false,
+      "fermeture": false,
+      "id": "1778508939431",
+      "date": "2026-05-20",
+      "recurrent": false
     },
     {
       "id": "1748131200000",
