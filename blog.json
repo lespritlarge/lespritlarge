@@ -1,6 +1,16 @@
 {
-  "mis_a_jour": "2026-05-11T13:33:44.386Z",
+  "mis_a_jour": "2026-05-11T13:35:19.452Z",
   "articles": [
+    {
+      "id": "1778506519452",
+      "titre": "Les Madeleines des lecteur·ice·s",
+      "categorie": "Vie de la librairie",
+      "date": "2026-05-12",
+      "texte": "Demain, \nnous vous accueillons pour découvrir vos Madeleines  - les livres qui vous ont marqué à vie, ceux qui vous ont bouleversé à jamais ou ceux dont vous vous souviendrez dans cette vie et dans la future. \nOn attend avec impatience d'en savoir plus sur vos lectures et sur vous...",
+      "image": "images/blog/blog-madeleines-1778506515324.png",
+      "lien": "",
+      "lien_label": ""
+    },
     {
       "id": "1773414213015",
       "titre": "Fermeture pour inventaire",
