@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-05-11T14:15:39.431Z",
+  "mis_a_jour": "2026-05-19T07:24:18.810Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -312,6 +312,19 @@
       "id": "mmm6hm5w_r10",
       "date": "2026-05-27",
       "recurrent": true
+    },
+    {
+      "titre": "RENCONTRE : PILIWE SIBILLE",
+      "time": "18h-20h",
+      "type": "Rencontre auteur",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Rencontre avec Piliwe Sibille, auteur local pour son nouveau roman \"Shark song\"",
+      "affiche": "rencontre-avec-piliwe-1779175455669.png",
+      "special": false,
+      "fermeture": false,
+      "id": "1779175458810",
+      "date": "2026-05-28",
+      "recurrent": false
     },
     {
       "id": "1749340800000",
