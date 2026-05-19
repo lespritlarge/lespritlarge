@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-05-19T15:02:11.194Z",
+  "mis_a_jour": "2026-05-19T15:04:12.088Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -161,15 +161,6 @@
       "epingle": true
     },
     {
-      "ean": "9782378882419",
-      "titre": "[A enrichir — 9782378882419]",
-      "auteur": "",
-      "couverture": "",
-      "citation": "Deux homards dans un restaurant...",
-      "libraire": "Nadine",
-      "categorie": "Jeunesse"
-    },
-    {
       "ean": "9782283040706",
       "titre": "La saison des mûres",
       "auteur": "LAGERLOF Ulrika",
@@ -177,6 +168,16 @@
       "citation": "Deux femmes, deux époques et l'histoire des lapons que l'on découvre grâce à ses deux destins",
       "libraire": "Nadine",
       "categorie": "Roman"
+    },
+    {
+      "ean": "9782369022107",
+      "titre": "[A enrichir — 9782369022107]",
+      "auteur": "",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782369022107/large",
+      "citation": "Des trucs drôles, des trucs émouvants, c'est un album qui fait du bien... A partir de 5 ans.",
+      "libraire": "Nadine",
+      "categorie": "Jeunesse",
+      "epingle": true
     }
   ]
 }
