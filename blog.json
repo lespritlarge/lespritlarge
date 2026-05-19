@@ -1,6 +1,16 @@
 {
-  "mis_a_jour": "2026-05-11T14:13:09.215Z",
+  "mis_a_jour": "2026-05-19T07:40:42.139Z",
   "articles": [
+    {
+      "id": "1779176442139",
+      "titre": "Des rencontres en mai...",
+      "categorie": "Événement",
+      "date": "2026-05-20",
+      "texte": "Plusieurs rencontres en mai : \n\n- Lilidif et Dani.L, le 20 mai - matin -  pour signer leur nouvel album \"Sanderling le Bécasseau à la plage Benoit\"\n\n- Jean-Pierre Santini le 23 mai - matin - pour signer son nouveau roman policier \"Meurtre en pleine mer\"\n\n- Piliwe Sibille le 28 mai - à partir de 18h - pour parler de son livre \"Shark Song\"",
+      "image": "images/blog/blog-design-sans-titre-1779176415109.png",
+      "lien": "",
+      "lien_label": ""
+    },
     {
       "id": "1778508789215",
       "titre": "Fête de la librairie l'esprit large !",
