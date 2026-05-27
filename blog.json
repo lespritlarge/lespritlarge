@@ -1,13 +1,13 @@
 {
-  "mis_a_jour": "2026-05-19T07:40:42.139Z",
+  "mis_a_jour": "2026-05-27T15:28:57.666Z",
   "articles": [
     {
-      "id": "1779176442139",
-      "titre": "Des rencontres en mai...",
-      "categorie": "Événement",
-      "date": "2026-05-20",
-      "texte": "Plusieurs rencontres en mai : \n\n- Lilidif et Dani.L, le 20 mai - matin -  pour signer leur nouvel album \"Sanderling le Bécasseau à la plage Benoit\"\n\n- Jean-Pierre Santini le 23 mai - matin - pour signer son nouveau roman policier \"Meurtre en pleine mer\"\n\n- Piliwe Sibille le 28 mai - à partir de 18h - pour parler de son livre \"Shark Song\"",
-      "image": "images/blog/blog-design-sans-titre-1779176415109.png",
+      "id": "1779895737666",
+      "titre": "Trois fois rien",
+      "categorie": "Coup de cœur",
+      "date": "2026-05-27",
+      "texte": "La force de l'écriture et du dessin pour lutter contre la dépression. Un superbe roman graphique",
+      "image": "images/blog/blog-trois-fois-rien-00-1779895726188.webp",
       "lien": "",
       "lien_label": ""
     },
@@ -18,6 +18,16 @@
       "date": "2026-09-05",
       "texte": "La librairie l'esprit large, ça fait 20 ans ! C'est long et court à la fois, comme un bon livre au final... En attendant de vous en dire un peu plus, réservez votre samedi soir pour souffler nos bougies !",
       "image": "images/blog/blog-black-and-white-minimalist-doodle-save-the-date-invitation-1778508786244.png",
+      "lien": "",
+      "lien_label": ""
+    },
+    {
+      "id": "1779176442139",
+      "titre": "Des rencontres en mai...",
+      "categorie": "Événement",
+      "date": "2026-05-20",
+      "texte": "Plusieurs rencontres en mai : \n\n- Lilidif et Dani.L, le 20 mai - matin -  pour signer leur nouvel album \"Sanderling le Bécasseau à la plage Benoit\"\n\n- Jean-Pierre Santini le 23 mai - matin - pour signer son nouveau roman policier \"Meurtre en pleine mer\"\n\n- Piliwe Sibille le 28 mai - à partir de 18h - pour parler de son livre \"Shark Song\"",
+      "image": "images/blog/blog-design-sans-titre-1779176415109.png",
       "lien": "",
       "lien_label": ""
     },
