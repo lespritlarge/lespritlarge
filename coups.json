@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-05-19T15:04:12.088Z",
+  "mis_a_jour": "2026-06-02T12:27:54.314Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -8,7 +8,7 @@
       "citation": "Est-ce que l'amitié Femme-Robot peut exister, surtout si celui-ci à tué votre père ?",
       "libraire": "Aurélien",
       "categorie": "BD",
-      "epingle": true
+      "epingle": false
     },
     {
       "ean": "9782754848091",
