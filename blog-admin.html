@@ -1251,8 +1251,13 @@ var Reservations = (() => {
       const r = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO
         + '/main/reservations.json?t=' + Date.now());
       if (!r.ok) {
+        // Fichier reservations.json inexistant → proposer de l'initialiser
         document.getElementById('reservList').innerHTML =
-          '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">Aucune réservation pour le moment.</p>';
+          '<div style="text-align:center;padding:2rem;font-family:Lora,serif;color:var(--soft);">'
+          + '<p style="font-style:italic;margin-bottom:1rem;">Aucune réservation pour le moment.</p>'
+          + '<p style="font-size:.8rem;">Le fichier <code>reservations.json</code> doit être créé à la racine du repo GitHub avec le contenu : <code>{"reservations":[]}</code></p>'
+          + '<button onclick="Reservations.initialiser()" style="margin-top:1rem;background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.6rem 1.2rem;font-family:Raleway,sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;">🚀 Créer le fichier maintenant</button>'
+          + '</div>';
         return;
       }
       const data = await r.json();
@@ -1350,7 +1355,24 @@ var Reservations = (() => {
     if (ok) { toast('🗑 Réservation supprimée.'); majBadge(); renderList(); }
   }
 
-  return { charger, filtrer, changerStatut, supprimer };
+  async function initialiser() {
+    const token = getToken();
+    if (!token) { toast('⚠️ Token GitHub requis pour créer le fichier.'); return; }
+    const content = btoa(JSON.stringify({ reservations: [] }, null, 2));
+    const resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json', {
+      method: 'PUT', mode: 'cors', credentials: 'omit',
+      headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: '📋 Initialisation reservations.json', content: content })
+    });
+    if (resp.ok || resp.status === 201) {
+      toast('✅ reservations.json créé ! Rechargement…');
+      setTimeout(() => charger(), 1500);
+    } else {
+      toast('❌ Erreur création : vérifiez votre token GitHub.');
+    }
+  }
+
+  return { charger, filtrer, changerStatut, supprimer, initialiser };
 })();
 
 // Couverture helper — évite les erreurs CORS de geobib
