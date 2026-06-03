@@ -1251,7 +1251,8 @@ var Reservations = (() => {
     el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);padding:1rem;">⏳ Chargement…</p>';
     try {
       const url = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/reservations.json?t=' + Date.now();
-      const r = await fetch(url);
+      console.log('Reservations fetch:', url);
+      const r = await fetch(url, { mode: 'cors', credentials: 'omit' });
       if (!r.ok) {
         el.innerHTML = '<div style="padding:1.5rem;font-family:Lora,serif;text-align:center;">'
           + '<p style="font-style:italic;color:var(--soft);margin-bottom:1rem;">Aucune réservation pour le moment.</p>'
@@ -1266,7 +1267,8 @@ var Reservations = (() => {
       renderList();
     } catch(e) {
       const el2 = document.getElementById('reservList');
-      if (el2) el2.innerHTML = '<p style="color:#c0392b;padding:1rem;font-family:Raleway,sans-serif;">Erreur : ' + e.message + '</p>';
+      console.error('Reservations error:', e);
+      if (el2) el2.innerHTML = '<p style="color:#c0392b;padding:1rem;font-family:Raleway,sans-serif;">Erreur : ' + e.message + ' — Vérifiez la console.</p>';
     }
   }
 
