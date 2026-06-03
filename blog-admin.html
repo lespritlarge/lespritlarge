@@ -1377,8 +1377,9 @@ var Reservations = (() => {
 
 // Couverture helper — évite les erreurs CORS de geobib
 function couvertureUrl(ean, urlExistante) {
+  // Utiliser Open Library (CORS OK) ou couverture existante
   if (!urlExistante || urlExistante.includes('geobib')) {
-    return 'https://openapi.bnf.fr/couverture/image/image/recupererImage?EAN=' + ean + '&couverture=1';
+    return 'https://covers.openlibrary.org/b/isbn/' + ean + '-M.jpg';
   }
   return urlExistante;
 }

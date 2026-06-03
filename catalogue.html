@@ -458,6 +458,11 @@ async function chargerStock() {
 
       document.getElementById('headerSub').textContent =
       BOOKS.length + ' titres disponibles en librairie ou à la commande';
+    // Mélange initial de BOOKS (ordre aléatoire différent à chaque visite)
+    for (let i = BOOKS.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [BOOKS[i], BOOKS[j]] = [BOOKS[j], BOOKS[i]];
+    }
     filterBooks();
   } catch(e) {
     document.getElementById('bookGrid').innerHTML =
@@ -530,6 +535,12 @@ function filterBooks() {
     b.ean.includes(q)  // recherche par ISBN/EAN
   );
   // ── Tri ─────────────────────────────────────────────
+  if (currentSort === 'aleatoire') {
+    // BOOKS déjà mélangé au chargement — pas de tri supplémentaire
+    currentPage = 1;
+    renderPage();
+    return;
+  }
   const today = new Date();
   filtered.sort((a, b) => {
     if (currentSort === 'nouveautes') {
