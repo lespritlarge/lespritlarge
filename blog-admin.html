@@ -1246,17 +1246,17 @@ var Reservations = (() => {
   };
 
   async function charger() {
-    const token = getToken();
+    const el = document.getElementById('reservList');
+    if (!el) return;
+    el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);padding:1rem;">⏳ Chargement…</p>';
     try {
-      const r = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO
-        + '/main/reservations.json?t=' + Date.now());
+      const url = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/reservations.json?t=' + Date.now();
+      const r = await fetch(url);
       if (!r.ok) {
-        // Fichier reservations.json inexistant → proposer de l'initialiser
-        document.getElementById('reservList').innerHTML =
-          '<div style="text-align:center;padding:2rem;font-family:Lora,serif;color:var(--soft);">'
-          + '<p style="font-style:italic;margin-bottom:1rem;">Aucune réservation pour le moment.</p>'
-          + '<p style="font-size:.8rem;">Le fichier <code>reservations.json</code> doit être créé à la racine du repo GitHub avec le contenu : <code>{"reservations":[]}</code></p>'
-          + '<button onclick="Reservations.initialiser()" style="margin-top:1rem;background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.6rem 1.2rem;font-family:Raleway,sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;">🚀 Créer le fichier maintenant</button>'
+        el.innerHTML = '<div style="padding:1.5rem;font-family:Lora,serif;text-align:center;">'
+          + '<p style="font-style:italic;color:var(--soft);margin-bottom:1rem;">Aucune réservation pour le moment.</p>'
+          + '<p style="font-size:.8rem;color:var(--soft);margin-bottom:1rem;">Créez d'abord le fichier <code>reservations.json</code> sur GitHub, ou cliquez ci-dessous :</p>'
+          + '<button onclick="Reservations.initialiser()" style="background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.6rem 1.4rem;font-family:Raleway,sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;letter-spacing:.06em;text-transform:uppercase;">🚀 Créer le fichier</button>'
           + '</div>';
         return;
       }
@@ -1265,8 +1265,8 @@ var Reservations = (() => {
       majBadge();
       renderList();
     } catch(e) {
-      document.getElementById('reservList').innerHTML =
-        '<p style="color:#c0392b;">Erreur de chargement.</p>';
+      const el2 = document.getElementById('reservList');
+      if (el2) el2.innerHTML = '<p style="color:#c0392b;padding:1rem;font-family:Raleway,sans-serif;">Erreur : ' + e.message + '</p>';
     }
   }
 
