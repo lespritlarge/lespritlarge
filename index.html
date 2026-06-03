@@ -431,7 +431,7 @@
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
     }
-    .hero-slideshow {
+    .hero-slides-wrap {
       position: absolute; inset: 0; z-index: 0;
     }
     .hero-slide {
@@ -721,7 +721,7 @@
 
 <section id="hero">
   <!-- Slideshow background with real photos -->
-  <div class="hero-slideshow" id="heroSlideshow">
+  <div class="hero-slides-wrap" id="heroSlideshow">
     <div class="hero-slide active" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759981505.jpeg')"></div>
     <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759990167.jpeg')"></div>
     <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773760003917.jpeg')"></div>
@@ -1046,20 +1046,7 @@ function goSlide(n) {
 document.addEventListener('DOMContentLoaded', function() {
   _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
 });
-      // Mettre à jour les dots
-      var dotsEl = document.querySelector('.hero-dots');
-      if (dotsEl) {
-        dotsEl.innerHTML = imgs.map(function(_, i) {
-          return '<span class="dot' + (i===0?' active':'') + '" onclick="goSlide(' + i + ')"></span>';
-        }).join('');
-      }
-      _slideIdx = 0;
-    })
-    .catch(function() {}) // silencieux si API GitHub indisponible
-    .finally(function() {
-      _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
-    });
-});
+
 
 /* ── INIT ── */
 chargerCoups();
