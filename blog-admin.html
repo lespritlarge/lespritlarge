@@ -541,9 +541,10 @@ function switchTab(name, el) {
     if (name === 'tempete')  Tempete.charger();
     if (name === 'apropos')  Apropos.charger();
     if (name === 'prix')     Prix.charger();
-    if (name === 'reservations') Reservations.charger();
     if (name === 'coups')    Coups.charger();
   }
+  // Réservations rechargées à chaque ouverture (données en temps réel)
+  if (name === 'reservations') Reservations.charger();
 }
 
 // ── GITHUB API ────────────────────────────
