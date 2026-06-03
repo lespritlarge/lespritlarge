@@ -162,6 +162,57 @@
     }
 
 
+    /* ── PANIER ── */
+    .panier-btn { position:fixed; bottom:2rem; right:2rem; z-index:500;
+      background:var(--wood); color:#fff; border:none; border-radius:50px;
+      padding:.8rem 1.4rem; font-family:'Raleway',sans-serif; font-size:.78rem;
+      font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+      cursor:pointer; box-shadow:0 4px 20px rgba(30,10,10,.3);
+      transition:transform .2s,box-shadow .2s; display:none; align-items:center; gap:.6rem; }
+    .panier-btn:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(30,10,10,.35); }
+    .panier-badge { background:#fff; color:var(--wood); border-radius:50%;
+      width:1.4rem; height:1.4rem; display:inline-flex; align-items:center;
+      justify-content:center; font-size:.72rem; font-weight:800; }
+    .panier-overlay { position:fixed; inset:0; background:rgba(30,10,10,.55);
+      z-index:600; display:none; align-items:flex-end; justify-content:flex-end;
+      padding:2rem; }
+    .panier-overlay.open { display:flex; }
+    .panier-panel { background:var(--cream); border-radius:8px; width:100%;
+      max-width:480px; max-height:85vh; overflow-y:auto;
+      box-shadow:0 20px 60px rgba(30,10,10,.3); animation:fadeUp .3s ease; }
+    .panier-head { display:flex; align-items:center; justify-content:space-between;
+      padding:1.4rem 1.8rem; border-bottom:1px solid rgba(92,26,26,.1); }
+    .panier-head h3 { font-family:'Playfair Display',serif; font-size:1.2rem;
+      font-weight:700; color:var(--wood-dark); margin:0; }
+    .panier-item { display:flex; align-items:center; gap:1rem;
+      padding:.9rem 1.8rem; border-bottom:1px solid rgba(92,26,26,.06); }
+    .panier-item-cover { width:44px; height:60px; object-fit:cover; border-radius:3px;
+      background:var(--parchment); flex-shrink:0; }
+    .panier-item-info { flex:1; min-width:0; }
+    .panier-item-titre { font-family:'Playfair Display',serif; font-size:.88rem;
+      font-weight:700; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .panier-item-auteur { font-size:.75rem; color:var(--ink-soft); }
+    .panier-item-del { background:none; border:none; cursor:pointer;
+      color:#c0392b; font-size:1.1rem; padding:.2rem; flex-shrink:0; }
+    .panier-form { padding:1.4rem 1.8rem; }
+    .panier-form label { display:block; font-family:'Raleway',sans-serif;
+      font-size:.68rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--ink-soft); margin:.9rem 0 .3rem; }
+    .panier-form input, .panier-form textarea {
+      width:100%; padding:.65rem .9rem; font-family:'Lora',serif; font-size:.88rem;
+      border:1.5px solid rgba(92,26,26,.2); border-radius:3px;
+      background:var(--warm-white); color:var(--ink); outline:none; box-sizing:border-box; }
+    .panier-form input:focus, .panier-form textarea:focus { border-color:var(--wood); }
+    .panier-actions { display:flex; gap:.8rem; margin-top:1.2rem; }
+    .btn-panier-vider { background:none; border:1.5px solid rgba(92,26,26,.2);
+      color:var(--ink-soft); border-radius:3px; padding:.55rem 1rem;
+      font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; cursor:pointer; }
+    .btn-panier-send { flex:1; background:var(--wood); color:#fff; border:none;
+      border-radius:3px; padding:.65rem 1.2rem; font-family:'Raleway',sans-serif;
+      font-size:.78rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; }
+    .btn-panier-send:hover { background:var(--wood-dark); }
+    .panier-vide { padding:2rem 1.8rem; font-family:'Lora',serif;
+      font-style:italic; color:var(--ink-soft); text-align:center; }
     /* NAV */
     nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
     .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
@@ -282,6 +333,7 @@
     <!-- Tri -->
     <div class="filter-group">
       <select id="sortSelect" onchange="setSort(this.value)">
+        <option value="aleatoire" selected>Aléatoire</option>
         <option value="nouveautes">Nouveautés d'abord</option>
         <option value="titre">Titre A→Z</option>
         <option value="auteur">Auteur A→Z</option>
@@ -333,7 +385,7 @@ let filtered = [];
 let currentFilter      = 'Tous';
 let currentLangFilter  = 'Tous';
 let currentDispoFilter = 'Tous';
-let currentSort        = 'nouveautes'; // défaut : nouveautés en premier
+let currentSort        = 'aleatoire'; // défaut : nouveautés en premier
 let currentPage = 1;
 const PER_PAGE = 40;
 let reserveBook = null;
@@ -531,7 +583,7 @@ function renderPage() {
                 : isNew        ? '<span class="book-badge badge-new">✦ Nouveauté</span>'
                 : b.stock === 0 ? '<span class="book-badge badge-out">Commande</span>' : '';
     const btnClass = b.stock > 0 ? 'available' : 'unavailable';
-    const btnLabel = b.stock > 0 ? 'Réserver' : 'Me prévenir';
+    const btnLabel = b.stock > 0 ? '🛒 Réserver' : '📩 Me prévenir';
     const imgHtml = b.cover
       ? '<img src="' + b.cover + '" alt="' + b.title.replace(/"/g,'&quot;') + '" loading="lazy"' +
         ' onerror="coverFallback(this)">' +
@@ -547,7 +599,7 @@ function renderPage() {
           '<span class="book-price">' + b.price + '</span>' +
           '<span class="' + sClass + '">' + sLabel + '</span>' +
         '</div>' +
-        '<button class="btn-reserve ' + btnClass + '" onclick="event.stopPropagation();openReserve(' + b.id + ')">' + btnLabel + '</button>' +
+        '<button class="btn-reserve ' + btnClass + '" onclick="event.stopPropagation();ajouterAuPanier(' + b.id + ')">' + btnLabel + '</button>' +
       '</div></div>';
   }).join('');
 
@@ -650,7 +702,7 @@ function openFiche(id) {
     : '';
 
   const btnReserve = b.stock > 0
-    ? '<button class="btn-fiche-reserve" onclick="closeFiche();openReserve(' + b.id + ')">Réserver ce livre</button>'
+    ? '<button class="btn-fiche-reserve" onclick="closeFiche();ajouterAuPanier(' + b.id + ')">Réserver ce livre</button>'
     : '<button class="btn-fiche-reserve" disabled>Non disponible</button>';
 
   document.getElementById('ficheBody').innerHTML =
@@ -684,7 +736,193 @@ chargerStock().then(() => {
     filterBooks();
   }
 });
+
+// ═══════════════════════════════════════════════════════════
+// PANIER DE RÉSERVATION
+// ═══════════════════════════════════════════════════════════
+var panier = [];
+
+function ajouterAuPanier(id) {
+  const b = BOOKS.find(b => b.id === id);
+  if (!b) return;
+  if (panier.find(p => p.id === id)) {
+    showToast('📚 « ' + b.title + ' » est déjà dans votre sélection.');
+    return;
+  }
+  panier.push({ id: b.id, ean: b.ean, titre: b.title, auteur: b.author, couverture: b.cover || '' });
+  majPanierBadge();
+  showToast('✅ « ' + b.title + ' » ajouté à votre sélection !');
+}
+
+function retirerDuPanier(id) {
+  panier = panier.filter(p => p.id !== id);
+  majPanierBadge();
+  renderPanierItems();
+}
+
+function viderPanier() {
+  panier = [];
+  majPanierBadge();
+  renderPanierItems();
+}
+
+function majPanierBadge() {
+  var btn   = document.getElementById('panierBtn');
+  var badge = document.getElementById('panierBadge');
+  badge.textContent = panier.length;
+  btn.style.display = panier.length > 0 ? 'flex' : 'none';
+}
+
+function ouvrirPanier() {
+  renderPanierItems();
+  document.getElementById('panierOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function fermerPanier() {
+  document.getElementById('panierOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderPanierItems() {
+  var el = document.getElementById('panierItems');
+  if (!panier.length) {
+    el.innerHTML = '<div class="panier-vide">Votre sélection est vide.<br/>Ajoutez des livres depuis le catalogue.</div>';
+    return;
+  }
+  el.innerHTML = panier.map(function(p) {
+    return '<div class="panier-item">'
+      + (p.couverture ? '<img class="panier-item-cover" src="' + p.couverture + '" alt="" onerror="this.style.display=\'none\'" />' : '<div class="panier-item-cover"></div>')
+      + '<div class="panier-item-info">'
+      + '<div class="panier-item-titre">' + p.titre + '</div>'
+      + '<div class="panier-item-auteur">' + (p.auteur || '') + '</div>'
+      + '<div style="font-size:.7rem;color:var(--ink-soft);margin-top:.2rem;">EAN : ' + p.ean + '</div>'
+      + '</div>'
+      + '<button class="panier-item-del" onclick="retirerDuPanier(' + p.id + ')" title="Retirer">✕</button>'
+      + '</div>';
+  }).join('');
+}
+
+async function envoyerPanier() {
+  var nom   = document.getElementById('pNom').value.trim();
+  var tel   = document.getElementById('pTel').value.trim();
+  var email = document.getElementById('pEmail').value.trim();
+  var msg   = document.getElementById('pMsg').value.trim();
+
+  if (!nom || !tel) { showToast('⚠️ Veuillez renseigner votre nom et téléphone.'); return; }
+  if (!panier.length) { showToast('⚠️ Votre sélection est vide.'); return; }
+
+  var btn = document.querySelector('.btn-panier-send');
+  btn.textContent = '⏳ Envoi…'; btn.disabled = true;
+
+  var reservation = {
+    id:     Date.now(),
+    date:   new Date().toISOString(),
+    nom:    nom,
+    tel:    tel,
+    email:  email,
+    message: msg,
+    livres: panier.map(function(p) { return { ean: p.ean, titre: p.titre, auteur: p.auteur }; }),
+    statut: 'nouvelle'
+  };
+
+  // Sauvegarder dans reservations.json sur GitHub
+  var GH_OWNER = 'lespritlarge';
+  var GH_REPO  = 'lespritlarge.github.io';
+  var saved = false;
+
+  try {
+    // Lire le fichier existant
+    var raw = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/reservations.json?t=' + Date.now());
+    var existant = raw.ok ? await raw.json() : { reservations: [] };
+    existant.reservations = existant.reservations || [];
+    existant.reservations.unshift(reservation);  // plus récente en premier
+
+    // SHA pour l'update
+    var sha = null;
+    try {
+      var shaR = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json?ref=main');
+      if (shaR.ok) { sha = (await shaR.json()).sha; }
+    } catch(_) {}
+
+    var content = btoa(unescape(encodeURIComponent(JSON.stringify(existant, null, 2))));
+    var body = { message: '📋 Réservation de ' + nom, content: content };
+    if (sha) body.sha = sha;
+
+    // Écrire sans token (le fichier reservations.json doit être public en écriture via un token stocké)
+    // Note : nécessite un token GitHub — utiliser le même que l'admin
+    // Pour l'instant : fallback Formspree si pas de token
+    var token = localStorage.getItem('gh_token_el');
+    if (token) {
+      var resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json', {
+        method: 'PUT', mode: 'cors', credentials: 'omit',
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      saved = resp.ok || resp.status === 201;
+    }
+  } catch(e) {}
+
+  // Fallback : email via Formspree
+  try {
+    var livresTexte = panier.map(function(p) { return '- ' + p.titre + ' (' + p.ean + ')'; }).join('\n');
+    var resp2 = await fetch('https://formspree.io/f/mvzwkqzn', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: '📋 Réservation de ' + nom + ' (' + panier.length + ' livre' + (panier.length>1?'s':'') + ')',
+        nom: nom, tel: tel, email: email,
+        livres: livresTexte, message: msg
+      })
+    });
+    var d = await resp2.json();
+    if (d.ok || d.next) saved = true;
+  } catch(e) {}
+
+  btn.textContent = '📩 Envoyer la réservation'; btn.disabled = false;
+
+  if (saved) {
+    fermerPanier();
+    viderPanier();
+    ['pNom','pTel','pEmail','pMsg'].forEach(function(id) { document.getElementById(id).value = ''; });
+    showToast('✅ Réservation envoyée ! Nous vous contacterons rapidement.');
+  } else {
+    showToast('⚠️ Erreur lors de l\'envoi. Appelez-nous au 02 40 23 44 44.');
+  }
+}
+
 </script>
+
+<!-- BOUTON PANIER FLOTTANT -->
+<button class="panier-btn" id="panierBtn" onclick="ouvrirPanier()">
+  🛒 Mon panier <span class="panier-badge" id="panierBadge">0</span>
+</button>
+
+<!-- PANNEAU PANIER -->
+<div class="panier-overlay" id="panierOverlay" onclick="if(event.target===this)fermerPanier()">
+  <div class="panier-panel">
+    <div class="panier-head">
+      <h3>🛒 Ma sélection</h3>
+      <button onclick="fermerPanier()" style="background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--ink-soft);">✕</button>
+    </div>
+    <div id="panierItems"></div>
+    <div class="panier-form">
+      <div style="font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">Vos coordonnées</div>
+      <label>Nom & Prénom *</label>
+      <input type="text" id="pNom" placeholder="Marie Dupont" />
+      <label>Téléphone *</label>
+      <input type="tel" id="pTel" placeholder="06 XX XX XX XX" />
+      <label>Email</label>
+      <input type="email" id="pEmail" placeholder="vous@email.com" />
+      <label>Message (facultatif)</label>
+      <textarea id="pMsg" rows="2" placeholder="Date de retrait souhaitée, question…" style="resize:vertical;"></textarea>
+      <div class="panier-actions">
+        <button class="btn-panier-vider" onclick="viderPanier()">🗑 Vider</button>
+        <button class="btn-panier-send" onclick="envoyerPanier()">📩 Envoyer la réservation</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <footer class="site-footer" id="contact">
   <div>

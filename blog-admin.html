@@ -158,6 +158,7 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
     <button class="tab" onclick="switchTab('tempete',this)">🌊 Avis de Tempête</button>
     <button class="tab" onclick="switchTab('apropos',this)">👥 À propos</button>
     <button class="tab" onclick="switchTab('prix',this)">🏆 Prix</button>
+    <button class="tab" onclick="switchTab('reservations',this)">📋 Réservations <span id="reservBadge" style="background:#c0392b;color:#fff;border-radius:50%;padding:.1rem .45rem;font-size:.7rem;margin-left:.3rem;display:none;">0</span></button>
   </div>
 
   <div class="body">
@@ -463,6 +464,23 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
       </div>
 
     </div>
+
+<!-- PANEL RÉSERVATIONS -->
+<div class="panel" id="panel-reservations">
+  <div style="flex:1;overflow-y:auto;padding:2rem;background:var(--warm);max-width:800px;margin:0 auto;width:100%;">
+    <div class="fhead">📋 Réservations</div>
+    <p style="font-family:'Lora',serif;font-style:italic;font-size:.88rem;color:var(--soft);margin-bottom:1.5rem;line-height:1.6;">
+      Réservations reçues depuis le catalogue en ligne.
+    </p>
+    <div style="display:flex;gap:.8rem;margin-bottom:1.5rem;flex-wrap:wrap;">
+      <button onclick="Reservations.filtrer('toutes')" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:var(--wood);color:#fff;border:none;">Toutes</button>
+      <button onclick="Reservations.filtrer('nouvelle')" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🔴 Nouvelles</button>
+      <button onclick="Reservations.filtrer('confirmee')" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🟡 Confirmées</button>
+      <button onclick="Reservations.filtrer('recuperee')" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🟢 Récupérées</button>
+    </div>
+    <div id="reservList" style="display:flex;flex-direction:column;gap:1rem;"></div>
+  </div>
+</div>
   </div>
 
   </div>
@@ -523,6 +541,7 @@ function switchTab(name, el) {
     if (name === 'tempete')  Tempete.charger();
     if (name === 'apropos')  Apropos.charger();
     if (name === 'prix')     Prix.charger();
+    if (name === 'reservations') Reservations.charger();
     if (name === 'coups')    Coups.charger();
   }
 }
@@ -1210,6 +1229,128 @@ var Coups = (() => {
   }
 
   return { charger, verifier, ajouter, supprimer, editer, annulerEdit, sauvegarderEdit, toggleEpingle };
+})();
+
+
+// ═══════════════════════════════════════════════════════════
+// MODULE RÉSERVATIONS
+// ═══════════════════════════════════════════════════════════
+var Reservations = (() => {
+  let items = [];
+  let filtreActif = 'toutes';
+
+  const STATUTS = {
+    'nouvelle':  { label: '🔴 Nouvelle',   color: '#e74c3c' },
+    'confirmee': { label: '🟡 Confirmée',  color: '#f39c12' },
+    'recuperee': { label: '🟢 Récupérée',  color: '#27ae60' },
+  };
+
+  async function charger() {
+    const token = getToken();
+    try {
+      const r = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO
+        + '/main/reservations.json?t=' + Date.now());
+      if (!r.ok) {
+        document.getElementById('reservList').innerHTML =
+          '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">Aucune réservation pour le moment.</p>';
+        return;
+      }
+      const data = await r.json();
+      items = data.reservations || [];
+      majBadge();
+      renderList();
+    } catch(e) {
+      document.getElementById('reservList').innerHTML =
+        '<p style="color:#c0392b;">Erreur de chargement.</p>';
+    }
+  }
+
+  function majBadge() {
+    const nouvelles = items.filter(r => r.statut === 'nouvelle').length;
+    const badge = document.getElementById('reservBadge');
+    if (badge) {
+      badge.textContent = nouvelles;
+      badge.style.display = nouvelles > 0 ? 'inline' : 'none';
+    }
+  }
+
+  function filtrer(statut) {
+    filtreActif = statut;
+    document.querySelectorAll('.filtr-btn').forEach(b => {
+      b.style.background = 'none';
+      b.style.color = 'var(--wood)';
+    });
+    const actif = document.querySelector(`[onclick="Reservations.filtrer('${statut}')"]`);
+    if (actif) { actif.style.background = 'var(--wood)'; actif.style.color = '#fff'; }
+    renderList();
+  }
+
+  function renderList() {
+    const el = document.getElementById('reservList');
+    const visible = filtreActif === 'toutes'
+      ? items
+      : items.filter(r => r.statut === filtreActif);
+
+    if (!visible.length) {
+      el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);padding:1rem 0;">Aucune réservation dans cette catégorie.</p>';
+      return;
+    }
+
+    el.innerHTML = visible.map((r, i) => {
+      const idx = items.indexOf(r);
+      const date = new Date(r.date).toLocaleString('fr-FR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+      const st = STATUTS[r.statut] || { label: r.statut, color: '#999' };
+      const livres = (r.livres || []).map(l =>
+        `<div style="font-size:.82rem;padding:.2rem 0;border-bottom:1px solid rgba(92,26,26,.05);">
+          <strong>${l.titre}</strong>${l.auteur ? ' — ' + l.auteur : ''}
+          <span style="font-size:.72rem;color:var(--soft);margin-left:.5rem;">EAN ${l.ean}</span>
+        </div>`
+      ).join('');
+
+      return `<div style="background:#fff;border-radius:6px;padding:1.4rem 1.8rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.8rem;">
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--wood-dark);">${r.nom}</div>
+            <div style="font-size:.78rem;color:var(--soft);margin-top:.2rem;">
+              ${r.tel ? '📞 ' + r.tel : ''} ${r.email ? '· ✉️ ' + r.email : ''} · ${date}
+            </div>
+            ${r.message ? `<div style="font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--soft);margin-top:.4rem;">"${r.message}"</div>` : ''}
+          </div>
+          <span style="background:${st.color};color:#fff;border-radius:3px;padding:.2rem .7rem;font-size:.72rem;font-weight:700;white-space:nowrap;">${st.label}</span>
+        </div>
+        <div style="margin-bottom:.9rem;">${livres}</div>
+        <div style="display:flex;gap:.6rem;flex-wrap:wrap;">
+          <select onchange="Reservations.changerStatut(${idx}, this.value)" style="font-size:.72rem;padding:.3rem .6rem;border:1.5px solid rgba(92,26,26,.2);border-radius:3px;background:#fff;cursor:pointer;">
+            <option value="nouvelle" ${r.statut==='nouvelle'?'selected':''}>🔴 Nouvelle</option>
+            <option value="confirmee" ${r.statut==='confirmee'?'selected':''}>🟡 Confirmée</option>
+            <option value="recuperee" ${r.statut==='recuperee'?'selected':''}>🟢 Récupérée</option>
+          </select>
+          <button onclick="Reservations.supprimer(${idx})" style="background:none;border:1.5px solid rgba(192,57,43,.3);color:#c0392b;border-radius:3px;padding:.3rem .7rem;font-size:.72rem;cursor:pointer;">🗑 Supprimer</button>
+          ${r.tel ? `<a href="tel:${r.tel}" style="background:rgba(92,26,26,.08);border:none;color:var(--wood);border-radius:3px;padding:.3rem .7rem;font-size:.72rem;text-decoration:none;">📞 Appeler</a>` : ''}
+          ${r.email ? `<a href="mailto:${r.email}?subject=Votre réservation à L'Esprit Large" style="background:rgba(92,26,26,.08);border:none;color:var(--wood);border-radius:3px;padding:.3rem .7rem;font-size:.72rem;text-decoration:none;">✉️ Répondre</a>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  async function changerStatut(idx, statut) {
+    items[idx].statut = statut;
+    const ok = await ghWrite('reservations.json',
+      { reservations: items },
+      'Statut réservation → ' + statut + ' : ' + items[idx].nom);
+    if (ok) { toast('✅ Statut mis à jour.'); majBadge(); renderList(); }
+  }
+
+  async function supprimer(idx) {
+    if (!confirm('Supprimer cette réservation ?')) return;
+    items.splice(idx, 1);
+    const ok = await ghWrite('reservations.json',
+      { reservations: items },
+      'Suppression réservation');
+    if (ok) { toast('🗑 Réservation supprimée.'); majBadge(); renderList(); }
+  }
+
+  return { charger, filtrer, changerStatut, supprimer };
 })();
 
 // ── INIT ──────────────────────────────────
