@@ -721,12 +721,10 @@
 
 <section id="hero">
   <!-- Slideshow background with real photos -->
-  <div class="hero-slideshow">
+  <div class="hero-slideshow" id="heroSlideshow">
+    <!-- Slides chargées dynamiquement depuis images/galerie/ -->
     <div class="hero-slide active" style="background-image:url('images/IMG_20220829_145131.jpg')"></div>
     <div class="hero-slide" style="background-image:url('images/IMG_20220829_145141.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/350884255_193606970299119_684689304584996683_n.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/350706999_763684615455681_9098931883408780254_n.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/350110694_835607277985386_7956384476186730092_n.jpg')"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -1045,7 +1043,37 @@ function goSlide(n) {
   _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
 }
 document.addEventListener('DOMContentLoaded', function() {
-  _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
+  // Charger les images depuis images/galerie/ via l'API GitHub
+  fetch('https://api.github.com/repos/lespritlarge/lespritlarge.github.io/contents/images/galerie')
+    .then(function(r) { return r.json(); })
+    .then(function(files) {
+      var imgs = files.filter(function(f) {
+        return /\.(jpg|jpeg|png|webp)$/i.test(f.name);
+      }).slice(0, 8); // max 8 slides
+      if (imgs.length === 0) return;
+      var slideshow = document.getElementById('heroSlideshow');
+      if (!slideshow) return;
+      // Vider les slides statiques et reconstruire
+      slideshow.innerHTML = '';
+      imgs.forEach(function(f, i) {
+        var div = document.createElement('div');
+        div.className = 'hero-slide' + (i === 0 ? ' active' : '');
+        div.style.backgroundImage = "url('" + f.download_url + "')";
+        slideshow.appendChild(div);
+      });
+      // Mettre à jour les dots
+      var dotsEl = document.querySelector('.hero-dots');
+      if (dotsEl) {
+        dotsEl.innerHTML = imgs.map(function(_, i) {
+          return '<span class="dot' + (i===0?' active':'') + '" onclick="goSlide(' + i + ')"></span>';
+        }).join('');
+      }
+      _slideIdx = 0;
+    })
+    .catch(function() {}) // silencieux si API GitHub indisponible
+    .finally(function() {
+      _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
+    });
 });
 
 /* ── INIT ── */
