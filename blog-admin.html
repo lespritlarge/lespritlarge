@@ -1127,7 +1127,7 @@ var Coups = (() => {
         </div>`;
       }
       return `<div style="display:flex;align-items:center;gap:1rem;padding:.8rem;background:var(--cream);border-radius:4px;margin-bottom:.5rem;border:1px solid rgba(92,26,26,.1);">
-        ${c.couverture ? `<img src="${c.couverture}" style="width:40px;height:55px;object-fit:cover;border-radius:2px;flex-shrink:0;" onerror="this.style.display='none'"/>` : '<span style="font-size:1.5rem;flex-shrink:0;">📖</span>'}
+        ${c.couverture ? `<img src="${couvertureUrl(c.ean, c.couverture)}" style="width:40px;height:55px;object-fit:cover;border-radius:2px;flex-shrink:0;" onerror="this.style.display='none'"/>` : '<span style="font-size:1.5rem;flex-shrink:0;">📖</span>'}
         <div style="flex:1;min-width:0;">
           <div style="font-family:'Lora',serif;font-size:.88rem;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${c.titre || c.ean}</div>
           <div style="font-size:.72rem;color:var(--soft);">${c.auteur || ''}</div>
@@ -1352,6 +1352,14 @@ var Reservations = (() => {
 
   return { charger, filtrer, changerStatut, supprimer };
 })();
+
+// Couverture helper — évite les erreurs CORS de geobib
+function couvertureUrl(ean, urlExistante) {
+  if (!urlExistante || urlExistante.includes('geobib')) {
+    return 'https://openapi.bnf.fr/couverture/image/image/recupererImage?EAN=' + ean + '&couverture=1';
+  }
+  return urlExistante;
+}
 
 // ── INIT ──────────────────────────────────
 
