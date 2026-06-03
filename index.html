@@ -722,9 +722,11 @@
 <section id="hero">
   <!-- Slideshow background with real photos -->
   <div class="hero-slideshow" id="heroSlideshow">
-    <!-- Slides chargées dynamiquement depuis images/galerie/ -->
-    <div class="hero-slide active" style="background-image:url('images/IMG_20220829_145131.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('images/IMG_20220829_145141.jpg')"></div>
+    <div class="hero-slide active" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759981505.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773759990167.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773760003917.jpeg')"></div>
+    <div class="hero-slide" style="background-image:url('https://raw.githubusercontent.com/lespritlarge/lespritlarge.github.io/main/images/galerie/photo1773760010886.jpeg')"></div>
+  </div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
@@ -742,7 +744,6 @@
       <span class="dot" onclick="goSlide(1)"></span>
       <span class="dot" onclick="goSlide(2)"></span>
       <span class="dot" onclick="goSlide(3)"></span>
-      <span class="dot" onclick="goSlide(4)"></span>
     </div>
   </div>
 </section>
@@ -1043,24 +1044,8 @@ function goSlide(n) {
   _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
 }
 document.addEventListener('DOMContentLoaded', function() {
-  // Charger les images depuis images/galerie/ via l'API GitHub
-  fetch('https://api.github.com/repos/lespritlarge/lespritlarge.github.io/contents/images/galerie')
-    .then(function(r) { return r.json(); })
-    .then(function(files) {
-      var imgs = files.filter(function(f) {
-        return /\.(jpg|jpeg|png|webp)$/i.test(f.name);
-      }).slice(0, 8); // max 8 slides
-      if (imgs.length === 0) return;
-      var slideshow = document.getElementById('heroSlideshow');
-      if (!slideshow) return;
-      // Vider les slides statiques et reconstruire
-      slideshow.innerHTML = '';
-      imgs.forEach(function(f, i) {
-        var div = document.createElement('div');
-        div.className = 'hero-slide' + (i === 0 ? ' active' : '');
-        div.style.backgroundImage = "url('" + f.download_url + "')";
-        slideshow.appendChild(div);
-      });
+  _slideTimer = setInterval(function(){ goSlide(_slideIdx + 1); }, 4000);
+});
       // Mettre à jour les dots
       var dotsEl = document.querySelector('.hero-dots');
       if (dotsEl) {
