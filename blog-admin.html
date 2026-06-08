@@ -483,14 +483,14 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
 
 <script>
 
-// ══════════════════════════════════════════
-//  CONFIG — changez le mot de passe ici
+// ========================================
+//  CONFIG - changez le mot de passe ici
 const MOT_DE_PASSE = "espritlarge2026";
 const GH_OWNER = "lespritlarge";
 const GH_REPO  = "lespritlarge.github.io";
-// ══════════════════════════════════════════
+// ========================================
 
-// ── AUTH ──────────────────────────────────
+// -- AUTH ----------------------------------
 function login() {
   if (document.getElementById('pwdInput').value === MOT_DE_PASSE) {
     sessionStorage.setItem('el_auth','1');
@@ -507,7 +507,7 @@ function showAdmin() {
   a.style.display = 'flex'; a.style.flexDirection = 'column';
 }
 
-// ── TOKEN ─────────────────────────────────
+// -- TOKEN ---------------------------------
 function loadToken() {
   const t = localStorage.getItem('el_gh_token');
   if (t) { document.getElementById('ghToken').value = t; document.getElementById('tdot').classList.add('ok'); }
@@ -521,7 +521,7 @@ function saveToken() {
 }
 function getToken() { return localStorage.getItem('el_gh_token') || document.getElementById('ghToken').value.trim(); }
 
-// ── TABS ──────────────────────────────────
+// -- TABS ----------------------------------
 const _panelLoaded = {};
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -540,9 +540,9 @@ function switchTab(name, el) {
   }
 }
 
-// ── GITHUB API ────────────────────────────
+// -- GITHUB API ----------------------------
 async function ghRead(file) {
-  // Lecture via URL publique raw — fonctionne sans token, pas de limite
+  // Lecture via URL publique raw - fonctionne sans token, pas de limite
   const url = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/${file}?t=${Date.now()}`;
   const r = await fetch(url);
   if (r.status === 404) return { data: null, sha: null };
@@ -615,9 +615,9 @@ async function ghWrite(file, data, message) {
   return false;
 }
 
-// ══════════════════════════════════════════
+// ========================================
 //  BLOG
-// ══════════════════════════════════════════
+// ========================================
 var Blog = (() => {
   let items = [], idx = null;
 
@@ -702,9 +702,9 @@ var Blog = (() => {
   return { charger, select, nouveau, sauvegarder, supprimer };
 })();
 
-// ══════════════════════════════════════════
+// ========================================
 //  ÉVÉNEMENTS
-// ══════════════════════════════════════════
+// ========================================
 var Evts = (() => {
   let items = [], idx = null;
 
@@ -836,7 +836,7 @@ var Evts = (() => {
     const el   = document.getElementById('recurPreview');
     if (!date || !freq || !fin) { el.innerHTML = '<em>Choisissez une fréquence et une date de fin…</em>'; return; }
     const dates = genDates(date, freq, fin);
-    if (!dates.length) { el.innerHTML = '<em>Aucune date — vérifiez la date de fin.</em>'; return; }
+    if (!dates.length) { el.innerHTML = '<em>Aucune date - vérifiez la date de fin.</em>'; return; }
     const f = d => { const [y,m,j] = d.split('-'); return new Date(y,m-1,j).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); };
     el.innerHTML = dates.map(d => '• ' + f(d)).join('<br>') + '<br><strong style="color:var(--wood)">' + dates.length + ' occurrence(s)</strong>';
   }
@@ -929,7 +929,7 @@ var Evts = (() => {
   return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview };
 })();
 
-// ── UTILS ─────────────────────────────────
+// -- UTILS ---------------------------------
 function fmt(iso) {
   if (!iso) return '';
   return new Date(iso+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
@@ -941,9 +941,9 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 
-// ══════════════════════════════════════════
+// ========================================
 //  COUPS DE CŒUR
-// ══════════════════════════════════════════
+// ========================================
 var Coups = (() => {
   let items = [];
 
@@ -965,12 +965,12 @@ var Coups = (() => {
       const editing = _editIdx === i;
       if (editing) {
         return `<div style="background:#fff;border:2px solid var(--wood);border-radius:6px;padding:1rem;margin-bottom:.6rem;">
-          <div style="font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">✏️ Modifier — ${c.titre || c.ean}</div>
+          <div style="font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">✏️ Modifier - ${c.titre || c.ean}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
             <div>
               <label style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;display:block;margin-bottom:.2rem;">Catégorie</label>
               <select id="edit-cat-${i}" style="width:100%;padding:.45rem;font-family:'Lora',serif;font-size:.85rem;border:1.5px solid #ddd;border-radius:3px;background:#fff;">
-                <option value="" ${!c.categorie?'selected':''}>— Choisir —</option>
+                <option value="" ${!c.categorie?'selected':''}>- Choisir -</option>
                 <option value="Roman" ${c.categorie==='Roman'?'selected':''}>Roman</option>
                 <option value="BD" ${c.categorie==='BD'?'selected':''}>BD</option>
                 <option value="Jeunesse" ${c.categorie==='Jeunesse'?'selected':''}>Jeunesse</option>
@@ -1000,7 +1000,7 @@ var Coups = (() => {
           ${c.citation ? `<div style="font-family:'Lora',serif;font-style:italic;font-size:.78rem;color:var(--soft);margin-top:.2rem;">"${c.citation.substring(0,80)}${c.citation.length>80?'…':''}"</div>` : ''}
           <div style="display:flex;gap:.4rem;margin-top:.3rem;align-items:center;flex-wrap:wrap;">
             ${c.categorie ? `<span style="font-size:.62rem;font-weight:700;color:#fff;background:var(--wood);border-radius:3px;padding:.1rem .4rem;text-transform:uppercase;letter-spacing:.06em;">${c.categorie}</span>` : ''}
-            ${c.libraire ? `<span style="font-size:.65rem;font-weight:700;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">— ${c.libraire}</span>` : ''}
+            ${c.libraire ? `<span style="font-size:.65rem;font-weight:700;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">- ${c.libraire}</span>` : ''}
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:.3rem;flex-shrink:0;">
@@ -1089,11 +1089,11 @@ var Coups = (() => {
   return { charger, verifier, ajouter, supprimer, editer, annulerEdit, sauvegarderEdit };
 })();
 
-// ── INIT ──────────────────────────────────
+// -- INIT ----------------------------------
 
-// ══════════════════════════════════════════
+// ========================================
 //  AVIS DE TEMPÊTE
-// ══════════════════════════════════════════
+// ========================================
 var Tempete = (() => {
   let items = [];
 
@@ -1209,9 +1209,9 @@ var Tempete = (() => {
   return { charger, previewFichier, ajouter, supprimer };
 })();
 
-// ══════════════════════════════════════════
+// ========================================
 //  À PROPOS
-// ══════════════════════════════════════════
+// ========================================
 var Apropos = (() => {
   let libraires = [], valeurs = [];
 
@@ -1238,7 +1238,7 @@ var Apropos = (() => {
   function renderForms() {
     const lEl = document.getElementById('librairesForms');
     if (!libraires.length) {
-      lEl.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire — cliquez sur « + Ajouter ».</p>';
+      lEl.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire - cliquez sur « + Ajouter ».</p>';
     } else {
       let lHtml = '';
       libraires.forEach(function(l, i) {
@@ -1258,7 +1258,7 @@ var Apropos = (() => {
         lHtml += '<div style="flex:1;min-width:160px;">';
         lHtml += '<input type="file" id="lPhotoFile' + i + '" accept="image/*" style="font-size:.75rem;margin-bottom:.4rem;width:100%;" onchange="Apropos.previewPhoto(' + i + ')"/>';
         lHtml += '<input type="text" id="lPhoto' + i + '" value="' + (l.photo||'').replace(/"/g,'&quot;') + '" placeholder="images/prenom.jpg" style="font-size:.75rem;margin-top:.2rem;"/>';
-        lHtml += '<small style="color:var(--soft);display:block;margin-top:.2rem;">Sélectionnez un fichier — uploadé automatiquement sur GitHub.</small>';
+        lHtml += '<small style="color:var(--soft);display:block;margin-top:.2rem;">Sélectionnez un fichier - uploadé automatiquement sur GitHub.</small>';
         lHtml += '</div></div></div>';
         lHtml += '<div class="f"><label>Citation</label><input type="text" id="lCitation' + i + '" value="' + (l.citation||'').replace(/"/g,'&quot;') + '"/></div>';
         lHtml += '</div>';
@@ -1467,7 +1467,7 @@ var Prix = (() => {
           oninput="Prix._updateField('${type}',${i},'note',this.value)"/>
         <details style="margin-top:.6rem;">
           <summary style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.4rem;">
-            <span>▶</span> Sélection ${e.annee||''} — ${(e.selection||[]).length} livre(s)
+            <span>▶</span> Sélection ${e.annee||''} - ${(e.selection||[]).length} livre(s)
           </summary>
           <div style="margin-top:.5rem;padding:.6rem;background:#fff;border-radius:3px;border:1px solid #ede5e5;">
             <div id="selection-${type}-${i}">${selectionHtml(e.selection||[], type, i)}</div>
@@ -1559,9 +1559,9 @@ function init() { loadToken(); Blog.charger(); Evts.charger(); Coups.charger(); 
 window.addEventListener('DOMContentLoaded', function() {
   if (sessionStorage.getItem('el_auth') === '1') { showAdmin(); init(); }
 });
-// ═══════════════════════════════════════════════════════
+// ========================================
 // MODULE RÉSERVATIONS
-// ═══════════════════════════════════════════════════════
+// ========================================
 var Reservations = (function() {
   var items = [];
   var filtre = 'toutes';
@@ -1703,14 +1703,14 @@ var Reservations = (function() {
 
   return { charger: charger, filtrer: filtrer, changerStatut: changerStatut, supprimer: supprimer, initialiser: initialiser };
 })();
-════════════════════════════════════════
-//  CONFIG — changez le mot de passe ici
+// ========================================
+//  CONFIG - changez le mot de passe ici
 const MOT_DE_PASSE = "espritlarge2026";
 const GH_OWNER = "lespritlarge";
 const GH_REPO  = "lespritlarge.github.io";
-// ══════════════════════════════════════════
+// ========================================
 
-// ── AUTH ──────────────────────────────────
+// -- AUTH ----------------------------------
 function login() {
   if (document.getElementById('pwdInput').value === MOT_DE_PASSE) {
     sessionStorage.setItem('el_auth','1');
@@ -1727,7 +1727,7 @@ function showAdmin() {
   a.style.display = 'flex'; a.style.flexDirection = 'column';
 }
 
-// ── TOKEN ─────────────────────────────────
+// -- TOKEN ---------------------------------
 function loadToken() {
   const t = localStorage.getItem('el_gh_token');
   if (t) { document.getElementById('ghToken').value = t; document.getElementById('tdot').classList.add('ok'); }
@@ -1741,7 +1741,7 @@ function saveToken() {
 }
 function getToken() { return localStorage.getItem('el_gh_token') || document.getElementById('ghToken').value.trim(); }
 
-// ── TABS ──────────────────────────────────
+// -- TABS ----------------------------------
 const _panelLoaded = {};
 function switchTab(name, el) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -1759,9 +1759,9 @@ function switchTab(name, el) {
   }
 }
 
-// ── GITHUB API ────────────────────────────
+// -- GITHUB API ----------------------------
 async function ghRead(file) {
-  // Lecture via URL publique raw — fonctionne sans token, pas de limite
+  // Lecture via URL publique raw - fonctionne sans token, pas de limite
   const url = `https://raw.githubusercontent.com/${GH_OWNER}/${GH_REPO}/main/${file}?t=${Date.now()}`;
   const r = await fetch(url);
   if (r.status === 404) return { data: null, sha: null };
@@ -1834,9 +1834,9 @@ async function ghWrite(file, data, message) {
   return false;
 }
 
-// ══════════════════════════════════════════
+// ========================================
 //  BLOG
-// ══════════════════════════════════════════
+// ========================================
 var Blog = (() => {
   let items = [], idx = null;
 
@@ -1921,9 +1921,9 @@ var Blog = (() => {
   return { charger, select, nouveau, sauvegarder, supprimer };
 })();
 
-// ══════════════════════════════════════════
+// ========================================
 //  ÉVÉNEMENTS
-// ══════════════════════════════════════════
+// ========================================
 var Evts = (() => {
   let items = [], idx = null;
 
@@ -2055,7 +2055,7 @@ var Evts = (() => {
     const el   = document.getElementById('recurPreview');
     if (!date || !freq || !fin) { el.innerHTML = '<em>Choisissez une fréquence et une date de fin…</em>'; return; }
     const dates = genDates(date, freq, fin);
-    if (!dates.length) { el.innerHTML = '<em>Aucune date — vérifiez la date de fin.</em>'; return; }
+    if (!dates.length) { el.innerHTML = '<em>Aucune date - vérifiez la date de fin.</em>'; return; }
     const f = d => { const [y,m,j] = d.split('-'); return new Date(y,m-1,j).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'}); };
     el.innerHTML = dates.map(d => '• ' + f(d)).join('<br>') + '<br><strong style="color:var(--wood)">' + dates.length + ' occurrence(s)</strong>';
   }
@@ -2148,7 +2148,7 @@ var Evts = (() => {
   return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview };
 })();
 
-// ── UTILS ─────────────────────────────────
+// -- UTILS ---------------------------------
 function fmt(iso) {
   if (!iso) return '';
   return new Date(iso+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'});
@@ -2160,9 +2160,9 @@ function toast(msg) {
   setTimeout(() => t.classList.remove('show'), 4000);
 }
 
-// ══════════════════════════════════════════
+// ========================================
 //  COUPS DE CŒUR
-// ══════════════════════════════════════════
+// ========================================
 var Coups = (() => {
   let items = [];
 
@@ -2184,12 +2184,12 @@ var Coups = (() => {
       const editing = _editIdx === i;
       if (editing) {
         return `<div style="background:#fff;border:2px solid var(--wood);border-radius:6px;padding:1rem;margin-bottom:.6rem;">
-          <div style="font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">✏️ Modifier — ${c.titre || c.ean}</div>
+          <div style="font-family:'Raleway',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">✏️ Modifier - ${c.titre || c.ean}</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.5rem;">
             <div>
               <label style="font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#888;display:block;margin-bottom:.2rem;">Catégorie</label>
               <select id="edit-cat-${i}" style="width:100%;padding:.45rem;font-family:'Lora',serif;font-size:.85rem;border:1.5px solid #ddd;border-radius:3px;background:#fff;">
-                <option value="" ${!c.categorie?'selected':''}>— Choisir —</option>
+                <option value="" ${!c.categorie?'selected':''}>- Choisir -</option>
                 <option value="Roman" ${c.categorie==='Roman'?'selected':''}>Roman</option>
                 <option value="BD" ${c.categorie==='BD'?'selected':''}>BD</option>
                 <option value="Jeunesse" ${c.categorie==='Jeunesse'?'selected':''}>Jeunesse</option>
@@ -2219,7 +2219,7 @@ var Coups = (() => {
           ${c.citation ? `<div style="font-family:'Lora',serif;font-style:italic;font-size:.78rem;color:var(--soft);margin-top:.2rem;">"${c.citation.substring(0,80)}${c.citation.length>80?'…':''}"</div>` : ''}
           <div style="display:flex;gap:.4rem;margin-top:.3rem;align-items:center;flex-wrap:wrap;">
             ${c.categorie ? `<span style="font-size:.62rem;font-weight:700;color:#fff;background:var(--wood);border-radius:3px;padding:.1rem .4rem;text-transform:uppercase;letter-spacing:.06em;">${c.categorie}</span>` : ''}
-            ${c.libraire ? `<span style="font-size:.65rem;font-weight:700;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">— ${c.libraire}</span>` : ''}
+            ${c.libraire ? `<span style="font-size:.65rem;font-weight:700;color:var(--wood);text-transform:uppercase;letter-spacing:.06em;">- ${c.libraire}</span>` : ''}
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:.3rem;flex-shrink:0;">
@@ -2308,11 +2308,11 @@ var Coups = (() => {
   return { charger, verifier, ajouter, supprimer, editer, annulerEdit, sauvegarderEdit };
 })();
 
-// ── INIT ──────────────────────────────────
+// -- INIT ----------------------------------
 
-// ══════════════════════════════════════════
+// ========================================
 //  AVIS DE TEMPÊTE
-// ══════════════════════════════════════════
+// ========================================
 var Tempete = (() => {
   let items = [];
 
@@ -2428,9 +2428,9 @@ var Tempete = (() => {
   return { charger, previewFichier, ajouter, supprimer };
 })();
 
-// ══════════════════════════════════════════
+// ========================================
 //  À PROPOS
-// ══════════════════════════════════════════
+// ========================================
 var Apropos = (() => {
   let libraires = [], valeurs = [];
 
@@ -2457,7 +2457,7 @@ var Apropos = (() => {
   function renderForms() {
     const lEl = document.getElementById('librairesForms');
     if (!libraires.length) {
-      lEl.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire — cliquez sur « + Ajouter ».</p>';
+      lEl.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun libraire - cliquez sur « + Ajouter ».</p>';
     } else {
       let lHtml = '';
       libraires.forEach(function(l, i) {
@@ -2477,7 +2477,7 @@ var Apropos = (() => {
         lHtml += '<div style="flex:1;min-width:160px;">';
         lHtml += '<input type="file" id="lPhotoFile' + i + '" accept="image/*" style="font-size:.75rem;margin-bottom:.4rem;width:100%;" onchange="Apropos.previewPhoto(' + i + ')"/>';
         lHtml += '<input type="text" id="lPhoto' + i + '" value="' + (l.photo||'').replace(/"/g,'&quot;') + '" placeholder="images/prenom.jpg" style="font-size:.75rem;margin-top:.2rem;"/>';
-        lHtml += '<small style="color:var(--soft);display:block;margin-top:.2rem;">Sélectionnez un fichier — uploadé automatiquement sur GitHub.</small>';
+        lHtml += '<small style="color:var(--soft);display:block;margin-top:.2rem;">Sélectionnez un fichier - uploadé automatiquement sur GitHub.</small>';
         lHtml += '</div></div></div>';
         lHtml += '<div class="f"><label>Citation</label><input type="text" id="lCitation' + i + '" value="' + (l.citation||'').replace(/"/g,'&quot;') + '"/></div>';
         lHtml += '</div>';
@@ -2686,7 +2686,7 @@ var Prix = (() => {
           oninput="Prix._updateField('${type}',${i},'note',this.value)"/>
         <details style="margin-top:.6rem;">
           <summary style="font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--wood);cursor:pointer;list-style:none;display:flex;align-items:center;gap:.4rem;">
-            <span>▶</span> Sélection ${e.annee||''} — ${(e.selection||[]).length} livre(s)
+            <span>▶</span> Sélection ${e.annee||''} - ${(e.selection||[]).length} livre(s)
           </summary>
           <div style="margin-top:.5rem;padding:.6rem;background:#fff;border-radius:3px;border:1px solid #ede5e5;">
             <div id="selection-${type}-${i}">${selectionHtml(e.selection||[], type, i)}</div>
