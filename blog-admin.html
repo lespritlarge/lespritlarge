@@ -1278,7 +1278,11 @@ var Reservations = (() => {
     } catch(e) {
       console.error('Reservations error:', e);
       const el2 = document.getElementById('reservList');
-      if (el2) el2.innerHTML = '<p style="color:#c0392b;padding:1rem;">Erreur : ' + e.message + '</p>';
+      if (el2) el2.innerHTML = '<div style="padding:1.5rem;">'
+        + '<p style="color:#c0392b;font-family:Raleway,sans-serif;font-weight:700;">Erreur de chargement :</p>'
+        + '<p style="color:#c0392b;font-family:monospace;font-size:.85rem;">' + e.message + '</p>'
+        + '<button onclick="Reservations.charger()" style="margin-top:1rem;background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.5rem 1rem;cursor:pointer;font-family:Raleway,sans-serif;font-size:.75rem;font-weight:700;">↺ Réessayer</button>'
+        + '</div>';
     }
   }
 
