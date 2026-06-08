@@ -1246,44 +1246,47 @@ var Reservations = (() => {
     'recuperee': { label: '🟢 Récupérée',  color: '#27ae60' },
   };
 
-  async function charger() {
-    console.log('=== Reservations.charger() appelé ===');
+  function charger() {
     const el = document.getElementById('reservList');
-    console.log('reservList element:', el);
-    if (!el) {
-      console.error('reservList introuvable !');
-      return;
-    }
+    if (!el) return;
     el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);padding:1rem;">⏳ Chargement…</p>';
     const token = getToken();
-    console.log('token présent:', !!token);
-    try {
-      const apiUrl = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json?ref=main';
-      const headers = { 'Accept': 'application/vnd.github+json' };
-      if (token) headers['Authorization'] = 'Bearer ' + token;
-      const r = await fetch(apiUrl, { headers: headers });
-      if (!r.ok) {
+    const xhr = new XMLHttpRequest();
+    const url = 'https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json?ref=main&t=' + Date.now();
+    xhr.open('GET', url, true);
+    xhr.setRequestHeader('Accept', 'application/vnd.github+json');
+    if (token) xhr.setRequestHeader('Authorization', 'Bearer ' + token);
+    xhr.onload = function() {
+      console.log('XHR status:', xhr.status);
+      if (xhr.status !== 200) {
         el.innerHTML = '<div style="padding:1.5rem;text-align:center;">'
-          + '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);margin-bottom:1rem;">Aucune r&eacute;servation (fichier manquant - statut ' + r.status + ')</p>'
-          + '<button onclick="Reservations.initialiser()" style="background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.6rem 1.4rem;font-family:Raleway,sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;margin-top:.8rem;">&#x1F680; Cr&eacute;er le fichier</button>'
+          + '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);margin-bottom:1rem;">Aucune r&eacute;servation (statut ' + xhr.status + ')</p>'
+          + '<button onclick="Reservations.initialiser()" style="background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.6rem 1.4rem;font-family:Raleway,sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;">&#x1F680; Cr&eacute;er le fichier</button>'
           + '</div>';
         return;
       }
-      const meta = await r.json();
-      const decoded = decodeURIComponent(escape(atob(meta.content.replace(/\n/g, ''))));
-      const data = JSON.parse(decoded);
-      items = data.reservations || [];
-      majBadge();
-      renderList();
-    } catch(e) {
-      console.error('Reservations error:', e);
-      const el2 = document.getElementById('reservList');
-      if (el2) el2.innerHTML = '<div style="padding:1.5rem;">'
-        + '<p style="color:#c0392b;font-family:Raleway,sans-serif;font-weight:700;">Erreur de chargement :</p>'
-        + '<p style="color:#c0392b;font-family:monospace;font-size:.85rem;">' + e.message + '</p>'
-        + '<button onclick="Reservations.charger()" style="margin-top:1rem;background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.5rem 1rem;cursor:pointer;font-family:Raleway,sans-serif;font-size:.75rem;font-weight:700;">↺ Réessayer</button>'
+      try {
+        const meta = JSON.parse(xhr.responseText);
+        const decoded = decodeURIComponent(escape(atob(meta.content.replace(/\n/g, ''))));
+        const data = JSON.parse(decoded);
+        items = data.reservations || [];
+        console.log('XHR reservations:', items.length);
+        majBadge();
+        renderList();
+      } catch(e) {
+        console.error('Parse error:', e);
+        el.innerHTML = '<p style="color:#c0392b;padding:1rem;">Erreur parsing : ' + e.message + '</p>';
+      }
+    };
+    xhr.onerror = function() {
+      console.error('XHR error:', xhr.statusText);
+      el.innerHTML = '<div style="padding:1.5rem;">'
+        + '<p style="color:#c0392b;font-family:Raleway,sans-serif;font-weight:700;">Erreur r&eacute;seau</p>'
+        + '<p style="color:#c0392b;font-size:.85rem;">' + (xhr.statusText || 'connexion impossible') + '</p>'
+        + '<button onclick="Reservations.charger()" style="margin-top:1rem;background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.5rem 1rem;cursor:pointer;font-family:Raleway,sans-serif;font-size:.75rem;font-weight:700;">&#8635; R&eacute;essayer</button>'
         + '</div>';
-    }
+    };
+    xhr.send();
   }
 
   function majBadge() {
