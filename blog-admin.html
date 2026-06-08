@@ -1595,8 +1595,7 @@ var Reservations = (function() {
       }
       try {
         var meta = JSON.parse(xhr.responseText);
-        var b64 = meta.content.replace(/
-/g, '');
+        var b64 = meta.content.replace(/\n/g, '');
         var json = decodeURIComponent(escape(atob(b64)));
         var data = JSON.parse(json);
         items = data.reservations || [];
