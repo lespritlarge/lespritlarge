@@ -1,3 +1,25 @@
 {
-"reservations": []
+  "reservations": [
+    {
+      "id": 1781111379434,
+      "date": "2026-06-10T17:09:39.434Z",
+      "nom": "Nadine DUMAS",
+      "tel": "0240234444",
+      "email": "librairie@esprit-large.com",
+      "message": "",
+      "livres": [
+        {
+          "ean": "9782211342995",
+          "titre": "Frissons",
+          "auteur": "Rascal"
+        },
+        {
+          "ean": "9782211231107",
+          "titre": "Histoires du pays qui n'arrêtait pas de grandir",
+          "auteur": ""
+        }
+      ],
+      "statut": "nouvelle"
+    }
+  ]
 }
