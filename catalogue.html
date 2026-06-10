@@ -844,8 +844,16 @@ async function envoyerPanier() {
 
   try {
     // Lire le fichier existant
-    var raw = await fetch('https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/reservations.json?t=' + Date.now());
-    var existant = raw.ok ? await raw.json() : { reservations: [] };
+    var existant = { reservations: [] };
+    try {
+      var rawR = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json?ref=main&_=' + Date.now(), {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      if (rawR.ok) {
+        var metaR = await rawR.json();
+        existant = JSON.parse(decodeURIComponent(escape(atob(metaR.content.replace(/\n/g, '')))));
+      }
+    } catch(_) {}
     existant.reservations = existant.reservations || [];
     existant.reservations.unshift(reservation);  // plus récente en premier
 
@@ -863,7 +871,7 @@ async function envoyerPanier() {
     // Écrire sans token (le fichier reservations.json doit être public en écriture via un token stocké)
     // Note : nécessite un token GitHub — utiliser le même que l'admin
     // Pour l'instant : fallback Formspree si pas de token
-    var token = localStorage.getItem('gh_token_el');
+    var token = localStorage.getItem('el_gh_token');
     if (token) {
       var resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/reservations.json', {
         method: 'PUT', mode: 'cors', credentials: 'omit',

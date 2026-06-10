@@ -476,6 +476,7 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
         <button onclick="Reservations.filtrer('nouvelle')" id="rfNouv" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🔴 Nouvelles</button>
         <button onclick="Reservations.filtrer('confirmee')" id="rfConf" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🟡 Confirmées</button>
         <button onclick="Reservations.filtrer('recuperee')" id="rfRecup" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:var(--wood);border:1.5px solid rgba(92,26,26,.2);">🟢 Récupérées</button>
+        <button onclick="Reservations.ajouterManuel()" style="font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.4rem .9rem;border-radius:3px;cursor:pointer;background:none;color:#27ae60;border:1.5px solid rgba(39,174,96,.4);margin-left:auto;">➕ Ajouter manuellement</button>
       </div>
       <div id="reservList"><p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">Cliquez sur l'onglet pour charger…</p>
     </div>
@@ -1702,7 +1703,31 @@ var Reservations = (function() {
     });
   }
 
-  return { charger: charger, filtrer: filtrer, changerStatut: changerStatut, supprimer: supprimer, initialiser: initialiser };
+  function ajouterManuel() {
+    var nom = prompt('Nom du client :');
+    if (!nom) return;
+    var tel = prompt('Telephone :') || '';
+    var email = prompt('Email (facultatif) :') || '';
+    var livresTxt = prompt('Livres (un titre par ligne, ou "Titre | Auteur | EAN") :') || '';
+    var msg = prompt('Message (facultatif) :') || '';
+    var livres = livresTxt.split('\n').filter(function(l) { return l.trim(); }).map(function(l) {
+      var parts = l.split('|').map(function(p) { return p.trim(); });
+      return { titre: parts[0] || '', auteur: parts[1] || '', ean: parts[2] || '' };
+    });
+    var reservation = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      nom: nom, tel: tel, email: email, message: msg,
+      livres: livres, statut: 'nouvelle'
+    };
+    items.unshift(reservation);
+    ghWrite('reservations.json', { reservations: items }, 'Reservation manuelle : ' + nom).then(function(ok) {
+      if (ok) { toast('Reservation ajoutee.'); majBadge(); afficher(); }
+      else { items.shift(); toast('Erreur sauvegarde.'); }
+    });
+  }
+
+  return { charger: charger, filtrer: filtrer, changerStatut: changerStatut, supprimer: supprimer, initialiser: initialiser, ajouterManuel: ajouterManuel };
 })();
 </script>
 
