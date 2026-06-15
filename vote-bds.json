@@ -6,15 +6,43 @@
       "id": "bd1781529602131755",
       "titre": "Katya",
       "auteur": "Antoine Schiffers",
-      "couverture": "",
-      "description": ""
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2wPqiqH3PYDesWCS1hTjTBO76PzHZ1jwNF5LgjebyBQRg-cover-large.jpg",
+      "description": "Casterman"
     },
     {
       "id": "bd1781529621738202",
       "titre": "Démontagner",
       "auteur": "Maxim Cain",
       "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2xwggiHEOE6GvoJPFAHG3ZeQNpg1uPn-fskxnZYAqI6vw-cover-large.jpg",
-      "description": ""
+      "description": "Actes Sud "
+    },
+    {
+      "id": "bd1781529707170765",
+      "titre": "Em silêncio",
+      "auteur": "Adeline Casier",
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2x53Wrdt_gYUWDfIvjiCWK5o9kGgaGbHFjcvPKyC1C0EQ-cover-large.jpg",
+      "description": "La boîte à bulles"
+    },
+    {
+      "id": "bd1781529745234270",
+      "titre": "L'amourante",
+      "auteur": "Pierre Alexandrine",
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2x2d6ry-HjE81ZoSeBC1NimCd49DKQdVufzKPc9mUOVZQ-cover-large.jpg",
+      "description": "Glénat"
+    },
+    {
+      "id": "bd1781529746315512",
+      "titre": "A travers la nuit",
+      "auteur": "Joanna Lohro",
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2zKXP372AkPNn3Z6xv7tCIpfzNm8pQsP5yc-YtWlu5JGA-cover-large.jpg",
+      "description": "L'employé du moi"
+    },
+    {
+      "id": "bd178152974663441",
+      "titre": "Les étincelles",
+      "auteur": "Pauline Lega",
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2zOKzzlYikyfh505jCVyJCLPHidBw29Y3tc_FwFixdkFw-cover-large.jpg",
+      "description": "Sarbacane"
     }
   ]
 }
