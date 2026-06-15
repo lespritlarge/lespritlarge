@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vote BD — Librairie L'Esprit Large</title>
+  <meta name="description" content="Votez pour vos BD préférées à la Librairie L'Esprit Large." />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Lora:ital@0;1&family=Raleway:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --cream:#f2f0ef; --warm-white:#f7f5f4;
+      --wood:#8b2e2e; --wood-dark:#5c1a1a; --wood-light:#b86060;
+      --ink:#1e1e1e; --ink-soft:#5a4a4a; --parchment:#ebe8e8;
+      --shadow:rgba(42,31,20,0.1);
+    }
+    body { font-family:'Lora',serif; background:var(--cream); color:var(--ink); line-height:1.6; }
+    a { color:inherit; }
+
+    /* NAV */
+    nav { background:#5c1a1a; position:sticky; top:0; z-index:100;
+      display:flex; align-items:center; justify-content:center; gap:1.5rem;
+      padding:.8rem 2rem; flex-wrap:wrap; box-shadow:0 2px 12px rgba(0,0,0,.15); }
+    nav a { color:#f2f0ef; text-decoration:none; font-family:'Raleway',sans-serif;
+      font-size:.82rem; font-weight:600; letter-spacing:.04em; transition:opacity .2s; }
+    nav a:hover { opacity:.7; }
+    .nav-logo { display:flex; align-items:center; gap:.5rem; }
+    .nav-logo img { height:32px; }
+
+    /* HEADER */
+    .vote-header { text-align:center; padding:3.5rem 1.5rem 2rem; max-width:760px; margin:0 auto; }
+    .vote-tag { font-family:'Raleway',sans-serif; font-size:.78rem; font-weight:700;
+      letter-spacing:.18em; text-transform:uppercase; color:var(--wood); margin-bottom:.8rem; }
+    .vote-title { font-family:'Playfair Display',serif; font-size:2.6rem; font-weight:700;
+      color:var(--wood-dark); line-height:1.1; margin-bottom:1rem; }
+    .vote-intro { font-size:1.02rem; color:var(--ink-soft); }
+
+    /* RÈGLES */
+    .vote-rules { max-width:680px; margin:0 auto 2.5rem; padding:1.4rem 1.8rem;
+      background:var(--warm-white); border-left:4px solid var(--wood);
+      border-radius:4px; font-size:.92rem; }
+    .vote-rules strong { color:var(--wood-dark); }
+    .points-counter { position:sticky; top:60px; z-index:50;
+      background:var(--wood); color:#fff; text-align:center; padding:.8rem;
+      font-family:'Raleway',sans-serif; font-weight:700; letter-spacing:.05em;
+      box-shadow:0 2px 12px rgba(0,0,0,.2); }
+    .points-counter.full { background:#27ae60; }
+
+    /* GRILLE BD */
+    .vote-grid { max-width:1000px; margin:2rem auto; padding:0 1.5rem;
+      display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:1.5rem; }
+    .bd-card { background:var(--warm-white); border-radius:8px; overflow:hidden;
+      box-shadow:0 2px 12px var(--shadow); transition:transform .2s, box-shadow .2s;
+      display:flex; flex-direction:column; border:2px solid transparent; }
+    .bd-card.selected { border-color:var(--wood); box-shadow:0 6px 24px rgba(139,46,46,.2); }
+    .bd-cover-wrap { width:100%; height:240px; background:var(--parchment);
+      display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .bd-cover { width:100%; height:100%; object-fit:cover; }
+    .bd-cover-ph { font-size:3rem; }
+    .bd-body { padding:1.2rem 1.4rem; flex:1; display:flex; flex-direction:column; }
+    .bd-titre { font-family:'Playfair Display',serif; font-size:1.15rem; font-weight:700;
+      color:var(--wood-dark); margin-bottom:.2rem; }
+    .bd-auteur { font-size:.88rem; color:var(--ink-soft); margin-bottom:.8rem; }
+    .bd-desc { font-size:.85rem; color:var(--ink-soft); margin-bottom:1rem; flex:1; }
+
+    /* SÉLECTEUR DE POINTS */
+    .points-selector { display:flex; gap:.4rem; justify-content:center; margin-top:auto; }
+    .point-btn { width:38px; height:38px; border-radius:50%; border:2px solid var(--parchment);
+      background:#fff; color:var(--ink-soft); font-family:'Raleway',sans-serif;
+      font-size:.95rem; font-weight:700; cursor:pointer; transition:all .15s; }
+    .point-btn:hover:not(:disabled) { border-color:var(--wood-light); }
+    .point-btn.active { background:var(--wood); color:#fff; border-color:var(--wood); }
+    .point-btn:disabled { opacity:.3; cursor:not-allowed; }
+    .point-label { font-family:'Raleway',sans-serif; font-size:.68rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
+      text-align:center; margin-bottom:.5rem; }
+
+    /* FORMULAIRE VOTANT */
+    .vote-form { max-width:540px; margin:2rem auto 4rem; padding:2rem;
+      background:var(--warm-white); border-radius:8px; box-shadow:0 2px 12px var(--shadow); }
+    .vote-form h3 { font-family:'Playfair Display',serif; font-size:1.4rem;
+      color:var(--wood-dark); margin-bottom:1.2rem; text-align:center; }
+    .vote-form label { display:block; font-family:'Raleway',sans-serif; font-size:.72rem;
+      font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft);
+      margin:1rem 0 .3rem; }
+    .vote-form input, .vote-form textarea { width:100%; padding:.7rem 1rem;
+      font-family:'Lora',serif; font-size:.95rem; border:1.5px solid var(--parchment);
+      border-radius:4px; background:#fff; color:var(--ink); outline:none; }
+    .vote-form input:focus, .vote-form textarea:focus { border-color:var(--wood); }
+    .vote-recap { background:var(--cream); border-radius:4px; padding:1rem 1.2rem;
+      margin-bottom:1.2rem; font-size:.9rem; }
+    .vote-recap-item { display:flex; justify-content:space-between; padding:.2rem 0; }
+    .vote-recap-empty { font-style:italic; color:var(--ink-soft); }
+    .btn-vote { width:100%; background:var(--wood); color:#fff; border:none;
+      border-radius:4px; padding:.9rem; font-family:'Raleway',sans-serif; font-size:.85rem;
+      font-weight:700; letter-spacing:.08em; text-transform:uppercase; cursor:pointer;
+      margin-top:1.2rem; transition:background .2s; }
+    .btn-vote:hover { background:var(--wood-dark); }
+    .btn-vote:disabled { opacity:.5; cursor:not-allowed; }
+
+    /* TOAST */
+    .toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%);
+      background:var(--wood-dark); color:#fff; padding:1rem 1.8rem; border-radius:6px;
+      font-family:'Raleway',sans-serif; font-size:.9rem; box-shadow:0 8px 28px rgba(0,0,0,.3);
+      opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; z-index:9999; }
+    .toast.show { opacity:1; transform:translateX(-50%) translateY(-10px); }
+
+    /* MERCI */
+    .vote-merci { max-width:560px; margin:4rem auto; padding:3rem 2rem; text-align:center;
+      background:var(--warm-white); border-radius:8px; box-shadow:0 2px 12px var(--shadow); display:none; }
+    .vote-merci.show { display:block; }
+    .vote-merci h2 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--wood-dark); margin-bottom:1rem; }
+
+    /* FOOTER */
+    .site-footer { background:#5c1a1a; color:#f2f0ef; padding:3rem; display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:2rem; margin-top:3rem; }
+    .site-footer .f-logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; margin-bottom:.8rem; }
+    .site-footer .f-desc { font-size:.85rem; opacity:.85; line-height:1.7; }
+    .site-footer .f-h { font-family:'Raleway',sans-serif; font-size:.78rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase; margin-bottom:.8rem; color:#d9a0a0; }
+    .site-footer .f-links { list-style:none; }
+    .site-footer .f-links li { margin-bottom:.5rem; }
+    .site-footer .f-links a { color:#f2f0ef; text-decoration:none; font-size:.88rem; opacity:.85; transition:opacity .2s; }
+    .site-footer .f-links a:hover { opacity:1; }
+    .site-footer-bottom { background:#3a0e0e; color:#f2f0ef; text-align:center;
+      font-size:.72rem; padding:.8rem; }
+
+    @media (max-width:600px) {
+      .vote-title { font-size:2rem; }
+      .point-btn { width:34px; height:34px; font-size:.88rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="https://esprit-large.com/">
+    <img src="images/logo.png" alt="L'Esprit Large" onerror="this.style.display='none'" />
+    <span class="nav-logo-text">L'<em>Esprit</em> Large</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+    <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+    <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+    <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+    <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+    <li><a href="https://esprit-large.com/escapades.html" class="nav-active">🧳 Escapades</a></li>
+    <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+    <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+  </ul>
+</nav>
+
+<div class="points-counter" id="pointsCounter">
+  Points restants : <span id="pointsLeft">5</span> / 5 · <span id="bdsUsed">0</span> / 3 BD
+</div>
+
+<div class="vote-header">
+  <div class="vote-tag">Prix des lecteurs</div>
+  <h1 class="vote-title" id="voteTitle">Votez pour vos BD préférées</h1>
+  <p class="vote-intro" id="voteIntro">Soutenez vos coups de cœur de l'année.</p>
+</div>
+
+<div class="vote-rules">
+  Vous votez avec <strong>5 points maximum</strong> à répartir sur <strong>3 BD maximum</strong>.<br/>
+  Exemple : vous avez aimé deux titres et adoré un troisième ? Mettez 1 point sur chacun des deux premiers et 3 sur votre favori. Vous n'avez adoré qu'une seule BD ? Mettez vos 5 points dessus.
+</div>
+
+<div class="vote-grid" id="voteGrid">
+  <p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:2rem;">Chargement des BD…</p>
+</div>
+
+<div class="vote-form" id="voteForm">
+  <h3>Votre vote</h3>
+  <div class="vote-recap" id="voteRecap"><div class="vote-recap-empty">Sélectionnez vos BD ci-dessus.</div></div>
+  <label>Nom & Prénom *</label>
+  <input type="text" id="vNom" placeholder="Marie Dupont" />
+  <label>Email *</label>
+  <input type="email" id="vEmail" placeholder="vous@email.com" />
+  <label>Commentaire (facultatif)</label>
+  <textarea id="vComment" rows="2" placeholder="Un mot sur vos choix…"></textarea>
+  <button class="btn-vote" id="btnVote" onclick="envoyerVote()">🗳️ Envoyer mon vote</button>
+</div>
+
+<div class="vote-merci" id="voteMerci">
+  <h2>Merci pour votre vote !</h2>
+  <p>Votre participation a bien été enregistrée. Rendez-vous bientôt pour les résultats !</p>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<footer class="site-footer" id="contact">
+  <div>
+    <div class="f-logo">L'Esprit Large</div>
+    <p class="f-desc">Librairie indépendante au cœur de Guérande.</p>
+    <p class="f-desc" style="margin-top:.8rem;">📍 12, Rue Vannetaise, 44350 Guérande<br/>📞 02 40 23 44 44<br/>📧 <a href="mailto:contact@esprit-large.com">contact@esprit-large.com</a></p>
+    <p class="f-desc" style="margin-top:.8rem;">🕐 <strong style="color:#b86060;">Horaires</strong><br/>Lun : 14h30–18h00<br/>Mar/Mer/Ven/Sam : 9h30–19h00<br/>Jeu : 9h30–12h30 &amp; 14h30–18h30<br/>Dim &amp; Fériés : fermé</p>
+  </div>
+  <div>
+    <p class="f-h">Navigation</p>
+    <ul class="f-links">
+      <li><a href="https://esprit-large.com/catalogue.html">Catalogue</a></li>
+      <li><a href="https://esprit-large.com/coups.html">❤️ Coups de cœur</a></li>
+      <li><a href="https://esprit-large.com/evenements.html">Événements</a></li>
+      <li><a href="https://esprit-large.com/blog.html">Blog</a></li>
+      <li><a href="https://esprit-large.com/avisdetempete.html">🌊 Avis de Tempête</a></li>
+      <li><a href="https://esprit-large.com/escapades.html">🧳 Escapades</a></li>
+      <li><a href="https://esprit-large.com/prix.html">🏆 Nos Prix</a></li>
+      <li><a href="https://esprit-large.com/a-propos.html">À propos</a></li>
+    </ul>
+  </div>
+  <div>
+    <p class="f-h">Commander en ligne</p>
+    <ul class="f-links">
+      <li><a href="https://www.placedeslibraires.fr/" target="_blank" rel="noopener">📦 Place des Libraires</a></li>
+      <li><a href="https://www.librairies-alip.fr/" target="_blank" rel="noopener">📦 Librairies Alip</a></li>
+    </ul>
+    <p class="f-h" style="margin-top:1.2rem;">Nous suivre</p>
+    <ul class="f-links">
+      <li><a href="https://www.facebook.com/librairielespritlarge" target="_blank" rel="noopener">📘 Facebook</a></li>
+      <li><a href="https://www.instagram.com/librairie_lesprit_large/" target="_blank" rel="noopener">📷 Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="site-footer-bottom">© 2026 L'Esprit Large · Librairie indépendante depuis 2006</div>
+
+<script>
+var GH_OWNER = 'lespritlarge';
+var GH_REPO  = 'lespritlarge.github.io';
+var FORMSPREE = 'https://formspree.io/f/mvzwkqzn';
+var MAX_POINTS = 5;
+var MAX_BDS = 3;
+
+var BDS = [];
+var votes = {}; // { bdId: points }
+
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(function(){ t.classList.remove('show'); }, 3200);
+}
+
+function totalPoints() {
+  var s = 0;
+  for (var k in votes) s += votes[k];
+  return s;
+}
+
+function bdsUsed() {
+  var n = 0;
+  for (var k in votes) if (votes[k] > 0) n++;
+  return n;
+}
+
+function setPoints(bdId, pts) {
+  var current = votes[bdId] || 0;
+  // Si on reclique sur le même nombre, on remet à 0
+  if (current === pts) pts = 0;
+
+  var autres = totalPoints() - current;
+  var autresBds = bdsUsed() - (current > 0 ? 1 : 0);
+
+  // Vérifier les limites
+  if (pts > 0) {
+    if (autres + pts > MAX_POINTS) {
+      showToast('⚠️ Vous dépassez les 5 points (' + (MAX_POINTS - autres) + ' restant' + (MAX_POINTS-autres>1?'s':'') + ').');
+      return;
+    }
+    if (autresBds >= MAX_BDS) {
+      showToast('⚠️ Maximum 3 BD. Retirez une BD pour en choisir une autre.');
+      return;
+    }
+  }
+
+  if (pts === 0) delete votes[bdId];
+  else votes[bdId] = pts;
+
+  render();
+}
+
+function render() {
+  var grid = document.getElementById('voteGrid');
+  if (!BDS.length) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;font-style:italic;color:var(--ink-soft);padding:2rem;">Aucune BD en lice pour le moment.</p>';
+    return;
+  }
+  var total = totalPoints();
+  grid.innerHTML = BDS.map(function(bd) {
+    var pts = votes[bd.id] || 0;
+    var coverHtml = bd.couverture
+      ? '<img class="bd-cover" src="' + bd.couverture + '" alt="' + (bd.titre||'') + '" onerror="this.outerHTML=\'<div class=bd-cover-ph>📚</div>\'" />'
+      : '<div class="bd-cover-ph">📚</div>';
+    var btns = '';
+    for (var i = 1; i <= 5; i++) {
+      var disabled = '';
+      // désactiver si ça dépasserait 5 points (sauf si déjà sélectionné)
+      if (pts !== i && (total - pts + i) > MAX_POINTS) disabled = 'disabled';
+      btns += '<button class="point-btn' + (pts===i?' active':'') + '" ' + disabled
+        + ' onclick="setPoints(\'' + bd.id + '\',' + i + ')">' + i + '</button>';
+    }
+    return '<div class="bd-card' + (pts>0?' selected':'') + '">'
+      + '<div class="bd-cover-wrap">' + coverHtml + '</div>'
+      + '<div class="bd-body">'
+      + '<div class="bd-titre">' + (bd.titre||'') + '</div>'
+      + '<div class="bd-auteur">' + (bd.auteur||'') + '</div>'
+      + (bd.description ? '<div class="bd-desc">' + bd.description + '</div>' : '')
+      + '<div class="point-label">' + (pts>0 ? pts + ' point' + (pts>1?'s':'') : 'Attribuer des points') + '</div>'
+      + '<div class="points-selector">' + btns + '</div>'
+      + '</div></div>';
+  }).join('');
+
+  // Compteur
+  var left = MAX_POINTS - total;
+  document.getElementById('pointsLeft').textContent = left;
+  document.getElementById('bdsUsed').textContent = bdsUsed();
+  var counter = document.getElementById('pointsCounter');
+  counter.classList.toggle('full', total === MAX_POINTS);
+
+  // Récap
+  var recap = document.getElementById('voteRecap');
+  var choix = BDS.filter(function(bd){ return votes[bd.id] > 0; });
+  if (!choix.length) {
+    recap.innerHTML = '<div class="vote-recap-empty">Sélectionnez vos BD ci-dessus.</div>';
+  } else {
+    recap.innerHTML = choix.map(function(bd) {
+      return '<div class="vote-recap-item"><span>' + bd.titre + '</span><strong>' + votes[bd.id] + ' pt' + (votes[bd.id]>1?'s':'') + '</strong></div>';
+    }).join('') + '<div class="vote-recap-item" style="border-top:1px solid var(--parchment);margin-top:.4rem;padding-top:.4rem;"><span>Total</span><strong>' + total + ' / 5</strong></div>';
+  }
+}
+
+async function charger() {
+  try {
+    var r = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/vote-bds.json?ref=main&_=' + Date.now(), {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    });
+    if (r.ok) {
+      var meta = await r.json();
+      var data = JSON.parse(decodeURIComponent(escape(atob(meta.content.replace(/\n/g, '')))));
+      BDS = data.bds || [];
+      if (data.titre) {
+        document.getElementById('voteTitle').textContent = data.titre;
+        document.title = data.titre + " — L'Esprit Large";
+      }
+      if (data.intro) document.getElementById('voteIntro').textContent = data.intro;
+    }
+  } catch(e) {}
+  render();
+}
+
+async function envoyerVote() {
+  var nom = document.getElementById('vNom').value.trim();
+  var email = document.getElementById('vEmail').value.trim();
+  var comment = document.getElementById('vComment').value.trim();
+
+  if (totalPoints() === 0) { showToast('⚠️ Attribuez au moins 1 point à une BD.'); return; }
+  if (!nom || !email) { showToast('⚠️ Renseignez votre nom et email.'); return; }
+
+  var btn = document.getElementById('btnVote');
+  btn.textContent = '⏳ Envoi…'; btn.disabled = true;
+
+  var choix = BDS.filter(function(bd){ return votes[bd.id] > 0; }).map(function(bd) {
+    return { id: bd.id, titre: bd.titre, auteur: bd.auteur, points: votes[bd.id] };
+  });
+
+  var vote = {
+    id: Date.now(),
+    date: new Date().toISOString(),
+    nom: nom, email: email, commentaire: comment,
+    choix: choix
+  };
+
+  var saved = false;
+
+  // Sauvegarde GitHub (si token présent - typiquement borne en magasin)
+  var token = localStorage.getItem('el_gh_token');
+  if (token) {
+    try {
+      var existant = { votes: [] };
+      var rd = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/votes.json?ref=main&_=' + Date.now(), {
+        headers: { 'Accept': 'application/vnd.github+json' }
+      });
+      var sha = null;
+      if (rd.ok) {
+        var m = await rd.json();
+        sha = m.sha;
+        existant = JSON.parse(decodeURIComponent(escape(atob(m.content.replace(/\n/g, '')))));
+      }
+      existant.votes = existant.votes || [];
+      existant.votes.unshift(vote);
+      var content = btoa(unescape(encodeURIComponent(JSON.stringify(existant, null, 2))));
+      var body = { message: 'Vote de ' + nom, content: content };
+      if (sha) body.sha = sha;
+      var wr = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/votes.json', {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      saved = wr.ok || wr.status === 201;
+    } catch(e) {}
+  }
+
+  // Fallback Formspree (toujours, pour recevoir par mail)
+  try {
+    var choixTxt = choix.map(function(c){ return '- ' + c.titre + ' : ' + c.points + ' pts'; }).join('\n');
+    var fr = await fetch(FORMSPREE, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: '🗳️ Vote BD de ' + nom,
+        nom: nom, email: email, commentaire: comment, votes: choixTxt
+      })
+    });
+    var fd = await fr.json();
+    if (fd.ok || fd.next) saved = true;
+  } catch(e) {}
+
+  btn.textContent = '🗳️ Envoyer mon vote'; btn.disabled = false;
+
+  if (saved) {
+    document.getElementById('voteGrid').style.display = 'none';
+    document.getElementById('voteForm').style.display = 'none';
+    document.querySelector('.vote-rules').style.display = 'none';
+    document.getElementById('pointsCounter').style.display = 'none';
+    document.getElementById('voteMerci').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    showToast('⚠️ Erreur lors de l\'envoi. Réessayez ou contactez la librairie.');
+  }
+}
+
+charger();
+</script>
+</body>
+</html>
