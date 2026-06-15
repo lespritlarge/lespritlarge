@@ -1,5 +1,20 @@
 {
   "titre": "Le vote Première vague 2026 !",
   "intro": "Votez pour votre bande-dessinée préférée !",
-  "bds": []
+  "bds": [
+    {
+      "id": "bd1781529602131755",
+      "titre": "Katya",
+      "auteur": "Antoine Schiffers",
+      "couverture": "",
+      "description": ""
+    },
+    {
+      "id": "bd1781529621738202",
+      "titre": "Démontagner",
+      "auteur": "Maxim Cain",
+      "couverture": "https://images.centprod.com/3026900001000/66yE0fMOp2xwggiHEOE6GvoJPFAHG3ZeQNpg1uPn-fskxnZYAqI6vw-cover-large.jpg",
+      "description": ""
+    }
+  ]
 }
