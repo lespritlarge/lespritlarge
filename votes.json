@@ -1,34 +1,6 @@
 {
   "votes": [
     {
-      "id": 1781630835329,
-      "date": "2026-06-16T17:27:15.329Z",
-      "nom": "TEST",
-      "email": "aurel.daunay@gmail.com",
-      "lieu": "Librairie",
-      "commentaire": "TEST",
-      "choix": [
-        {
-          "id": "bd1781529602131755",
-          "titre": "Katya",
-          "auteur": "Antoine Schiffers",
-          "points": 1
-        },
-        {
-          "id": "bd1781529621738202",
-          "titre": "Démontagner",
-          "auteur": "Maxim Cain",
-          "points": 3
-        },
-        {
-          "id": "bd1781529707170765",
-          "titre": "Em silêncio",
-          "auteur": "Adeline Casier",
-          "points": 1
-        }
-      ]
-    },
-    {
       "id": 1781530184299,
       "date": "2026-06-15T13:29:44.299Z",
       "nom": "DAUNAY Aurélien",
