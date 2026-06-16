@@ -539,7 +539,7 @@ function switchTab(name, el) {
     if (name === 'apropos')  Apropos.charger();
     if (name === 'prix')     Prix.charger();
     if (name === 'reservations') Reservations.charger();
-  if (name === 'votes') Votes.charger();
+  if (name === 'votes') Votes.chargerSheet();
     if (name === 'coups')    Coups.charger();
   }
 }
@@ -1574,6 +1574,7 @@ var Votes = (function() {
   var bds = [];
   var votes = [];
   var config = { titre: '', intro: '' };
+  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw8MPZLzh4P_ZWM5GSdTy07KNTFfcU_pESjjUeVWhnaCyUHNcCL7RF7vnbh0zEqq7mUYQ/exec';
 
   function uid() { return 'bd' + Date.now() + Math.floor(Math.random()*1000); }
 
@@ -1649,6 +1650,85 @@ var Votes = (function() {
       if (ok) toast('Liste des BD publiee !');
       else toast('Erreur sauvegarde.');
     });
+  }
+
+  function chargerSheet() {
+    chargerBds();
+    var el = document.getElementById('votesResultats');
+    if (el) el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">⏳ Chargement depuis Google Sheet…</p>';
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', SHEET_URL + '?_=' + Date.now(), true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== 4) return;
+      var el2 = document.getElementById('votesResultats');
+      if (!el2) return;
+      if (xhr.status !== 200) {
+        el2.innerHTML = '<p style="color:#c0392b;">Erreur Google Sheet (HTTP ' + xhr.status + ').</p>';
+        return;
+      }
+      try {
+        var data = JSON.parse(xhr.responseText);
+        renderSheet(data);
+      } catch(e) {
+        el2.innerHTML = '<p style="color:#c0392b;">Erreur lecture Sheet : ' + e.message + '</p>';
+      }
+    };
+    xhr.send();
+  }
+
+  function renderSheet(data) {
+    var el = document.getElementById('votesResultats');
+    if (!el) return;
+    var classement = data.classement || [];
+    var votesList = data.votes || [];
+    var lieux = data.lieux || [];
+
+    if (!votesList.length) {
+      el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">Aucun vote dans le Google Sheet.</p>';
+      return;
+    }
+
+    var html = '<div style="background:#fff;border-radius:6px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">';
+    html += '<div style="font-family:Playfair Display,serif;font-size:1.1rem;font-weight:700;color:var(--wood-dark);margin-bottom:1rem;">🏆 Classement (' + data.total + ' votant' + (data.total>1?'s':'') + ') · Google Sheet</div>';
+    classement.forEach(function(c, i) {
+      var medal = i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(92,26,26,.06);">'
+        + '<span style="font-size:.92rem;"><strong>' + medal + '</strong> ' + c.titre + (c.auteur ? ' <span style="color:var(--soft);font-size:.8rem;">— ' + c.auteur + '</span>' : '') + '</span>'
+        + '<span style="font-family:Raleway,sans-serif;font-weight:700;color:var(--wood);">' + c.points + ' pts <span style="color:var(--soft);font-weight:400;font-size:.78rem;">(' + c.votes + ' vote' + (c.votes>1?'s':'') + ')</span></span>'
+        + '</div>';
+    });
+    html += '</div>';
+
+    // Par lieu
+    if (lieux.length) {
+      html += '<div style="background:#fff;border-radius:6px;padding:1.2rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">';
+      html += '<div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">📍 Votes par lieu</div>';
+      lieux.forEach(function(l) {
+        html += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.88rem;"><span>' + l.lieu + '</span><strong style="color:var(--wood);">' + l.n + ' vote' + (l.n>1?'s':'') + '</strong></div>';
+      });
+      html += '</div>';
+    }
+
+    // Detail votants
+    html += '<div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:1rem;">Détail des votants</div>';
+    votesList.forEach(function(v) {
+      var date = '';
+      try { date = v.date ? new Date(v.date).toLocaleString('fr-FR') : ''; } catch(e) {}
+      var choixHtml = (v.choix || []).map(function(c) {
+        return '<span style="display:inline-block;background:var(--cream);border-radius:3px;padding:.15rem .5rem;margin:.15rem;font-size:.8rem;">' + c.titre + ' <strong>' + c.points + 'pt' + (c.points>1?'s':'') + '</strong></span>';
+      }).join('');
+      html += '<div style="background:#fff;border-radius:6px;padding:1rem 1.3rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(30,10,10,.05);">'
+        + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;">'
+        + '<div><strong style="font-family:Playfair Display,serif;color:var(--wood-dark);">' + (v.nom||'') + '</strong>'
+        + (v.email ? ' <a href="mailto:' + v.email + '" style="color:var(--soft);font-size:.8rem;text-decoration:none;">' + v.email + '</a>' : '')
+        + (v.lieu ? '<div style="font-size:.78rem;color:var(--wood);margin-top:.15rem;">📍 ' + v.lieu + '</div>' : '') + '</div>'
+        + '<span style="color:var(--soft);font-size:.75rem;">' + date + '</span>'
+        + '</div>'
+        + '<div>' + choixHtml + '</div>'
+        + (v.commentaire ? '<div style="font-family:Lora,serif;font-style:italic;font-size:.82rem;color:var(--soft);margin-top:.5rem;">&laquo; ' + v.commentaire + ' &raquo;</div>' : '')
+        + '</div>';
+    });
+    el.innerHTML = html;
   }
 
   function charger() {
@@ -1756,7 +1836,55 @@ var Votes = (function() {
     });
   }
 
-  return { charger: charger, chargerBds: chargerBds, ajouterBD: ajouterBD, maj: maj, supprimerBD: supprimerBD, sauvegarderBds: sauvegarderBds, supprimerVote: supprimerVote };
+  function ajouterVoteManuel() {
+    if (!bds.length) {
+      // Charger les BD d'abord si pas encore fait
+      toast('Chargement des BD...');
+      chargerBds();
+      setTimeout(ajouterVoteManuel, 1200);
+      return;
+    }
+    var nom = prompt('Nom du votant :');
+    if (!nom) return;
+    var email = prompt('Email :') || '';
+    var lieu = prompt('Lieu du vote (mediatheque, librairie...) :') || '';
+    var comment = prompt('Commentaire (facultatif) :') || '';
+
+    // Saisie des points par BD
+    var choix = [];
+    var totalPts = 0;
+    var nbBds = 0;
+    var liste = bds.map(function(b, i) { return (i+1) + '. ' + b.titre; }).join('\n');
+    alert('BD en lice :\n' + liste + '\n\nVous allez saisir les points pour chaque BD (0 a 5).\nMax 5 points au total sur 3 BD max.');
+
+    for (var i = 0; i < bds.length; i++) {
+      if (totalPts >= 5 || nbBds >= 3) break;
+      var rep = prompt('Points pour "' + bds[i].titre + '" (0-5, reste ' + (5-totalPts) + ' pts) :', '0');
+      if (rep === null) break;
+      var pts = parseInt(rep, 10);
+      if (isNaN(pts) || pts <= 0) continue;
+      if (totalPts + pts > 5) { alert('Depasse 5 points, ignore.'); continue; }
+      choix.push({ id: bds[i].id, titre: bds[i].titre, auteur: bds[i].auteur, points: pts });
+      totalPts += pts;
+      nbBds++;
+    }
+
+    if (!choix.length) { toast('Aucun point attribue, vote annule.'); return; }
+
+    var vote = {
+      id: Date.now(),
+      date: new Date().toISOString(),
+      nom: nom, email: email, lieu: lieu, commentaire: comment,
+      choix: choix
+    };
+    votes.unshift(vote);
+    ghWrite('votes.json', { votes: votes }, 'Vote manuel : ' + nom).then(function(ok) {
+      if (ok) { toast('Vote ajoute !'); renderResultats(); }
+      else { votes.shift(); toast('Erreur sauvegarde.'); }
+    });
+  }
+
+  return { charger: charger, chargerSheet: chargerSheet, chargerBds: chargerBds, ajouterBD: ajouterBD, maj: maj, supprimerBD: supprimerBD, sauvegarderBds: sauvegarderBds, supprimerVote: supprimerVote, ajouterVoteManuel: ajouterVoteManuel };
 })();
 
 var Reservations = (function() {
@@ -1950,7 +2078,11 @@ var Reservations = (function() {
     <!-- Résultats -->
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-top:1px solid rgba(92,26,26,.1);padding-top:1.5rem;">
       <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);">Résultats & votants</div>
-      <button onclick="Votes.charger()" style="background:none;border:1.5px solid rgba(92,26,26,.2);color:var(--wood);border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">↺ Actualiser</button>
+      <div style="display:flex;gap:.6rem;">
+        <button onclick="Votes.chargerSheet()" style="background:#0f9d58;color:#fff;border:none;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">📊 Résultats Google Sheet</button>
+        <button onclick="Votes.charger()" style="background:none;border:1.5px solid rgba(92,26,26,.2);color:var(--wood);border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">↺ GitHub</button>
+        <button onclick="Votes.ajouterVoteManuel()" style="background:none;border:1.5px solid rgba(39,174,96,.4);color:#27ae60;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">➕ Saisir</button>
+      </div>
     </div>
     <div id="votesResultats"></div>
   </div>
