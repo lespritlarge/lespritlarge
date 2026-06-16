@@ -19,14 +19,22 @@
     a { color:inherit; }
 
     /* NAV */
-    nav { background:#5c1a1a; position:sticky; top:0; z-index:100;
-      display:flex; align-items:center; justify-content:center; gap:1.5rem;
-      padding:.8rem 2rem; flex-wrap:wrap; box-shadow:0 2px 12px rgba(0,0,0,.15); }
-    nav a { color:#f2f0ef; text-decoration:none; font-family:'Raleway',sans-serif;
-      font-size:.82rem; font-weight:600; letter-spacing:.04em; transition:opacity .2s; }
-    nav a:hover { opacity:.7; }
-    .nav-logo { display:flex; align-items:center; gap:.5rem; }
-    .nav-logo img { height:32px; }
+    nav { position: sticky; top: 0; z-index: 100; background: var(--wood-dark); display: flex; align-items: center; justify-content: space-between; padding: 0.8rem 2.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 800; color: var(--cream); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
+    .nav-links a { font-family: 'Raleway', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(242,240,239,.75); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--cream); }
+    nav { position:sticky; top:0; z-index:100; background:var(--wood-dark,#5c1a1a); display:flex; align-items:center; justify-content:space-between; padding:0.7rem 2.5rem; box-shadow:0 2px 12px rgba(0,0,0,.3); }
+    .nav-logo { display:flex; align-items:center; gap:.55rem; text-decoration:none; flex-shrink:0; }
+    .nav-logo img { width:40px; height:40px; object-fit:contain; }
+    .nav-logo-text { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:800; color:#f2f0ef; }
+    .nav-logo-text em { color:#b86060; font-style:italic; }
+    .nav-links { display:flex; gap:0; list-style:none; }
+    .nav-links a { font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; color:rgba(242,240,239,.72); text-decoration:none; padding:.45rem .75rem; border-radius:3px; transition:color .2s,background .2s; }
+    .nav-links a:hover { color:#f2f0ef; background:rgba(255,255,255,.08); }
+    .nav-links a.nav-active { color:#f2f0ef; background:rgba(255,255,255,.15); font-weight:700; }
+
+    
 
     /* HEADER */
     .vote-header { text-align:center; padding:3.5rem 1.5rem 2rem; max-width:760px; margin:0 auto; }
