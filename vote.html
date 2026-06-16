@@ -238,6 +238,7 @@
 var GH_OWNER = 'lespritlarge';
 var GH_REPO  = 'lespritlarge.github.io';
 var FORMSPREE = 'https://formspree.io/f/mvzwkqzn';
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw8MPZLzh4P_ZWM5GSdTy07KNTFfcU_pESjjUeVWhnaCyUHNcCL7RF7vnbh0zEqq7mUYQ/exec';
 var MAX_POINTS = 5;
 var MAX_BDS = 3;
 
@@ -411,6 +412,20 @@ async function envoyerVote() {
       saved = wr.ok || wr.status === 201;
     } catch(e) {}
   }
+
+  // Envoi vers Google Sheet (enregistrement automatique sans token)
+  try {
+    await fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        nom: nom, email: email, lieu: lieu, commentaire: comment, choix: choix
+      })
+    });
+    // no-cors ne renvoie pas de statut lisible, mais l'écriture se fait
+    saved = true;
+  } catch(e) {}
 
   // Fallback Formspree (toujours, pour recevoir par mail)
   try {
