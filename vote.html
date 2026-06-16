@@ -185,6 +185,8 @@
   <input type="text" id="vNom" placeholder="Marie Dupont" />
   <label>Email *</label>
   <input type="email" id="vEmail" placeholder="vous@email.com" />
+  <label>Lieu du vote *</label>
+  <input type="text" id="vLieu" placeholder="Ex : Médiathèque de Guérande, Librairie L'Esprit Large…" />
   <label>Commentaire (facultatif)</label>
   <textarea id="vComment" rows="2" placeholder="Un mot sur vos choix…"></textarea>
   <button class="btn-vote" id="btnVote" onclick="envoyerVote()">🗳️ Envoyer mon vote</button>
@@ -359,10 +361,12 @@ async function charger() {
 async function envoyerVote() {
   var nom = document.getElementById('vNom').value.trim();
   var email = document.getElementById('vEmail').value.trim();
+  var lieu = document.getElementById('vLieu').value.trim();
   var comment = document.getElementById('vComment').value.trim();
 
   if (totalPoints() === 0) { showToast('⚠️ Attribuez au moins 1 point à une BD.'); return; }
   if (!nom || !email) { showToast('⚠️ Renseignez votre nom et email.'); return; }
+  if (!lieu) { showToast('⚠️ Indiquez le lieu du vote.'); return; }
 
   var btn = document.getElementById('btnVote');
   btn.textContent = '⏳ Envoi…'; btn.disabled = true;
@@ -374,7 +378,7 @@ async function envoyerVote() {
   var vote = {
     id: Date.now(),
     date: new Date().toISOString(),
-    nom: nom, email: email, commentaire: comment,
+    nom: nom, email: email, lieu: lieu, commentaire: comment,
     choix: choix
   };
 
@@ -415,8 +419,8 @@ async function envoyerVote() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        _subject: '🗳️ Vote BD de ' + nom,
-        nom: nom, email: email, commentaire: comment, votes: choixTxt
+        _subject: '🗳️ Vote BD de ' + nom + ' (' + lieu + ')',
+        nom: nom, email: email, lieu: lieu, commentaire: comment, votes: choixTxt
       })
     });
     var fd = await fr.json();

@@ -1709,6 +1709,22 @@ var Votes = (function() {
     });
     html += '</div>';
 
+    // Recap par lieu
+    var lieux = {};
+    votes.forEach(function(v) {
+      var l = v.lieu || 'Non precise';
+      lieux[l] = (lieux[l] || 0) + 1;
+    });
+    var lieuxArr = Object.keys(lieux).map(function(k){ return { lieu: k, n: lieux[k] }; }).sort(function(a,b){ return b.n - a.n; });
+    if (lieuxArr.length) {
+      html += '<div style="background:#fff;border-radius:6px;padding:1.2rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">';
+      html += '<div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:.8rem;">📍 Votes par lieu</div>';
+      lieuxArr.forEach(function(l) {
+        html += '<div style="display:flex;justify-content:space-between;padding:.3rem 0;font-size:.88rem;"><span>' + l.lieu + '</span><strong style="color:var(--wood);">' + l.n + ' vote' + (l.n>1?'s':'') + '</strong></div>';
+      });
+      html += '</div>';
+    }
+
     // Liste des votants
     html += '<div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:1rem;">Détail des votants</div>';
     votes.forEach(function(v, idx) {
@@ -1720,7 +1736,8 @@ var Votes = (function() {
       html += '<div style="background:#fff;border-radius:6px;padding:1rem 1.3rem;margin-bottom:.8rem;box-shadow:0 2px 8px rgba(30,10,10,.05);">'
         + '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem;">'
         + '<div><strong style="font-family:Playfair Display,serif;color:var(--wood-dark);">' + (v.nom||'') + '</strong>'
-        + (v.email ? ' <a href="mailto:' + v.email + '" style="color:var(--soft);font-size:.8rem;text-decoration:none;">' + v.email + '</a>' : '') + '</div>'
+        + (v.email ? ' <a href="mailto:' + v.email + '" style="color:var(--soft);font-size:.8rem;text-decoration:none;">' + v.email + '</a>' : '')
+        + (v.lieu ? '<div style="font-size:.78rem;color:var(--wood);margin-top:.15rem;">📍 ' + v.lieu + '</div>' : '') + '</div>'
         + '<span style="color:var(--soft);font-size:.75rem;">' + date + '</span>'
         + '</div>'
         + '<div>' + choixHtml + '</div>'
