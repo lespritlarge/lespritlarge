@@ -484,6 +484,39 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
   </div>
 </div>
 
+<!-- PANEL VOTES -->
+<div class="panel" id="panel-votes">
+  <div style="padding:2rem;background:var(--warm);width:100%;overflow-y:auto;">
+    <div class="fhead">🗳️ Votes BD</div>
+
+    <!-- Config du vote -->
+    <div style="background:#fff;border-radius:6px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">
+      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:1rem;">Configuration</div>
+      <div class="f"><label>Titre de la page</label><input type="text" id="voteTitre" placeholder="Votez pour vos BD préférées"/></div>
+      <div class="f"><label>Sous-titre</label><input type="text" id="voteIntro" placeholder="Soutenez vos coups de cœur de l'année."/></div>
+    </div>
+
+    <!-- BD en lice -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);">BD en lice</div>
+      <button onclick="Votes.ajouterBD()" style="background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">+ Ajouter une BD</button>
+    </div>
+    <div id="votesBdList" style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem;"></div>
+    <button onclick="Votes.sauvegarderBds()" class="btn-save" style="margin-bottom:2rem;">💾 Publier la liste des BD</button>
+
+    <!-- Résultats -->
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-top:1px solid rgba(92,26,26,.1);padding-top:1.5rem;">
+      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);">Résultats & votants</div>
+      <div style="display:flex;gap:.6rem;">
+        <button onclick="Votes.chargerSheet()" style="background:#0f9d58;color:#fff;border:none;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">📊 Résultats Google Sheet</button>
+        <button onclick="Votes.charger()" style="background:none;border:1.5px solid rgba(92,26,26,.2);color:var(--wood);border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">↺ GitHub</button>
+        <button onclick="Votes.ajouterVoteManuel()" style="background:none;border:1.5px solid rgba(39,174,96,.4);color:#27ae60;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">➕ Saisir</button>
+      </div>
+    </div>
+    <div id="votesResultats"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -705,7 +738,54 @@ var Blog = (() => {
     if (ok) { toast('🗑️ Article supprimé.'); nouveau(); }
   }
 
-  return { charger, select, nouveau, sauvegarder, supprimer };
+  async function uploadImage() {
+    var fileInput = document.getElementById('bImageFile');
+    if (!fileInput || !fileInput.files.length) return;
+    var file = fileInput.files[0];
+    var token = getToken();
+    if (!token) { toast('⚠️ Token GitHub requis pour uploader une image.'); return; }
+
+    var statusEl = document.getElementById('bImageStatus');
+    if (statusEl) statusEl.textContent = '⏳ Envoi de l\'image…';
+
+    var ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+    var nom = 'images/blog/' + Date.now() + '.' + ext;
+
+    // Lire en base64
+    var b64 = await new Promise(function(res, rej) {
+      var r = new FileReader();
+      r.onload = function() { res(r.result.split(',')[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+
+    try {
+      var body = { message: '🖼️ Image blog : ' + nom, content: b64 };
+      var r = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + nom, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token, 'Accept': 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      if (r.ok || r.status === 201) {
+        var champ = document.getElementById('bImage');
+        if (champ) champ.value = nom;
+        var prev = document.getElementById('bImagePreview');
+        var img = document.getElementById('bImageImg');
+        if (img) img.src = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/' + nom;
+        if (prev) prev.style.display = 'block';
+        if (statusEl) statusEl.textContent = '✅ Image ajoutée : ' + nom;
+        toast('✅ Image uploadée !');
+      } else {
+        if (statusEl) statusEl.textContent = '❌ Erreur upload';
+        toast('❌ Erreur lors de l\'upload.');
+      }
+    } catch(e) {
+      if (statusEl) statusEl.textContent = '❌ ' + e.message;
+      toast('❌ Erreur : ' + e.message);
+    }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer, uploadImage };
 })();
 
 // ========================================
@@ -932,7 +1012,45 @@ var Evts = (() => {
     if (ok) { toast('🗑️ ' + nb + ' occurrences supprimées.'); nouveau(); }
   }
 
-  return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview };
+  async function uploadAffiche() {
+    var fileInput = document.getElementById('eAfficheFile');
+    if (!fileInput || !fileInput.files.length) return;
+    var token = getToken();
+    if (!token) { toast('⚠️ Token GitHub requis pour uploader une affiche.'); return; }
+    var file = fileInput.files[0];
+    var statusEl = document.getElementById('eAfficheStatus');
+    if (statusEl) statusEl.textContent = '⏳ Envoi de l\'affiche…';
+
+    var ext = (file.name.split('.').pop()||'jpg').toLowerCase();
+    var nom = 'images/evenements/affiche' + Date.now() + '.' + ext;
+
+    var b64 = await new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){res(r.result.split(',')[1]);}; r.onerror=rej; r.readAsDataURL(file); });
+
+    try {
+      var resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + nom, {
+        method:'PUT', headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+        body: JSON.stringify({ message:'🖼️ Affiche événement', content:b64 })
+      });
+      if (resp.ok || resp.status===201) {
+        var champ = document.getElementById('eAffiche');
+        if (champ) champ.value = nom;
+        var prev = document.getElementById('eAffichePreview');
+        var img = document.getElementById('eAfficheImg');
+        if (img) img.src = 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/' + nom;
+        if (prev) prev.style.display = 'block';
+        if (statusEl) statusEl.textContent = '✅ Affiche ajoutée';
+        toast('✅ Affiche uploadée !');
+      } else {
+        if (statusEl) statusEl.textContent = '❌ Erreur';
+        toast('❌ Erreur upload affiche.');
+      }
+    } catch(e) {
+      if (statusEl) statusEl.textContent = '❌ ' + e.message;
+      toast('❌ ' + e.message);
+    }
+  }
+
+  return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview, uploadAffiche };
 })();
 
 // -- UTILS ---------------------------------
@@ -1226,7 +1344,7 @@ var Tempete = (() => {
 //  À PROPOS
 // ========================================
 var Apropos = (() => {
-  let libraires = [], valeurs = [];
+  let libraires = [], valeurs = [], galerie = [], partenaires = [];
 
   const VALEURS_DEFAUT = [
     { icone:'📖', titre:'Le conseil humain', texte:"Pas d'algorithme ici. Chaque recommandation vient d'un libraire qui a lu, aimé (ou pas), et qui prend le temps de comprendre ce que vous cherchez." },
@@ -1240,13 +1358,77 @@ var Apropos = (() => {
       const { data } = await ghRead('apropos.json');
       libraires = data ? (data.libraires || []) : [];
       valeurs   = data ? (data.valeurs   || VALEURS_DEFAUT) : VALEURS_DEFAUT;
+      galerie   = data ? (data.galerie   || []) : [];
+      partenaires = data ? (data.partenaires || []) : [];
     } catch(e) {
       console.warn('apropos.json non chargé :', e);
       libraires = [];
       valeurs = VALEURS_DEFAUT;
     }
     renderForms();
+    renderGalerie();
+    renderPartenaires();
   }
+
+  function renderGalerie() {
+    var el = document.getElementById('galerieForms');
+    if (!el) return;
+    if (!galerie.length) { el.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucune photo.</p>'; return; }
+    el.innerHTML = galerie.map(function(g, i) {
+      return '<div style="display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem;">'
+        + '<img src="' + (g.url ? (g.url.indexOf('http')===0 ? g.url : 'https://raw.githubusercontent.com/' + GH_OWNER + '/' + GH_REPO + '/main/' + g.url) : '') + '" style="width:60px;height:45px;object-fit:cover;border-radius:3px;background:var(--parchment);" onerror="this.style.display=\'none\'"/>'
+        + '<input type="text" value="' + (g.legende||'').replace(/"/g,"&quot;") + '" oninput="Apropos._majGalerie(' + i + ',this.value)" placeholder="Légende (facultatif)" style="flex:1;padding:.5rem;border:1.5px solid rgba(92,26,26,.2);border-radius:3px;font-size:.85rem;"/>'
+        + '<button onclick="Apropos.supprimerPhoto(' + i + ')" style="background:none;border:1.5px solid rgba(192,57,43,.3);color:#c0392b;border-radius:3px;padding:.4rem .6rem;cursor:pointer;">🗑</button>'
+        + '</div>';
+    }).join('');
+  }
+
+  function renderPartenaires() {
+    var el = document.getElementById('partenairesForms');
+    if (!el) return;
+    if (!partenaires.length) { el.innerHTML = '<p style="font-style:italic;color:var(--soft);font-size:.85rem;">Aucun partenaire.</p>'; return; }
+    el.innerHTML = partenaires.map(function(p, i) {
+      return '<div style="display:flex;gap:.6rem;align-items:center;margin-bottom:.6rem;">'
+        + '<input type="text" value="' + (p.nom||'').replace(/"/g,"&quot;") + '" oninput="Apropos._majPartenaire(' + i + ',\'nom\',this.value)" placeholder="Nom du partenaire" style="flex:1;padding:.5rem;border:1.5px solid rgba(92,26,26,.2);border-radius:3px;font-size:.85rem;"/>'
+        + '<input type="text" value="' + (p.lien||'').replace(/"/g,"&quot;") + '" oninput="Apropos._majPartenaire(' + i + ',\'lien\',this.value)" placeholder="Lien (facultatif)" style="flex:1;padding:.5rem;border:1.5px solid rgba(92,26,26,.2);border-radius:3px;font-size:.85rem;"/>'
+        + '<button onclick="Apropos.supprimerPartenaire(' + i + ')" style="background:none;border:1.5px solid rgba(192,57,43,.3);color:#c0392b;border-radius:3px;padding:.4rem .6rem;cursor:pointer;">🗑</button>'
+        + '</div>';
+    }).join('');
+  }
+
+  function ajouterPhoto() {
+    var input = document.createElement('input');
+    input.type = 'file'; input.accept = 'image/*';
+    input.onchange = async function() {
+      if (!input.files.length) return;
+      var token = getToken();
+      if (!token) { toast('⚠️ Token GitHub requis.'); return; }
+      var file = input.files[0];
+      var ext = (file.name.split('.').pop()||'jpg').toLowerCase();
+      var nom = 'images/galerie/photo' + Date.now() + '.' + ext;
+      toast('⏳ Envoi de la photo…');
+      var b64 = await new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){res(r.result.split(',')[1]);}; r.onerror=rej; r.readAsDataURL(file); });
+      try {
+        var resp = await fetch('https://api.github.com/repos/' + GH_OWNER + '/' + GH_REPO + '/contents/' + nom, {
+          method:'PUT', headers:{'Authorization':'Bearer '+token,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+          body: JSON.stringify({ message:'🖼️ Photo galerie', content:b64 })
+        });
+        if (resp.ok || resp.status===201) { galerie.push({ url:nom, legende:'' }); renderGalerie(); toast('✅ Photo ajoutée !'); }
+        else toast('❌ Erreur upload.');
+      } catch(e){ toast('❌ '+e.message); }
+    };
+    input.click();
+  }
+
+  function _majGalerie(i, val) { if (galerie[i]) galerie[i].legende = val; }
+  function supprimerPhoto(i) { galerie.splice(i,1); renderGalerie(); }
+
+  function ajouterPartenaire() {
+    partenaires.push({ nom:'', lien:'' });
+    renderPartenaires();
+  }
+  function _majPartenaire(i, champ, val) { if (partenaires[i]) partenaires[i][champ] = val; }
+  function supprimerPartenaire(i) { partenaires.splice(i,1); renderPartenaires(); }
 
   function renderForms() {
     const lEl = document.getElementById('librairesForms');
@@ -1357,6 +1539,8 @@ var Apropos = (() => {
       mis_a_jour: new Date().toISOString(),
       libraires,
       valeurs,
+      galerie,
+      partenaires,
     }, '👥 Mise à jour page À propos');
     if (ok) toast('✅ Page À propos publiée !');
   }
@@ -1423,7 +1607,7 @@ var Apropos = (() => {
     return true;
   }
 
-  return { charger, ajouterLibraire, supprimerLibraire, ajouterValeur, supprimerValeur, sauvegarder, previewPhoto };
+  return { charger, ajouterLibraire, supprimerLibraire, ajouterValeur, supprimerValeur, sauvegarder, previewPhoto, ajouterPhoto, _majGalerie, supprimerPhoto, ajouterPartenaire, _majPartenaire, supprimerPartenaire };
 })();
 
 var Prix = (() => {
@@ -2144,38 +2328,7 @@ var Reservations = (function() {
 </script>
 
   
-<!-- PANEL VOTES -->
-<div class="panel" id="panel-votes">
-  <div style="padding:2rem;background:var(--warm);width:100%;overflow-y:auto;">
-    <div class="fhead">🗳️ Votes BD</div>
 
-    <!-- Config du vote -->
-    <div style="background:#fff;border-radius:6px;padding:1.4rem 1.6rem;margin-bottom:1.5rem;box-shadow:0 2px 12px rgba(30,10,10,.07);">
-      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);margin-bottom:1rem;">Configuration</div>
-      <div class="f"><label>Titre de la page</label><input type="text" id="voteTitre" placeholder="Votez pour vos BD préférées"/></div>
-      <div class="f"><label>Sous-titre</label><input type="text" id="voteIntro" placeholder="Soutenez vos coups de cœur de l'année."/></div>
-    </div>
-
-    <!-- BD en lice -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
-      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);">BD en lice</div>
-      <button onclick="Votes.ajouterBD()" style="background:var(--wood);color:#fff;border:none;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">+ Ajouter une BD</button>
-    </div>
-    <div id="votesBdList" style="display:flex;flex-direction:column;gap:.8rem;margin-bottom:1rem;"></div>
-    <button onclick="Votes.sauvegarderBds()" class="btn-save" style="margin-bottom:2rem;">💾 Publier la liste des BD</button>
-
-    <!-- Résultats -->
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;border-top:1px solid rgba(92,26,26,.1);padding-top:1.5rem;">
-      <div style="font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--wood);">Résultats & votants</div>
-      <div style="display:flex;gap:.6rem;">
-        <button onclick="Votes.chargerSheet()" style="background:#0f9d58;color:#fff;border:none;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">📊 Résultats Google Sheet</button>
-        <button onclick="Votes.charger()" style="background:none;border:1.5px solid rgba(92,26,26,.2);color:var(--wood);border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">↺ GitHub</button>
-        <button onclick="Votes.ajouterVoteManuel()" style="background:none;border:1.5px solid rgba(39,174,96,.4);color:#27ae60;border-radius:3px;padding:.4rem .9rem;font-size:.72rem;font-weight:700;cursor:pointer;">➕ Saisir</button>
-      </div>
-    </div>
-    <div id="votesResultats"></div>
-  </div>
-</div>
 
 </div><!-- /.body -->
 </div><!-- /#adminScreen -->
