@@ -812,29 +812,74 @@ var Evts = (() => {
     const el = document.getElementById('evtList');
     if (!items.length) { el.innerHTML = '<div class="lempty">Aucun événement.<br/>Créez le premier !</div>'; return; }
 
-    // Regrouper visuellement : afficher un séparateur pour les groupes récurrents
-    let html = '';
-    const groupesVus = new Set();
-    items.forEach((e, i) => {
+    // Date du jour pour separer a venir / passes
+    const auj = new Date(); auj.setHours(0,0,0,0);
+
+    function estPasse(e) {
+      if (e.recurrent || e.fermeture) return false; // recurrents/fermetures jamais archives
+      if (!e.date) return false;
+      const parts = e.date.split('-');
+      const d = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
+      d.setHours(0,0,0,0);
+      return d < auj;
+    }
+
+    function ligneEvent(e, i) {
+      const groupesVus = ligneEvent._vus || (ligneEvent._vus = new Set());
       const estGroupe = e.groupe_id && !groupesVus.has(e.groupe_id);
       const memeGroupe = e.groupe_id && groupesVus.has(e.groupe_id);
       if (e.groupe_id) groupesVus.add(e.groupe_id);
-
       const nbGroupe = e.groupe_id ? items.filter(x => x.groupe_id === e.groupe_id).length : 0;
       const badge = e.groupe_id
         ? `<span style="font-size:.65rem;background:rgba(92,26,26,.12);color:var(--wood);padding:.1rem .4rem;border-radius:2px;margin-left:.3rem;">🔁 ×${nbGroupe}</span>`
         : '';
-
-      html += `<div class="li ${i===idx?'active':''}" onclick="Evts.select(${i})" style="${memeGroupe?'padding-left:2rem;border-left:2px solid rgba(92,26,26,.2);':''}">
+      return `<div class="li ${i===idx?'active':''}" onclick="Evts.select(${i})" style="${memeGroupe?'padding-left:2rem;border-left:2px solid rgba(92,26,26,.2);':''}">
         <div class="li-dot ${e.fermeture?'grey':e.special?'gold':e.groupe_id?'':''}"></div>
         <div style="flex:1;min-width:0;">
           <div class="li-t">${e.titre||'(Sans titre)'}${estGroupe?badge:''}</div>
           <div class="li-m">${fmt(e.date)}${e.time?' · '+e.time:''}</div>
         </div>
       </div>`;
+    }
+
+    // Separer en gardant les index originaux (pour Evts.select)
+    const aVenir = [];
+    const passes = [];
+    items.forEach((e, i) => {
+      if (estPasse(e)) passes.push({ e: e, i: i });
+      else aVenir.push({ e: e, i: i });
     });
+
+    let html = '';
+    ligneEvent._vus = new Set();
+    aVenir.forEach(o => { html += ligneEvent(o.e, o.i); });
+
+    if (passes.length) {
+      // Passes du plus recent au plus ancien
+      passes.sort((a, b) => (b.e.date > a.e.date ? 1 : b.e.date < a.e.date ? -1 : 0));
+      let passesHtml = '';
+      ligneEvent._vus = new Set();
+      passes.forEach(o => { passesHtml += ligneEvent(o.e, o.i); });
+      html += `<div style="border-top:1px solid rgba(92,26,26,.12);margin-top:.5rem;">
+        <div onclick="Evts.togglePasses()" style="cursor:pointer;padding:.7rem 1rem;font-family:Raleway,sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);display:flex;align-items:center;gap:.4rem;">
+          <span id="evtPassesArrow">▸</span> Événements passés (${passes.length})
+        </div>
+        <div id="evtPassesContent" style="display:none;">${passesHtml}</div>
+      </div>`;
+    }
+
     el.innerHTML = html;
   }
+
+  function togglePasses() {
+    const content = document.getElementById('evtPassesContent');
+    const arrow = document.getElementById('evtPassesArrow');
+    if (!content) return;
+    const open = content.style.display !== 'none';
+    content.style.display = open ? 'none' : 'block';
+    if (arrow) arrow.textContent = open ? '▸' : '▾';
+  }
+
 
   function select(i) {
     idx = i; const e = items[i];
@@ -1050,7 +1095,7 @@ var Evts = (() => {
     }
   }
 
-  return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview, uploadAffiche };
+  return { charger, select, nouveau, sauvegarder, supprimer, supprimerGroupe, updatePreview, uploadAffiche, togglePasses };
 })();
 
 // -- UTILS ---------------------------------
