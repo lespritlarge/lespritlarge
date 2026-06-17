@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-06-17T14:01:32.874Z",
+  "mis_a_jour": "2026-06-17T14:07:03.618Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -457,16 +457,16 @@
       "recurrent": true
     },
     {
-      "titre": "Quiz de la librairie !",
-      "time": "18h30",
+      "titre": "Millefeuilles & petit Lu viennent lire des albums à la librairie...",
+      "time": "10h-12h",
       "type": "Autre",
       "lieu": "Librairie L'Esprit Large",
-      "desc": "Le quiz de la librairie, du fun, des questions injustes et idiotes et des lots à gagner !",
-      "affiche": "images/evenements/affiche1781704886756.png",
+      "desc": "Les lectrices de Millefeuilles & Petit Lu viennent lire leur coups de cœur en album jeunesse sur la terrasse de la librairie. Pour petits et grands enfants.",
+      "affiche": "",
       "special": false,
       "fermeture": false,
-      "id": "1781704892874",
-      "date": "2026-07-21",
+      "id": "1781705223618",
+      "date": "2026-07-15",
       "recurrent": false
     },
     {
