@@ -1574,7 +1574,8 @@ var Votes = (function() {
   var bds = [];
   var votes = [];
   var config = { titre: '', intro: '' };
-  var SHEET_URL = 'https://script.google.com/macros/s/AKfycbw8MPZLzh4P_ZWM5GSdTy07KNTFfcU_pESjjUeVWhnaCyUHNcCL7RF7vnbh0zEqq7mUYQ/exec';
+  var CSV_CLASSEMENT = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTH92jvq7L2mA4PnWZ3d8c6k6Qj3-Q0dc4MI1G7OkyoKwTe98pzSvHdsRptoPoaf8WM8h6OARn3Wd20/pub?gid=1757936793&single=true&output=csv';
+  var CSV_VOTES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTH92jvq7L2mA4PnWZ3d8c6k6Qj3-Q0dc4MI1G7OkyoKwTe98pzSvHdsRptoPoaf8WM8h6OARn3Wd20/pub?gid=0&single=true&output=csv';
 
   function uid() { return 'bd' + Date.now() + Math.floor(Math.random()*1000); }
 
@@ -1652,44 +1653,107 @@ var Votes = (function() {
     });
   }
 
+  // Parse un CSV simple en tableau de lignes (gere les guillemets et virgules)
+  function parseCSV(txt) {
+    var rows = [];
+    var row = [];
+    var cur = '';
+    var inQuotes = false;
+    for (var i = 0; i < txt.length; i++) {
+      var ch = txt[i];
+      if (inQuotes) {
+        if (ch === '"') {
+          if (txt[i+1] === '"') { cur += '"'; i++; }
+          else inQuotes = false;
+        } else cur += ch;
+      } else {
+        if (ch === '"') inQuotes = true;
+        else if (ch === ',') { row.push(cur); cur = ''; }
+        else if (ch === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+        else if (ch === '\r') { /* ignore */ }
+        else cur += ch;
+      }
+    }
+    if (cur !== '' || row.length) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+
   function chargerSheet() {
     chargerBds();
     var el = document.getElementById('votesResultats');
     if (el) el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">⏳ Chargement depuis Google Sheet…</p>';
-    // JSONP pour contourner CORS : chargement via une balise script dynamique
-    var cbName = 'voteSheetCb_' + Date.now();
-    var timeout = setTimeout(function() {
+
+    // Lire le CSV des votes detailles (Feuille 1)
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', CSV_VOTES + '&_=' + Date.now(), true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState !== 4) return;
       var el2 = document.getElementById('votesResultats');
-      if (el2 && el2.innerHTML.indexOf('Chargement') !== -1) {
-        el2.innerHTML = '<p style="color:#c0392b;">Le Google Sheet ne répond pas. Vérifiez que le script est bien redéployé avec accès "Tout le monde".</p>';
-      }
-      cleanup();
-    }, 12000);
-    function cleanup() {
-      try { delete window[cbName]; } catch(e) { window[cbName] = undefined; }
-      var s = document.getElementById(cbName);
-      if (s) s.parentNode.removeChild(s);
-    }
-    window[cbName] = function(data) {
-      clearTimeout(timeout);
-      cleanup();
-      if (data && data.error) {
-        var el2 = document.getElementById('votesResultats');
-        if (el2) el2.innerHTML = '<p style="color:#c0392b;">Erreur Sheet : ' + data.error + '</p>';
+      if (!el2) return;
+      if (xhr.status !== 200) {
+        el2.innerHTML = '<p style="color:#c0392b;">Erreur lecture Google Sheet (HTTP ' + xhr.status + '). Vérifiez que le Sheet est bien publié sur le web.</p>';
         return;
       }
-      renderSheet(data);
+      try {
+        var rows = parseCSV(xhr.responseText);
+        traiterVotesCSV(rows);
+      } catch(e) {
+        el2.innerHTML = '<p style="color:#c0392b;">Erreur : ' + e.message + '</p>';
+      }
     };
-    var script = document.createElement('script');
-    script.id = cbName;
-    script.src = SHEET_URL + '?callback=' + cbName + '&_=' + Date.now();
-    script.onerror = function() {
-      clearTimeout(timeout);
-      cleanup();
+    xhr.onerror = function() {
       var el2 = document.getElementById('votesResultats');
       if (el2) el2.innerHTML = '<p style="color:#c0392b;">Impossible de joindre le Google Sheet.</p>';
     };
-    document.body.appendChild(script);
+    xhr.send();
+  }
+
+  // Parse les points depuis colonne G (JSON) ou F (texte)
+  function parsePointsAdmin(detailG, votesF) {
+    if (detailG) {
+      try {
+        var arr = JSON.parse(detailG);
+        if (arr && arr.length) return arr.map(function(c) {
+          return { titre: String(c.titre||'?').trim(), auteur: c.auteur||'', points: Number(c.points)||0 };
+        });
+      } catch(e) {}
+    }
+    if (!votesF) return [];
+    var res = [];
+    var rx = /([^,;\n:()]+?)\s*[:(]\s*(\d+)\s*(?:pts?|points?)?\s*\)?/gi;
+    var m;
+    while ((m = rx.exec(String(votesF))) !== null) {
+      var titre = m[1].trim().replace(/^[\s\-•]+/, '').trim();
+      var pts = Number(m[2]);
+      if (titre && pts > 0) res.push({ titre: titre, auteur: '', points: pts });
+    }
+    return res;
+  }
+
+  function traiterVotesCSV(rows) {
+    // rows[0] = en-tetes : Date|Nom|Email|Lieu|Commentaire|Votes|Detail points
+    var votesList = [];
+    var totaux = {};
+    var lieux = {};
+    for (var i = 1; i < rows.length; i++) {
+      var r = rows[i];
+      if (!r || r.length < 2) continue;
+      var dateV = r[0]||'', nom = r[1]||'', email = r[2]||'', lieu = r[3]||'', comm = r[4]||'', votesF = r[5]||'', detailG = r[6]||'';
+      if (!nom && !votesF) continue;
+      var choix = parsePointsAdmin(detailG, votesF);
+      votesList.push({ date: dateV, nom: nom, email: email, lieu: lieu, commentaire: comm, choix: choix });
+      for (var j = 0; j < choix.length; j++) {
+        var cc = choix[j], t = cc.titre;
+        if (!totaux[t]) totaux[t] = { titre: t, auteur: cc.auteur, points: 0, votes: 0 };
+        totaux[t].points += cc.points;
+        totaux[t].votes += 1;
+      }
+      var L = lieu || 'Non précisé';
+      lieux[L] = (lieux[L] || 0) + 1;
+    }
+    var classement = Object.keys(totaux).map(function(k){ return totaux[k]; }).sort(function(a,b){ return b.points - a.points; });
+    var lieuxArr = Object.keys(lieux).map(function(k){ return { lieu: k, n: lieux[k] }; }).sort(function(a,b){ return b.n - a.n; });
+    renderSheet({ classement: classement, votes: votesList, lieux: lieuxArr, total: votesList.length });
   }
 
   function renderSheet(data) {
