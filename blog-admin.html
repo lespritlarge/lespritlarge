@@ -1656,24 +1656,40 @@ var Votes = (function() {
     chargerBds();
     var el = document.getElementById('votesResultats');
     if (el) el.innerHTML = '<p style="font-family:Lora,serif;font-style:italic;color:var(--soft);">⏳ Chargement depuis Google Sheet…</p>';
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', SHEET_URL + '?_=' + Date.now(), true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState !== 4) return;
+    // JSONP pour contourner CORS : chargement via une balise script dynamique
+    var cbName = 'voteSheetCb_' + Date.now();
+    var timeout = setTimeout(function() {
       var el2 = document.getElementById('votesResultats');
-      if (!el2) return;
-      if (xhr.status !== 200) {
-        el2.innerHTML = '<p style="color:#c0392b;">Erreur Google Sheet (HTTP ' + xhr.status + ').</p>';
+      if (el2 && el2.innerHTML.indexOf('Chargement') !== -1) {
+        el2.innerHTML = '<p style="color:#c0392b;">Le Google Sheet ne répond pas. Vérifiez que le script est bien redéployé avec accès "Tout le monde".</p>';
+      }
+      cleanup();
+    }, 12000);
+    function cleanup() {
+      try { delete window[cbName]; } catch(e) { window[cbName] = undefined; }
+      var s = document.getElementById(cbName);
+      if (s) s.parentNode.removeChild(s);
+    }
+    window[cbName] = function(data) {
+      clearTimeout(timeout);
+      cleanup();
+      if (data && data.error) {
+        var el2 = document.getElementById('votesResultats');
+        if (el2) el2.innerHTML = '<p style="color:#c0392b;">Erreur Sheet : ' + data.error + '</p>';
         return;
       }
-      try {
-        var data = JSON.parse(xhr.responseText);
-        renderSheet(data);
-      } catch(e) {
-        el2.innerHTML = '<p style="color:#c0392b;">Erreur lecture Sheet : ' + e.message + '</p>';
-      }
+      renderSheet(data);
     };
-    xhr.send();
+    var script = document.createElement('script');
+    script.id = cbName;
+    script.src = SHEET_URL + '?callback=' + cbName + '&_=' + Date.now();
+    script.onerror = function() {
+      clearTimeout(timeout);
+      cleanup();
+      var el2 = document.getElementById('votesResultats');
+      if (el2) el2.innerHTML = '<p style="color:#c0392b;">Impossible de joindre le Google Sheet.</p>';
+    };
+    document.body.appendChild(script);
   }
 
   function renderSheet(data) {
