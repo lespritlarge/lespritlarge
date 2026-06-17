@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-05-19T07:24:18.810Z",
+  "mis_a_jour": "2026-06-17T14:01:32.874Z",
   "evenements": [
     {
       "titre": "Les lectures d'Adel",
@@ -455,6 +455,19 @@
       "id": "mmm6hm5w_r17",
       "date": "2026-07-15",
       "recurrent": true
+    },
+    {
+      "titre": "Quiz de la librairie !",
+      "time": "18h30",
+      "type": "Autre",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Le quiz de la librairie, du fun, des questions injustes et idiotes et des lots à gagner !",
+      "affiche": "images/evenements/affiche1781704886756.png",
+      "special": false,
+      "fermeture": false,
+      "id": "1781704892874",
+      "date": "2026-07-21",
+      "recurrent": false
     },
     {
       "titre": "Les lectures d'Adel",
