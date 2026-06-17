@@ -1,15 +1,15 @@
 {
-  "mis_a_jour": "2026-06-17T10:09:42.090Z",
+  "mis_a_jour": "2026-06-17T10:10:53.042Z",
   "articles": [
     {
-      "id": "1781690982090",
-      "titre": "Le vote Première Vague est lancé !",
+      "id": "1781691053042",
+      "titre": "Le vote pour première vague est lancé !",
       "categorie": "Vie de la librairie",
-      "date": "2026-06-15",
+      "date": "2026-06-17",
       "texte": "On y est, depuis le 15 juin et jusqu'au 15 septembre, tous.tes les participant.e.s du prix Première vague peuvent voter pour leur coup de cœur !",
       "image": "",
       "lien": "https://esprit-large.com/vote.html",
-      "lien_label": "LE VOTE !"
+      "lien_label": "Le vote !"
     },
     {
       "id": "1778508789215",
