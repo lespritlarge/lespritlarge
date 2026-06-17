@@ -484,6 +484,8 @@ details[open] .rblock summary::before{transform:rotate(90deg);}
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
 
 // ========================================
@@ -940,9 +942,16 @@ function fmt(iso) {
 }
 function today() { return new Date().toISOString().split('T')[0]; }
 function toast(msg) {
-  const t = document.getElementById('toast');
+  var t = document.getElementById('toast');
+  if (!t) {
+    // Créer l'élément toast s'il n'existe pas
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.className = 'toast';
+    document.body.appendChild(t);
+  }
   t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 4000);
+  setTimeout(function(){ t.classList.remove('show'); }, 4000);
 }
 
 // ========================================
