@@ -1,15 +1,15 @@
 {
-  "mis_a_jour": "2026-05-27T15:28:57.666Z",
+  "mis_a_jour": "2026-06-17T10:09:42.090Z",
   "articles": [
     {
-      "id": "1779895737666",
-      "titre": "Trois fois rien",
-      "categorie": "Coup de cœur",
-      "date": "2026-05-27",
-      "texte": "La force de l'écriture et du dessin pour lutter contre la dépression. Un superbe roman graphique",
-      "image": "images/blog/blog-trois-fois-rien-00-1779895726188.webp",
-      "lien": "",
-      "lien_label": ""
+      "id": "1781690982090",
+      "titre": "Le vote Première Vague est lancé !",
+      "categorie": "Vie de la librairie",
+      "date": "2026-06-15",
+      "texte": "On y est, depuis le 15 juin et jusqu'au 15 septembre, tous.tes les participant.e.s du prix Première vague peuvent voter pour leur coup de cœur !",
+      "image": "",
+      "lien": "https://esprit-large.com/vote.html",
+      "lien_label": "LE VOTE !"
     },
     {
       "id": "1778508789215",
@@ -18,6 +18,16 @@
       "date": "2026-09-05",
       "texte": "La librairie l'esprit large, ça fait 20 ans ! C'est long et court à la fois, comme un bon livre au final... En attendant de vous en dire un peu plus, réservez votre samedi soir pour souffler nos bougies !",
       "image": "images/blog/blog-black-and-white-minimalist-doodle-save-the-date-invitation-1778508786244.png",
+      "lien": "",
+      "lien_label": ""
+    },
+    {
+      "id": "1779895737666",
+      "titre": "Trois fois rien",
+      "categorie": "Coup de cœur",
+      "date": "2026-05-27",
+      "texte": "La force de l'écriture et du dessin pour lutter contre la dépression. Un superbe roman graphique",
+      "image": "images/blog/blog-trois-fois-rien-00-1779895726188.webp",
       "lien": "",
       "lien_label": ""
     },
