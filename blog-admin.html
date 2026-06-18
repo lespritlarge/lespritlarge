@@ -815,13 +815,19 @@ var Evts = (() => {
     // Date du jour pour separer a venir / passes
     const auj = new Date(); auj.setHours(0,0,0,0);
 
-    function estPasse(e) {
-      if (e.recurrent || e.fermeture) return false; // recurrents/fermetures jamais archives
-      if (!e.date) return false;
+    function dateOf(e) {
+      if (!e.date) return null;
       const parts = e.date.split('-');
       const d = new Date(parseInt(parts[0],10), parseInt(parts[1],10)-1, parseInt(parts[2],10));
       d.setHours(0,0,0,0);
-      return d < auj;
+      return d;
+    }
+
+    function estPasse(e) {
+      if (e.fermeture) return false; // fermetures jamais archivees
+      // Chaque occurrence (meme recurrente) est archivee si SA date est passee
+      const d = dateOf(e);
+      return d && d < auj;
     }
 
     function ligneEvent(e, i) {
