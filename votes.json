@@ -1,3 +1,26 @@
 {
-  "votes": []
+  "votes": [
+    {
+      "id": 1782306842886,
+      "date": "2026-06-24T13:14:02.886Z",
+      "nom": "Test",
+      "email": "test",
+      "lieu": "test",
+      "commentaire": "",
+      "choix": [
+        {
+          "id": "bd1781529602131755",
+          "titre": "Katya",
+          "auteur": "Antoine Schiffers",
+          "points": 3
+        },
+        {
+          "id": "bd1781529746315512",
+          "titre": "A travers la nuit",
+          "auteur": "Joanna Lohro",
+          "points": 2
+        }
+      ]
+    }
+  ]
 }
