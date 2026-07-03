@@ -1,6 +1,19 @@
 {
-  "mis_a_jour": "2026-06-17T14:07:03.618Z",
+  "mis_a_jour": "2026-07-03T11:13:38.949Z",
   "evenements": [
+    {
+      "titre": "Rencontre autour de la musique irlandaise",
+      "time": "10h00 20h00",
+      "type": "🌍 Littérature traduite",
+      "lieu": "Mesquer Maison du Patrimoine",
+      "desc": "Nous vous proposons des livres autour de l'Irlande dans le cadre du festival de musique irlandaise qui se tient à la maison du patrimoine à Mesquer. Des infos par là : https://anseisiun.fr/",
+      "affiche": "images/evenements/affiche1783077209493.png",
+      "special": false,
+      "fermeture": false,
+      "id": "1783077218949",
+      "date": "2002-07-04",
+      "recurrent": false
+    },
     {
       "titre": "Les lectures d'Adel",
       "time": "10h30-12h",
