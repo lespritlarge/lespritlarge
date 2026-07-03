@@ -1,6 +1,16 @@
 {
-  "mis_a_jour": "2026-06-17T14:07:09.626Z",
+  "mis_a_jour": "2026-07-03T12:04:28.589Z",
   "articles": [
+    {
+      "id": "1783080268589",
+      "titre": "Deux évènements ce week-end !",
+      "categorie": "Vie de la librairie",
+      "date": "2026-07-04",
+      "texte": "Ce week-end, nous serons, en plus d'avoir la librairie ouverte, à deux évènements : \n\n- Le 04 juillet, de 14h a 18h, nous serons à St-Nazaire pour Livre en fête - Kermesse littéraire !\n\n- Le 04 et 05 juillet, nous serons à Mesquer pour les rencontres irlandaises !\n\nSi vous êtes dans le coin, n'hésitez pas à passer nous voir !",
+      "image": "images/blog/1783080264924.jpg",
+      "lien": "",
+      "lien_label": ""
+    },
     {
       "id": "1778508789215",
       "titre": "Fête de la librairie l'esprit large !",
