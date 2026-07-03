@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-03T12:05:11.493Z",
+  "mis_a_jour": "2026-07-03T12:05:44.613Z",
   "evenements": [
     {
       "titre": "Rencontre autour de la musique irlandaise",
@@ -67,19 +67,6 @@
       "recurrent": true
     },
     {
-      "id": "1742774400000",
-      "titre": "Casse-croûte Littéraire",
-      "date": "2026-03-26",
-      "time": "12h30 à 14h00",
-      "type": "",
-      "lieu": "Librairie L'Esprit Large",
-      "desc": "On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
-      "affiche": "",
-      "special": false,
-      "recurrent": true,
-      "fermeture": false
-    },
-    {
       "id": "1742860800000",
       "titre": "Échanges autour de la littérature italienne",
       "date": "2026-03-26",
@@ -90,6 +77,19 @@
       "affiche": "",
       "special": false,
       "recurrent": false,
+      "fermeture": false
+    },
+    {
+      "id": "1742774400000",
+      "titre": "Casse-croûte Littéraire",
+      "date": "2026-03-26",
+      "time": "12h30 à 14h00",
+      "type": "",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "On mange ensemble, un jeudi midi par mois pour discuter et échanger autour de vos et nos lectures...",
+      "affiche": "",
+      "special": false,
+      "recurrent": true,
       "fermeture": false
     },
     {
@@ -262,19 +262,6 @@
       "recurrent": true
     },
     {
-      "titre": "RENCONTRE LILI DIF& DANI.L",
-      "time": "10h-12h30",
-      "type": "Rencontre auteur",
-      "lieu": "Librairie L'Esprit Large",
-      "desc": "Lili Dif et Dani.L viennent dédicacer et nous rencontrer autour de leur nouvel ouvrage de leur série : Sanderling le Bécasseau, sur la plage Benoit.",
-      "affiche": "",
-      "special": false,
-      "fermeture": false,
-      "id": "1778508939431",
-      "date": "2026-05-20",
-      "recurrent": false
-    },
-    {
       "titre": "Les lectures d'Adel",
       "time": "10h30-12h",
       "type": "Lecture hebdo 📖",
@@ -286,6 +273,19 @@
       "id": "mmm6hm5w_r9",
       "date": "2026-05-20",
       "recurrent": true
+    },
+    {
+      "titre": "RENCONTRE LILI DIF& DANI.L",
+      "time": "10h-12h30",
+      "type": "Rencontre auteur",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Lili Dif et Dani.L viennent dédicacer et nous rencontrer autour de leur nouvel ouvrage de leur série : Sanderling le Bécasseau, sur la plage Benoit.",
+      "affiche": "",
+      "special": false,
+      "fermeture": false,
+      "id": "1778508939431",
+      "date": "2026-05-20",
+      "recurrent": false
     },
     {
       "id": "1748131200000",
@@ -444,6 +444,19 @@
       "recurrent": true
     },
     {
+      "titre": "An seisiun, rencontre irlandaises",
+      "time": "",
+      "type": "Autre",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Ce week end on est à Mesquer pour le Festival de musique irlandaise, on vous propose une sélection de livres, bds, jeunesse autour de l'Irlande... Du samedi au dimanche de 10h00 à 19h00.",
+      "affiche": "images/evenements/affiche1783080341847.jpg",
+      "special": false,
+      "fermeture": false,
+      "id": "1783080344613",
+      "date": "2026-07-04",
+      "recurrent": false
+    },
+    {
       "titre": "Livre en fête - Kermesse littéraire !",
       "time": "14h-18h",
       "type": "Autre",
@@ -470,19 +483,6 @@
       "recurrent": true
     },
     {
-      "titre": "Millefeuilles & petit Lu viennent lire des albums à la librairie...",
-      "time": "10h-12h",
-      "type": "Autre",
-      "lieu": "Librairie L'Esprit Large",
-      "desc": "Les lectrices de Millefeuilles & Petit Lu viennent lire leur coups de cœur en album jeunesse sur la terrasse de la librairie. Pour petits et grands enfants.",
-      "affiche": "",
-      "special": false,
-      "fermeture": false,
-      "id": "1781705223618",
-      "date": "2026-07-15",
-      "recurrent": false
-    },
-    {
       "titre": "Les lectures d'Adel",
       "time": "10h30-12h",
       "type": "Lecture hebdo 📖",
@@ -494,6 +494,19 @@
       "id": "mmm6hm5w_r17",
       "date": "2026-07-15",
       "recurrent": true
+    },
+    {
+      "titre": "Millefeuilles & petit Lu viennent lire des albums à la librairie...",
+      "time": "10h-12h",
+      "type": "Autre",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Les lectrices de Millefeuilles & Petit Lu viennent lire leur coups de cœur en album jeunesse sur la terrasse de la librairie. Pour petits et grands enfants.",
+      "affiche": "",
+      "special": false,
+      "fermeture": false,
+      "id": "1781705223618",
+      "date": "2026-07-15",
+      "recurrent": false
     },
     {
       "titre": "Les lectures d'Adel",
