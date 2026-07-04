@@ -1,13 +1,13 @@
 {
-  "mis_a_jour": "2026-07-03T12:04:28.589Z",
+  "mis_a_jour": "2026-07-04T14:04:00.102Z",
   "articles": [
     {
-      "id": "1783080268589",
-      "titre": "Deux évènements ce week-end !",
-      "categorie": "Vie de la librairie",
-      "date": "2026-07-04",
-      "texte": "Ce week-end, nous serons, en plus d'avoir la librairie ouverte, à deux évènements : \n\n- Le 04 juillet, de 14h a 18h, nous serons à St-Nazaire pour Livre en fête - Kermesse littéraire !\n\n- Le 04 et 05 juillet, nous serons à Mesquer pour les rencontres irlandaises !\n\nSi vous êtes dans le coin, n'hésitez pas à passer nous voir !",
-      "image": "images/blog/1783080264924.jpg",
+      "id": "1783173840102",
+      "titre": "Des pages et des pas",
+      "categorie": "Événement",
+      "date": "2026-10-15",
+      "texte": "L’association Mille-feuilles et Petit Lu en partenariat avec la médiathèque de Guérande et la Bibliothèque Départementale de Loire Atlantique (BDLA), organise une journée rencontre conférence, ouverte à tous. \n\"Des pages et des pas\". Mettre des histoires en corps et les sens en éveil",
+      "image": "images/blog/1783173831450.jpg",
       "lien": "",
       "lien_label": ""
     },
@@ -18,6 +18,16 @@
       "date": "2026-09-05",
       "texte": "La librairie l'esprit large, ça fait 20 ans ! C'est long et court à la fois, comme un bon livre au final... En attendant de vous en dire un peu plus, réservez votre samedi soir pour souffler nos bougies !",
       "image": "images/blog/blog-black-and-white-minimalist-doodle-save-the-date-invitation-1778508786244.png",
+      "lien": "",
+      "lien_label": ""
+    },
+    {
+      "id": "1783080268589",
+      "titre": "Deux évènements ce week-end !",
+      "categorie": "Vie de la librairie",
+      "date": "2026-07-04",
+      "texte": "Ce week-end, nous serons, en plus d'avoir la librairie ouverte, à deux évènements : \n\n- Le 04 juillet, de 14h a 18h, nous serons à St-Nazaire pour Livre en fête - Kermesse littéraire !\n\n- Le 04 et 05 juillet, nous serons à Mesquer pour les rencontres irlandaises !\n\nSi vous êtes dans le coin, n'hésitez pas à passer nous voir !",
+      "image": "images/blog/1783080264924.jpg",
       "lien": "",
       "lien_label": ""
     },
