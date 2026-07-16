@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-16T09:30:52.236Z",
+  "mis_a_jour": "2026-07-16T09:33:30.354Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -131,16 +131,6 @@
       "categorie": "Roman"
     },
     {
-      "ean": "9782226502544",
-      "titre": "[A enrichir — 9782226502544]",
-      "auteur": "",
-      "couverture": "",
-      "citation": "Un premier roman époustouflant d'une jeune autrice Irlandaise",
-      "libraire": "Nadine",
-      "categorie": "Roman",
-      "epingle": true
-    },
-    {
       "ean": "9782211350983",
       "titre": "Il paraît que",
       "auteur": "Olivier Tallec",
@@ -149,15 +139,6 @@
       "libraire": "Les libraires",
       "categorie": "Jeunesse",
       "epingle": true
-    },
-    {
-      "ean": "9782283040706",
-      "titre": "La saison des mûres",
-      "auteur": "LAGERLOF Ulrika",
-      "couverture": "https://couverture.geobib.fr/api/v1/9782283040706/large",
-      "citation": "Deux femmes, deux époques et l'histoire des lapons que l'on découvre grâce à ses deux destins",
-      "libraire": "Nadine",
-      "categorie": "Roman"
     },
     {
       "ean": "9782369022107",
