@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-16T11:51:49.407Z",
+  "mis_a_jour": "2026-07-16T11:57:33.537Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -129,6 +129,15 @@
       "citation": "\"Des trucs drôles, des trucs émouvants, c'est un album qui fait du bien... A part…\"",
       "libraire": "Nadine",
       "categorie": "BD"
+    },
+    {
+      "ean": "9782330221522",
+      "titre": "Détruire le monde ce soir",
+      "auteur": "Stina Jackson",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782330221522/large",
+      "citation": "Entre la Suède et les États-Unis, roman noir sans artifices...",
+      "libraire": "Nadine",
+      "categorie": "Roman"
     }
   ]
 }
