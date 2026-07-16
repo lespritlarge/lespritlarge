@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-16T11:57:33.537Z",
+  "mis_a_jour": "2026-07-16T12:22:56.693Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -138,6 +138,15 @@
       "citation": "Entre la Suède et les États-Unis, roman noir sans artifices...",
       "libraire": "Nadine",
       "categorie": "Roman"
+    },
+    {
+      "ean": "9782075152594",
+      "titre": "Lightfall",
+      "auteur": "Tim Probert",
+      "couverture": "https://covers.openlibrary.org/b/id/12560528-L.jpg",
+      "citation": "Une des BD référence en littérature jeunesse ET adulte ! Quel merveilleux voyage...",
+      "libraire": "Aurélien",
+      "categorie": "BD"
     }
   ]
 }
