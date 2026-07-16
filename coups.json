@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-16T11:47:20.397Z",
+  "mis_a_jour": "2026-07-16T11:51:49.407Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -120,6 +120,15 @@
       "citation": "Des illustrations magnifique sur l'amitié entre un cheval et Mimi...",
       "libraire": "Les libraires",
       "categorie": "Jeunesse"
+    },
+    {
+      "ean": "9782369022107",
+      "titre": "Inventaire des trucs importants",
+      "auteur": "Anne-Sophie Constancien",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782369022107/large",
+      "citation": "\"Des trucs drôles, des trucs émouvants, c'est un album qui fait du bien... A part…\"",
+      "libraire": "Nadine",
+      "categorie": "BD"
     }
   ]
 }
