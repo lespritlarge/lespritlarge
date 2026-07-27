@@ -896,8 +896,14 @@ async function chargerCoups() {
     if (!r.ok) return;
     var data = await r.json();
     var tous = (data.coups || []).filter(function(c){ return c.titre; });
-    // Épinglés en premier
-    var coups = tous.filter(function(c){ return c.epingle; }).concat(tous.filter(function(c){ return !c.epingle; }));
+    // Melanger aleatoirement (Fisher-Yates), en gardant les epingles en tete
+    var epingles = tous.filter(function(c){ return c.epingle; });
+    var autres = tous.filter(function(c){ return !c.epingle; });
+    for (var m = autres.length - 1; m > 0; m--) {
+      var n = Math.floor(Math.random() * (m + 1));
+      var tmp = autres[m]; autres[m] = autres[n]; autres[n] = tmp;
+    }
+    var coups = epingles.concat(autres);
     if (!coups.length) return;
     var grid = document.getElementById('coupGrid');
     var html = '';

@@ -1123,6 +1123,21 @@ function toast(msg) {
   setTimeout(function(){ t.classList.remove('show'); }, 4000);
 }
 
+// Masquer / afficher la liste des coups de coeur dans l'admin
+function toggleListeCoups() {
+  var wrap = document.getElementById('coupsListWrap');
+  var btn = document.getElementById('btnToggleCoups');
+  if (!wrap) return;
+  var masque = wrap.style.display === 'none';
+  if (masque) {
+    wrap.style.display = 'block';
+    if (btn) btn.innerHTML = 'Masquer la liste ▲';
+  } else {
+    wrap.style.display = 'none';
+    if (btn) btn.innerHTML = 'Afficher la liste ▼';
+  }
+}
+
 // ========================================
 //  COUPS DE CŒUR
 // ========================================
