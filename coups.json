@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-27T10:14:28.612Z",
+  "mis_a_jour": "2026-07-27T10:35:06.445Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -154,6 +154,15 @@
       "auteur": "Scott Alexander Howard",
       "couverture": "https://couverture.geobib.fr/api/v1/9782290427163/large",
       "citation": "Une autre manière de voyager dans le temps...",
+      "libraire": "Aurélien",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782330216139",
+      "titre": "Les Fantômes de Shearwater",
+      "auteur": "Charlotte McConaghy",
+      "couverture": "https://books.google.com/books/content?id=hXTX0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
+      "citation": "Incroyable, prenant, magnifique !",
       "libraire": "Aurélien",
       "categorie": "Roman"
     }
