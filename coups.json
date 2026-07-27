@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-16T12:22:56.693Z",
+  "mis_a_jour": "2026-07-27T10:14:28.612Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -147,6 +147,15 @@
       "citation": "Une des BD référence en littérature jeunesse ET adulte ! Quel merveilleux voyage...",
       "libraire": "Aurélien",
       "categorie": "BD"
+    },
+    {
+      "ean": "9782290427163",
+      "titre": "La vallée aux échos",
+      "auteur": "Scott Alexander Howard",
+      "couverture": "https://couverture.geobib.fr/api/v1/9782290427163/large",
+      "citation": "Une autre manière de voyager dans le temps...",
+      "libraire": "Aurélien",
+      "categorie": "Roman"
     }
   ]
 }
