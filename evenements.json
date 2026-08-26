@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-08-26T09:17:50.388Z",
+  "mis_a_jour": "2026-08-26T09:18:36.380Z",
   "evenements": [
     {
       "titre": "Rencontre autour de la musique irlandaise",
@@ -597,6 +597,19 @@
       "fermeture": false,
       "id": "1787735870388",
       "date": "2026-09-15",
+      "recurrent": false
+    },
+    {
+      "titre": "Résultat du Prix Première Vague 2026 !",
+      "time": "18h00",
+      "type": "Autre",
+      "lieu": "Librairie L'Esprit Large",
+      "desc": "Le prix Première Vague touche à sa fin. Nous annoncerons la ou le gagnant.e de cette quatrième édition !",
+      "affiche": "images/evenements/affiche1787735912181.png",
+      "special": false,
+      "fermeture": false,
+      "id": "1787735916380",
+      "date": "2026-09-22",
       "recurrent": false
     }
   ]
