@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-27T12:10:28.310Z",
+  "mis_a_jour": "2026-08-26T09:17:50.388Z",
   "evenements": [
     {
       "titre": "Rencontre autour de la musique irlandaise",
@@ -585,6 +585,19 @@
       "special": true,
       "recurrent": false,
       "fermeture": false
+    },
+    {
+      "titre": "Présentation de la saison - Théâtre de Saint-Nazaire",
+      "time": "18h30",
+      "type": "Autre",
+      "lieu": "",
+      "desc": "Le théâtre de St-Nazaire vient nous présenter les spectacles à venir sur la saison 2026/2027. Petite présentation d'une heure avec les textes des pièces à venir.",
+      "affiche": "",
+      "special": false,
+      "fermeture": false,
+      "id": "1787735870388",
+      "date": "2026-09-15",
+      "recurrent": false
     }
   ]
 }
