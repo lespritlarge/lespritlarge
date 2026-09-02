@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-07-27T10:35:06.445Z",
+  "mis_a_jour": "2026-09-02T13:45:46.376Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -164,6 +164,15 @@
       "couverture": "https://books.google.com/books/content?id=hXTX0QEACAAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api",
       "citation": "Incroyable, prenant, magnifique !",
       "libraire": "Aurélien",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782021624960",
+      "titre": "LE SEPTIÈME SIFFLEUR",
+      "auteur": "NIEL COLIN",
+      "couverture": "https://products-images.di-static.com/image/niel-colin-le-septieme-siffleur/9782021624960-475x500-1.webp",
+      "citation": "Superbe...",
+      "libraire": "Nadine",
       "categorie": "Roman"
     }
   ]
