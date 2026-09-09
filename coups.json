@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-09T16:00:23.586Z",
+  "mis_a_jour": "2026-09-09T16:01:31.561Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -83,7 +83,7 @@
       "citation": "Course poursuite en montagne et vie de chien...",
       "libraire": "Aurélien",
       "categorie": "Roman",
-      "epingle": true
+      "epingle": false
     },
     {
       "ean": "9782226503848",
