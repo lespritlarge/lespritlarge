@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-09T16:01:31.561Z",
+  "mis_a_jour": "2026-09-09T16:14:09.957Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -181,6 +181,15 @@
       "auteur": "NEWITZ ANNALEE",
       "couverture": "https://products-images.di-static.com/image/newitz-annalee-le-restaurant-des-robots-reveurs/9782290438855-475x500-1.webp",
       "citation": "De la science-fiction futuriste qui donne l'huile à la bouche !",
+      "libraire": "Aurélien",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782367191041",
+      "titre": "Ce que nous sommes à la fin, des enfants sauvages",
+      "auteur": "Denis Infante",
+      "couverture": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1744947959i/231525866.jpg",
+      "citation": "Faites du théâtre!",
       "libraire": "Aurélien",
       "categorie": "Roman"
     }
