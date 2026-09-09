@@ -1,6 +1,26 @@
 {
-  "mis_a_jour": "2026-08-05T12:38:57.513Z",
+  "mis_a_jour": "2026-09-09T16:19:58.583Z",
   "articles": [
+    {
+      "id": "1788970798583",
+      "titre": "20 ans.",
+      "categorie": "Vie de la librairie",
+      "date": "2026-09-05",
+      "texte": "20 ans.\n120 verres. 12 impros. 1 chant lyrique. 57 ampoules. 18 petits mots. 1 discours émouvant. 1 animateur exceptionnel.\nDes milliers de lectures et de recommandations, des centaines de conseils pour aller sur les remparts, des coups de cœur et des coups de gueule, des animations en pagaille, des rencontres et des amitiés, des lectures et des relectures, des heures de rangement et des heures de bavardage, des cartons ouverts et des pages tournées.\n20 ans, et vous étiez là. Vous étiez là depuis le début ou depuis hier, à nous soutenir, à participer aux animations et à nous écouter. Quand les temps nous semble de plus en plus sombre, merci d'être cette parenthèse ensoleillée. Faisons la fête et lisons, ce sont des actes de résistance!\nMerci aux artistes, @ciedulaitchaud et Denis Dumas, à l'équipée d'Adel, aux petites mains, aux ami.e.s et à la famille, et à vous, bien entendu...\nVivement les 20 prochaines années!\n📚✨ L'Esprit Large, Nadine & Aurélien.",
+      "image": "images/blog/1788970777219.png",
+      "lien": "https://www.instagram.com/p/DdCELMrDVuV/?img_index=1",
+      "lien_label": "Plus de photos..."
+    },
+    {
+      "id": "1783173840102",
+      "titre": "Des pages et des pas",
+      "categorie": "Événement",
+      "date": "2026-10-15",
+      "texte": "L’association Mille-feuilles et Petit Lu en partenariat avec la médiathèque de Guérande et la Bibliothèque Départementale de Loire Atlantique (BDLA), organise une journée rencontre conférence, ouverte à tous. \n\"Des pages et des pas\". Mettre des histoires en corps et les sens en éveil",
+      "image": "images/blog/1783173831450.jpg",
+      "lien": "",
+      "lien_label": ""
+    },
     {
       "id": "1785933537513",
       "titre": "Résultat du Prix Première Vague 2026 !",
@@ -20,16 +40,6 @@
       "image": "images/blog/1785933426246.png",
       "lien": "https://www.letheatre-saintnazaire.fr/",
       "lien_label": "Plus d'informations..."
-    },
-    {
-      "id": "1783173840102",
-      "titre": "Des pages et des pas",
-      "categorie": "Événement",
-      "date": "2026-10-15",
-      "texte": "L’association Mille-feuilles et Petit Lu en partenariat avec la médiathèque de Guérande et la Bibliothèque Départementale de Loire Atlantique (BDLA), organise une journée rencontre conférence, ouverte à tous. \n\"Des pages et des pas\". Mettre des histoires en corps et les sens en éveil",
-      "image": "images/blog/1783173831450.jpg",
-      "lien": "",
-      "lien_label": ""
     },
     {
       "id": "1778508789215",
