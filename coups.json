@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-02T13:45:46.376Z",
+  "mis_a_jour": "2026-09-09T14:46:01.453Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -173,6 +173,15 @@
       "couverture": "https://products-images.di-static.com/image/niel-colin-le-septieme-siffleur/9782021624960-475x500-1.webp",
       "citation": "Superbe...",
       "libraire": "Nadine",
+      "categorie": "Roman"
+    },
+    {
+      "ean": "9782290438855",
+      "titre": "LE RESTAURANT DES ROBOTS RÊVEURS",
+      "auteur": "NEWITZ ANNALEE",
+      "couverture": "https://products-images.di-static.com/image/newitz-annalee-le-restaurant-des-robots-reveurs/9782290438855-475x500-1.webp",
+      "citation": "De la science-fiction futuriste qui donne l'huile à la bouche !",
+      "libraire": "Aurélien",
       "categorie": "Roman"
     }
   ]
