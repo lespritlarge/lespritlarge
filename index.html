@@ -896,18 +896,20 @@ async function chargerCoups() {
     if (!r.ok) return;
     var data = await r.json();
     var tous = (data.coups || []).filter(function(c){ return c.titre; });
-    // Les 5 derniers ajoutes (fin du tableau) sont mis en avant en tete
-    var nbRecents = Math.min(5, tous.length);
-    var recents = tous.slice(tous.length - nbRecents);
-    var reste = tous.slice(0, tous.length - nbRecents);
-    // Le plus recent en premier parmi les 5 mis en avant
-    recents.reverse();
-    // Melanger aleatoirement le reste (Fisher-Yates)
+    // 1. Epingles en tete
+    var epingles = tous.filter(function(c){ return c.epingle; });
+    var nonEpingles = tous.filter(function(c){ return !c.epingle; });
+    // 2. Parmi les non-epingles : les 5 derniers ajoutes (fin du tableau d'origine) ensuite
+    var nbRecents = Math.min(5, nonEpingles.length);
+    var recents = nonEpingles.slice(nonEpingles.length - nbRecents);
+    var reste = nonEpingles.slice(0, nonEpingles.length - nbRecents);
+    recents.reverse(); // le plus recent en premier parmi les 5
+    // 3. Le reste est melange aleatoirement (Fisher-Yates)
     for (var m = reste.length - 1; m > 0; m--) {
       var n = Math.floor(Math.random() * (m + 1));
       var tmp = reste[m]; reste[m] = reste[n]; reste[n] = tmp;
     }
-    var coups = recents.concat(reste);
+    var coups = epingles.concat(recents).concat(reste);
     if (!coups.length) return;
     var grid = document.getElementById('coupGrid');
     var html = '';
