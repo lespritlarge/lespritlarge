@@ -29,22 +29,6 @@
       ]
     },
     {
-      "id": 1787663567751,
-      "date": "2026-08-25T13:12:47.751Z",
-      "nom": "Aurel D",
-      "email": "aurel.daunay@gmail.com",
-      "lieu": "Lib",
-      "commentaire": "",
-      "choix": [
-        {
-          "id": "bd1781529602131755",
-          "titre": "Katya",
-          "auteur": "Antoine Schiffers",
-          "points": 5
-        }
-      ]
-    },
-    {
       "id": 1787663009386,
       "date": "2026-08-25T13:03:29.386Z",
       "nom": "Aurélien D",
