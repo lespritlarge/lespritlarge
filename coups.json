@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-09T15:55:46.007Z",
+  "mis_a_jour": "2026-09-09T15:57:49.105Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -73,7 +73,7 @@
       "citation": "Un trio amoureux à Venise au XVIIIème siècle...",
       "libraire": "Nadine",
       "categorie": "Roman",
-      "epingle": true
+      "epingle": false
     },
     {
       "ean": "9782375024515",
