@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-09T15:54:43.410Z",
+  "mis_a_jour": "2026-09-09T15:55:46.007Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -44,7 +44,7 @@
       "citation": "La lumière au bout du couloir...",
       "libraire": "Aurélien",
       "categorie": "Roman",
-      "epingle": true
+      "epingle": false
     },
     {
       "ean": "9782848056012",
