@@ -657,10 +657,10 @@
     .voir-tout:hover { background:var(--wood); color:#fff; }
     /* ── COUPS ── */
     #coups-de-coeur { background:var(--parchment,#ebe8e8); }
-    #coups-wrapper { overflow:hidden; transition:max-height .5s ease; max-height:260px; position:relative; }
-    #coups-fade { position:absolute; bottom:0; left:0; right:0; height:80px; background:linear-gradient(transparent,var(--parchment,#ebe8e8)); pointer-events:none; }
-    #toggle-coups-btn { display:block; margin:1rem auto 0; font-family:'Raleway',sans-serif; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--wood); background:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.4rem 1.2rem; cursor:pointer; transition:all .2s; }
-    #toggle-coups-btn:hover { background:var(--wood); color:#fff; }
+    .btn-voir-plus { display:block; text-align:center; margin:1.6rem auto 0; width:fit-content; text-decoration:none;
+      font-family:'Raleway',sans-serif; font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--wood); background:none; border:1.5px solid rgba(139,46,46,.3); border-radius:20px; padding:.55rem 1.4rem; transition:all .2s; }
+    .btn-voir-plus:hover { background:var(--wood); color:#fff; }
     /* ── ÉVÉNEMENTS ── */
     #evenements-home { background:var(--warm-white,#f7f5f4); }
     .evt-liste { display:flex; flex-direction:row; gap:1rem; overflow-x:auto; padding-bottom:.5rem; }
@@ -757,13 +757,9 @@
       <h2 class="section-title">Nos coups de cœur</h2>
       <p class="section-sub">La sélection de l'équipe, avec amour</p>
     </div>
-    <a href="https://esprit-large.com/coups.html" class="voir-tout">Tous nos coups de cœur →</a>
   </div>
-  <div id="coups-wrapper">
-    <div class="coup-grid" id="coupGrid"></div>
-    <div id="coups-fade"></div>
-  </div>
-  <button id="toggle-coups-btn" onclick="toggleCoups()">Voir tous les coups de cœur ▾</button>
+  <div class="coup-grid" id="coupGrid"></div>
+  <a href="https://esprit-large.com/coups.html" id="voir-plus-coups-btn" class="btn-voir-plus">Voir plus de coups de cœur →</a>
 </section>
 
 <!-- ÉVÉNEMENTS -->
@@ -909,7 +905,7 @@ async function chargerCoups() {
       var n = Math.floor(Math.random() * (m + 1));
       var tmp = reste[m]; reste[m] = reste[n]; reste[n] = tmp;
     }
-    var coups = epingles.concat(recents).concat(reste);
+    var coups = epingles.concat(recents).concat(reste).slice(0, 5);
     if (!coups.length) return;
     var grid = document.getElementById('coupGrid');
     var html = '';
@@ -929,33 +925,7 @@ async function chargerCoups() {
       html += '<div class="coup-card"><div class="coup-cover">' + cover + '</div><div><div class="book-title" style="font-size:1.05rem;">' + c.titre + '</div><div class="book-author">' + (c.auteur || '') + '</div>' + badge + citation + '</div></div>';
     });
     grid.innerHTML = html;
-    grid.querySelectorAll('.coup-img-load').forEach(function(img) {
-      img.onerror = function() { this.style.display = 'none'; };
-    });
-    setTimeout(function() {
-      var w = document.getElementById('coups-wrapper');
-      if (w.scrollHeight <= 260) {
-        document.getElementById('toggle-coups-btn').style.display = 'none';
-        document.getElementById('coups-fade').style.display = 'none';
-        w.style.maxHeight = 'none';
-      }
-    }, 200);
   } catch(e) {}
-}
-
-function toggleCoups() {
-  var w = document.getElementById('coups-wrapper');
-  var btn = document.getElementById('toggle-coups-btn');
-  var fade = document.getElementById('coups-fade');
-  if (w.dataset.open === '1') {
-    w.style.maxHeight = '260px'; w.dataset.open = '0';
-    btn.textContent = 'Voir tous les coups de coeur ▾';
-    fade.style.display = 'block';
-  } else {
-    w.style.maxHeight = w.scrollHeight + 'px'; w.dataset.open = '1';
-    btn.textContent = 'Réduire ▴';
-    fade.style.display = 'none';
-  }
 }
 
 /* ── ÉVÉNEMENTS ── */
