@@ -1,5 +1,5 @@
 {
-  "mis_a_jour": "2026-09-09T15:57:49.105Z",
+  "mis_a_jour": "2026-09-09T16:00:23.586Z",
   "coups": [
     {
       "ean": "9791040806493",
@@ -64,7 +64,7 @@
       "citation": "Sur deux époques...",
       "libraire": "Nadine",
       "categorie": "Roman",
-      "epingle": true
+      "epingle": false
     },
     {
       "ean": "9782363392435",
